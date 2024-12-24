@@ -1,4 +1,5 @@
 
+import GoogleSignInButton from '@/components/auth/Google';
 import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -92,6 +93,7 @@ export default async function Login({
 
         <br />
         <br />
+<GoogleSignInButton/>
 
         <Link
           href="/signup"

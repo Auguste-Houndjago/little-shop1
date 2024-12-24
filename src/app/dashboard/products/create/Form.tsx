@@ -40,6 +40,12 @@ import type { Category, Color, Size } from '@prisma/client';
 import { useUploadThing } from '@/lib/uploadthing';
 
 import { ImagePlus, Trash } from 'lucide-react';
+import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api';
+
+import { WhatsappField } from '@/components/forms/WhatsappField';
+import { LocationField } from '@/components/forms/LocationField';
+
+import { MessageSquare, MapPin } from 'lucide-react';
 
 const Form = ({
 	categories,
@@ -57,6 +63,20 @@ const Form = ({
 	const [totalSizeMb, setTotalSizeMb] = useState<number>(0);
 	const MAX_FILE_SIZE_MB = 4;
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+	const [selectedLocation, setSelectedLocation] = useState<{
+		lat: number;
+		lng: number;
+		address: string;
+	} | undefined>(undefined);
+
+	const [showWhatsapp, setShowWhatsapp] = useState(false);
+	const [showLocation, setShowLocation] = useState(false);
+
+	const { isLoaded } = useLoadScript({
+		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+		libraries: ['places'],
+	});
 
 	const { startUpload } = useUploadThing('imageUploader');
 
@@ -106,6 +126,9 @@ const Form = ({
 		sizeId: '',
 		isFeatured: false,
 		isArchived: false,
+		whatsappNumber: undefined,
+		whatsappMessage: undefined,
+		localisation: undefined,
 	};
 
 	const form = useForm<z.infer<typeof saveProductValidation>>({
@@ -122,6 +145,8 @@ const Form = ({
 			sizeId,
 			isFeatured,
 			isArchived,
+			whatsappNumber,
+			whatsappMessage,
 		} = values;
 
 		if (!files?.length) {
@@ -139,6 +164,9 @@ const Form = ({
 				sizeId,
 				isFeatured,
 				isArchived,
+				whatsappNumber,
+				whatsappMessage,
+				localisation: selectedLocation,
 			});
 
 			if (data && success) {
@@ -410,6 +438,45 @@ const Form = ({
 								</FormItem>
 							)}
 						/>
+					</div>
+
+					<div className="flex flex-col space-y-4">
+						<div className="flex space-x-2">
+							<Button
+								type="button"
+								variant="outline"
+								size="sm"
+								onClick={() => setShowWhatsapp(!showWhatsapp)}
+								className="flex items-center gap-2"
+							>
+								<MessageSquare className="h-4 w-4" />
+								{showWhatsapp ? 'Masquer WhatsApp' : 'Ajouter WhatsApp'}
+							</Button>
+							<Button
+								type="button"
+								variant="outline"
+								size="sm"
+								onClick={() => setShowLocation(!showLocation)}
+								className="flex items-center gap-2"
+							>
+								<MapPin className="h-4 w-4" />
+								{showLocation ? 'Masquer localisation' : 'Ajouter localisation'}
+							</Button>
+						</div>
+
+						{showWhatsapp && (
+							<WhatsappField 
+								control={form.control}
+								isLoading={isLoading}
+							/>
+						)}
+
+						{showLocation && (
+							<LocationField
+								onLocationChange={setSelectedLocation}
+								defaultLocation={selectedLocation}
+							/>
+						)}
 					</div>
 
 					<div>

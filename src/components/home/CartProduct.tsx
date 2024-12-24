@@ -89,7 +89,7 @@ const CartProduct = ({ product: cartItem }: { product: ProductStorage }) => {
 						<div className='flex flex-col space-y-2'>
 							<Link
 								href='/'
-								className='text-sm transition-all duration-200 hover:underline text-zinc-900 text-wrap'
+								className='text-sm transition-all duration-200 hover:underline text-zinc-900 '
 							>
 								{listTitle(cartItem.product.title)}
 							</Link>

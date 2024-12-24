@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 
 import { LogoutLink, LoginLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
 	Sheet,
 	SheetContent,
@@ -33,6 +33,7 @@ import Barrier from '../Barrier';
 
 import { Category } from '@prisma/client';
 import { User } from '@supabase/supabase-js';
+import { useAuth } from '@/contexts/AuthContext';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
 
@@ -85,16 +86,14 @@ const NavListMobile = ({
 					</SheetHeader>
 					{user ? null : (
 						<SheetFooter className='!mt-0 !pt-0'>
-							<LoginLink
-								className={buttonVariants({
-									size: 'default',
-									variant: 'default',
-									className: 'w-full',
-								})}
-							>
-								Log in
-								<ArrowRightIcon className='ml-1.5 h-5 w-5' />
-							</LoginLink>
+		
+								<Link
+									href='/login'
+									className='text-zinc-900 tracking-wide'
+								>
+									Login
+									<ArrowRightIcon className='ml-1.5 h-5 w-5' />
+								</Link>
 						</SheetFooter>
 					)}
 				</SheetContent>
@@ -115,7 +114,7 @@ const Navbar = ({
 	userIcon?: string | null;
 }) => {
 	const pathname = usePathname();
-
+const {signOut} = useAuth()
 	return (
 		<NavbarParent isSticky>
 			<div className='flex items-center space-x-8'>
@@ -170,23 +169,32 @@ const Navbar = ({
 								</DropdownMenuItem>
 							) : null}
 							<DropdownMenuItem>
-								<LogoutLink className='text-zinc-900 tracking-wide'>
-									Log out
-								</LogoutLink>
+								<Link
+									href='/profile'
+									className='text-zinc-900 tracking-wide'
+								>
+									Profile
+								</Link>
+							</DropdownMenuItem>
+							<DropdownMenuItem>
+
+								<button onClick={signOut}
+									className=' tracking-wide'
+								>
+Sign out
+								</button>
+						
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				) : (
-					<LoginLink
-						className={buttonVariants({
-							size: 'sm',
-							variant: 'ghost',
-							className: 'hidden lg:inline-flex',
-						})}
-					>
-						Log in
-						<ArrowRight className='w-4 h-4 ml-1.5' />
-					</LoginLink>
+					<Link
+					href='/login'
+					className='text-zinc-900 tracking-wide flex '
+				>
+					Login
+					<ArrowRightIcon className='ml-1 h-5 w-5 mt-1' />
+				</Link>
 				)}
 			</div>
 		</NavbarParent>

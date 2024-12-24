@@ -29,7 +29,6 @@ import { getProductIsArchived } from '@/app/(home)/p/[id]/actions';
 import { toast } from 'sonner';
 
 import { createCheckoutSession } from '@/app/(home)/actions';
-import { createClient } from '@/utils/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
@@ -67,7 +66,7 @@ const {user} = useAuth()
 	const handleCheckout = async () => {
 		try {
 			if (!user) {
-				router.push('/api/auth/login?post_login_redirect_url=/');
+				router.push('/login');
 				return;
 			}
 
@@ -142,7 +141,7 @@ const {user} = useAuth()
 							aria-hidden='true'
 							className='text-[13px] tracking-[.04rem]'
 						>
-							Tax included. Shipping calculated at checkout.
+							 Shipping calculated at checkout.
 						</span>
 						<Button
 							type='button'

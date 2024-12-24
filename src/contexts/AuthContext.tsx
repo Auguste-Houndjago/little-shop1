@@ -1,17 +1,10 @@
 'use client'
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import prisma from '@/lib/prisma';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabase = createClient();
 
 
 interface UserMetadata {
@@ -54,17 +47,17 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 
-// Fonction utilitaire pour créer un utilisateur via l'API
+// cree user via l'API
 const createPrismaUser = async (user: User) => {
-  try {
-    await fetch('/api/create-user', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user }),
-    });
-  } catch (error) {
-    console.error('Failed to create Prisma user:', error);
-  }
+  // try {
+  //   await fetch('/api/register', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ user }),
+  //   });
+  // } catch (error) {
+  //   console.error('Failed to create Prisma user:', error);
+  // }
 };
 
 
@@ -76,7 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     error: null
   });
 
-  // Initial session check
+
   useEffect(() => {
     const initializeAuth = async () => {
       const { data } = await supabase.auth.getSession();
@@ -109,35 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 
 
-  // User=>create 
-  // const Newuser = async (user: User) => {
-  //   try {
-  //     // Vérifier si l'utilisateur existe déjà
-  //     const existingUser = await prisma.user.findUnique({
-  //       where: { id: user.id }
-  //     });
 
-  //     if (!existingUser) {
-  //       await prisma.user.create({
-  //         data: {
-  //           id: user.id,
-  //           email: user.email || '',
-  //           name: user.user_metadata?.name || user.email?.split('@')[0],
-  //           avatar_url: user.user_metadata?.avatar_url,
-  //           customerProfile: {
-  //             create: {
-  //               loyaltyPoints: 0
-  //             }
-  //           }
-  //         }
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error('Error creating Prisma user:', error);
-  //   }
-  // };
-
-  // Sign In
   const signIn = async (email: string, password: string) => {
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
@@ -175,7 +140,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 
 
-  // Sign Up with Prisma User Creation
+  // Sign Up + Prisma User Creation
   const signUp = async (email: string, password: string, metadata?: UserMetadata) => {
     setState(prev => ({ ...prev, isLoading: true, error: null }));
     
@@ -294,13 +259,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) throw error;
 
-      // Update Prisma user
+      // Update user
       await prisma.user.update({
         where: { id: state.user.id },
         data: {
           name: data.name,
-          // phone: data.phone,
-          // avatar_url: data.avatar_url
+          phone: data.phone,
+          avatar_url: data.avatar_url
         }
       });
 
@@ -322,7 +287,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setState(prev => ({ ...prev, error: null }));
   };
 
-  // Context Value
+ 
   const contextValue = {
     ...state,
     signIn,
@@ -343,7 +308,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// Custom Hook
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

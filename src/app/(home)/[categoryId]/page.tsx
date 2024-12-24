@@ -65,17 +65,19 @@ const Page = async ({
 		return notFound();
 	}
 
-
 	const colors = await prisma.color.findMany();
-
 
 	const sizes = await prisma.size.findMany();
 
 	return (
 		<div className='max-w-7xl mx-auto px-6 2xl:px-0'>
 			<Billboard
-				title={category.title}
-				img={category.billboard}
+				items={[
+					{
+						title: category.title,
+						img: category.billboard,
+					},
+				]}
 			/>
 			<div className='grid grid-cols-5 gap-5 xl:gap-8 mb-8'>
 				{/* Filter large desktop */}

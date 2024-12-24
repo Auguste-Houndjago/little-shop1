@@ -8,6 +8,13 @@ export const saveProductValidation = z.object({
   sizeId: z.string().uuid({ message: 'Size is required' }),
   isFeatured: z.boolean().default(false),
   isArchived: z.boolean().default(false),
+  whatsappNumber: z.string().optional(),
+  whatsappMessage: z.string().optional(),
+  localisation: z.object({
+    lat: z.number(),
+    lng: z.number(),
+    address: z.string()
+  }).optional(),
 }).refine(({ price }) => {
   const parsedPrice = parseFloat(price);
   return !isNaN(parsedPrice);

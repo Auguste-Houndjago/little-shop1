@@ -27,19 +27,18 @@ const Layout = async ({
 	  data: { user },
 	  } = await supabase.auth.getUser();
 
-	let dbUser = null;
-	if (user) {
-		dbUser = await prisma.user.findUnique({
-			where: { id: user.id },
-			select: { avatar_url: true }
-		});
-	}
+	let dbUser = user
+    ? await prisma.user.findUnique({
+        where: { id: user.id },
+        select: { avatar_url: true },
+      })
+    : null;
 
 	const isAdmin = user?.email === process.env.ADMIN_EMAIL;
 
 	const avatarUrl = dbUser?.avatar_url || user?.user_metadata?.avatar_url;
 	
-	const lists = await prisma.category.findMany({});
+	const lists = await prisma.category.findMany({}) || [];
 
 	return (
 		<div className={urbanist.className}>

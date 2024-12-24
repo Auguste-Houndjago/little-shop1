@@ -65,12 +65,17 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 				</div>
 			</CardHeader>
 			<CardContent className='p-2'>
-				<Link
-					href={`/p/${product.id}`}
-					className='hover:underline'
-				>
-					<CardTitle className='text-xl'>{product.title}</CardTitle>
-				</Link>
+				<CardContent>
+					<Link
+						href={`/p/${product.id}`}
+						className='hover:underline'
+					>
+						<CardTitle className='text-xl'>{product.title}</CardTitle>
+					</Link>
+
+					<CardTitle> {product?.whatsappLink} </CardTitle>
+				</CardContent>
+				
 				<CardDescription className='capitalize'>
 					{product.category.name}
 				</CardDescription>

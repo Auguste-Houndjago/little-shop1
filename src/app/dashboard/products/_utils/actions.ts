@@ -1,41 +1,18 @@
 'use server';
 
-import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from 'next/cache';
+
 import type { SaveProduct, GetTotalProduct, GetProducts, GetProduct, DeleteProductImage, UpdateProduct } from './types';
+
 import type { Category, Color, Size } from '@prisma/client';
+
 import { getFileKey } from '@/lib/utils';
 import { utapi } from '@/lib/utapi';
 import prisma from '@/lib/prisma';
-
-async function getUserFromSupabase() {
-  const supabase = createClient();
-  const { data: { user }, error } = await supabase.auth.getUser();
-  
-  if (error || !user) {
-    throw new Error('You must be logged in');
-  }
-
-  const appUser = await prisma.user.findUnique({
-    where: { id: user.id },
-    select: { id: true, roles: true }
-  });
-
-  if (!appUser) {
-    throw new Error('User not found in database');
-  }
-
-  return { supabaseUser: user, appUser };
-}
+import { createClient } from '@/utils/supabase/server';
 
 export const getTotalProduct = async (): Promise<GetTotalProduct> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can view total products');
-    }
-
     const totalProduct = await prisma.product.count({});
     return totalProduct;
   } catch (err) {
@@ -53,12 +30,6 @@ export const getProducts = async ({
   q?: string;
 }): Promise<GetProducts> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can view products');
-    }
-
     const skip = per_page * page;
 
     const whereClause: any = {};
@@ -98,12 +69,6 @@ export const getProduct = async ({
   id: string;
 }): Promise<GetProduct> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can view products');
-    }
-
     const existingProduct = await prisma.product.findUnique({
       where: { id },
       include: {
@@ -135,6 +100,9 @@ export const saveProduct = async ({
   sizeId,
   isFeatured,
   isArchived,
+  whatsappNumber,
+  whatsappMessage,
+  localisation,
 }: {
   title: string;
   price: string;
@@ -143,29 +111,46 @@ export const saveProduct = async ({
   sizeId: string;
   isFeatured: boolean;
   isArchived: boolean;
+  whatsappNumber?: string;
+  whatsappMessage?: string;
+  localisation?: {
+    lat: number;
+    lng: number;
+    address: string;
+  } | null;
 }): Promise<SaveProduct> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can create products');
+    const supabase = createClient();
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (!user || user.email !== process.env.ADMIN_EMAIL) {
+      throw new Error('You do not have access to this area');
     }
 
-    const newProduct = await prisma.product.create({
+    const whatsappLink = whatsappNumber && whatsappMessage
+      ? `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappMessage)}`
+      : null;
+
+    const product = await prisma.product.create({
       data: {
         title,
-        price: Number(price),
+        price: parseFloat(price),
         categoryId,
         colorId,
         sizeId,
+        userId: user.id,
         isFeatured,
         isArchived,
-        userId: appUser.id // Associate product with the creator
-      }
+        whatsappLink,
+        localisation: localisation ? localisation : undefined,
+      },
     });
 
-    return { data: newProduct, success: true };
+    return {
+      data: product,
+      success: true,
+    };
   } catch (err) {
+    console.error(`[ERROR_SAVE_PRODUCT]: ${err}`);
     throw err;
   } finally {
     revalidatePath('/dashboard/products');
@@ -200,10 +185,13 @@ export const updateProduct = async ({
   path?: string;
 }): Promise<UpdateProduct> => {
   try {
-    const { appUser } = await getUserFromSupabase();
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can update products');
+
+
+    if (!user || user.email !== process.env.ADMIN_EMAIL) {
+      throw new Error('You do not have access to this area');
     }
 
     // If onlyUpdateImages is true, then we only have to revalidate the products page
@@ -246,10 +234,11 @@ export const deleteProductImage = async ({
   url: string;
 }): Promise<DeleteProductImage> => {
   try {
-    const { appUser } = await getUserFromSupabase();
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can delete product images');
+    if (!user || user.email !== process.env.ADMIN_EMAIL) {
+      throw new Error('You do not have access to this area');
     }
 
     const existingImage = await prisma.image.findUnique({ where: { id } });
@@ -272,12 +261,6 @@ export const deleteProductImage = async ({
 
 export const getCategories = async (): Promise<Category[] | undefined> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can view categories');
-    }
-
     const categories = await prisma.category.findMany({});
     return categories;
   } catch (err) {
@@ -287,12 +270,6 @@ export const getCategories = async (): Promise<Category[] | undefined> => {
 
 export const getColors = async (): Promise<Color[] | undefined> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can view colors');
-    }
-
     const colors = await prisma.color.findMany({});
     return colors;
   } catch (err) {
@@ -302,12 +279,6 @@ export const getColors = async (): Promise<Color[] | undefined> => {
 
 export const getSizes = async (): Promise<Size[] | undefined> => {
   try {
-    const { appUser } = await getUserFromSupabase();
-    
-    if (!appUser.roles.some(role => role === 'VENDOR' || role === 'ADMIN')) {
-      throw new Error('Unauthorized: Only vendors and admins can view sizes');
-    }
-
     const sizes = await prisma.size.findMany({});
     return sizes;
   } catch (err) {
