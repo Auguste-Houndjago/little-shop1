@@ -34,6 +34,7 @@ import Barrier from '../Barrier';
 import { Category } from '@prisma/client';
 import { User } from '@supabase/supabase-js';
 import { useAuth } from '@/contexts/AuthContext';
+import { ModeToggle } from '../ux/ModeToggle';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
 
@@ -70,10 +71,10 @@ const NavListMobile = ({
 							{lists.map((list) => (
 								<li key={list.id}>
 									<Link
-										href={`/${list.id}`}
+										href={`/${encodeURIComponent(list.id)}`}
 										className={cn(
 											'text-zinc-900 tracking-tight text-sm capitalize',
-											pathname === `/${list.id}`
+											pathname === `/${encodeURIComponent(list.id)}`
 												? 'font-semibold'
 												: 'font-normal'
 										)}
@@ -84,6 +85,8 @@ const NavListMobile = ({
 							))}
 						</ul>
 					</SheetHeader>
+
+				
 					{user ? null : (
 						<SheetFooter className='!mt-0 !pt-0'>
 		
@@ -124,10 +127,10 @@ const {signOut} = useAuth()
 					{lists.map((list) => (
 						<li key={list.id}>
 							<Link
-								href={`/${list.id}`}
+								href={`/${encodeURIComponent(list.id)}`}
 								className={cn(
 									'text-zinc-900 tracking-tight text-sm capitalize',
-									pathname === `/${list.id}` ? 'font-semibold' : 'font-normal'
+									pathname === `/${encodeURIComponent(list.id)}` ? 'font-semibold' : 'font-normal'
 								)}
 							>
 								{list.name}
@@ -137,6 +140,7 @@ const {signOut} = useAuth()
 				</ul>
 			</div>
 			<div className='flex items-center space-x-4'>
+				<ModeToggle />
 				<Cart />
 				<NavListMobile
 					user={user}
@@ -148,7 +152,7 @@ const {signOut} = useAuth()
 					<DropdownMenu>
 						<DropdownMenuTrigger>
 							<img
-								src={userIcon || '/preview.webp'}
+								src={userIcon || '/profil_pic.jpg'}
 								alt='user icon'
 								className='w-9 h-9 rounded-full hover:ring-4 ring-gray-200 transition-all'
 							/>

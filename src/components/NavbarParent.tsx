@@ -16,16 +16,17 @@ const NavbarParent = ({
 }) => {
 	return (
 		<nav
-			className={cn(
-				'border-b border-gray-200 bg-white',
-				isSticky ? 'sticky z-[100] top-0' : ''
-			)}
+className={cn('border border-b-primary/10   bg-background/95 backdrop-blur  dark:bg-secondary z-50 supports-[backdrop-filter]:bg-background/60 ' ,
+		isSticky ? 'sticky z-[100] top-0' : '' )}
+
 		>
+
+
 			<div className='max-w-7xl mx-auto'>
 				<div
 					className={cn(
 						urbanist.className,
-						'flex items-center justify-between h-16 px-6 2xl:px-0',
+						'flex items-center justify-between h-16 px-2 md:px-6 2xl:px-0',
 						className
 					)}
 				>

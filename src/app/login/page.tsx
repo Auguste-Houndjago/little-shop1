@@ -1,8 +1,14 @@
-
 import GoogleSignInButton from '@/components/auth/Google';
 import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { ArrowLeft, LogIn } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Separator } from "@/components/ui/separator";
 
 export default async function Login({
   searchParams,
@@ -39,69 +45,100 @@ export default async function Login({
   };
 
   return (
-    <div>
-
-
-      <Link
-        href="/"
-        className="py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover text-sm m-4"
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-6 bg-gray-50">
+      <Button 
+        variant="ghost" 
+        className="absolute top-4 left-4"
+        asChild
       >
-        Home
-      </Link>
-
-      <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
-        <form
-          className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"
-          action={signIn}
-        >
-          <label className="text-md" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <button className="bg-indigo-700 rounded-md px-4 py-2 text-foreground mb-2">
-            Sign In
-          </button>
-
-          {searchParams?.message && (
-            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-              {searchParams.message}
-            </p>
-          )}
-        </form>
-
-        <Link
-          href="/forgot-password"
-          className="rounded-md no-underline text-indigo-400 text-sm "
-        >
-          Forgotten Password.
+        <Link href="/">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Retour
         </Link>
+      </Button>
 
-        <br />
-        <br />
-<GoogleSignInButton/>
-
-        <Link
-          href="/signup"
-          className="rounded-md no-underline text-foreground text-sm"
-        >
-          Don't have an Account? Sign Up
-        </Link>
+      <div className="flex flex-col items-center space-y-2">
+        <LogIn className="h-12 w-12 text-primary" />
+        <h1 className="text-3xl font-bold">Connexion</h1>
+        <p className="text-muted-foreground">
+          Connectez-vous à votre compte
+        </p>
       </div>
+
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Se connecter</CardTitle>
+          <CardDescription>
+            Entrez vos identifiants pour accéder à votre compte
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <form action={signIn} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Adresse email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="vous@example.com"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label htmlFor="password">Mot de passe</Label>
+                <Link 
+                  href="/forgot-password" 
+                  className="text-sm text-primary hover:underline"
+                >
+                  Mot de passe oublié ?
+                </Link>
+              </div>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            {searchParams?.message && (
+              <Alert variant="destructive">
+                <AlertDescription>
+                  {searchParams.message}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            <Button type="submit" className="w-full">
+              Se connecter
+            </Button>
+          </form>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <Separator className="w-full" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Ou continuer avec
+              </span>
+            </div>
+          </div>
+
+          <GoogleSignInButton />
+        </CardContent>
+        <CardFooter className="flex flex-col gap-4">
+          <p className="text-sm text-muted-foreground text-center">
+            Pas encore de compte ?{' '}
+            <Link href="/signup" className="text-primary hover:underline">
+              Créer un compte
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

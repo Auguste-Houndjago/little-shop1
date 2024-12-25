@@ -2,30 +2,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 
-interface OrderCardProps {
-  order: {
+interface order {
+  id: string;
+  isPaid: boolean;
+  total: number;
+  createdAt: string;
+  orderItems: Array<{
     id: string;
-    isPaid: boolean;
-    total: number;
-    createdAt: string;
-    orderItems: Array<{
-      id: string;
-      amount: number;
-      product: {
-        title: string;
-        images: Array<{
-          url: string;
-        }>;
-      };
-    }>;
-  };
-}
+    amount: number;
+    product: {
+      title: string;
+      images: Array<{
+        url: string;
+      }>;
+    };
+  }>;
+};
 
-export function OrderCard({ order }: OrderCardProps) {
-  const statusColors = {
-    PAID: "bg-green-500",
-    UNPAID: "bg-red-500",
-  };
+
+export function OrderCard({ order }: { order: order }) {
+  // Assurez-vous que `order.orderItems` est toujours un tableau
+  const items = order.orderItems || [];
 
   return (
     <Card>
@@ -40,14 +37,14 @@ export function OrderCard({ order }: OrderCardProps) {
         </div>
         <Badge
           variant="secondary"
-          className={statusColors[order.isPaid ? "PAID" : "UNPAID"]}
+          // className={statusColors[order.isPaid ? "PAID" : "UNPAID"]}
         >
           {order.isPaid ? "Paid" : "Unpaid"}
         </Badge>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {order.orderItems.map((item) => (
+          {items.map((item) => (
             <div key={item.id} className="flex items-center gap-4">
               <img
                 src={item.product.images[0]?.url || "/placeholder.png"}
@@ -64,7 +61,7 @@ export function OrderCard({ order }: OrderCardProps) {
           ))}
           <div className="border-t pt-4">
             <p className="text-right text-lg font-bold">
-              Total: ${order.total}
+              Total: {order.total}
             </p>
           </div>
         </div>
@@ -72,3 +69,4 @@ export function OrderCard({ order }: OrderCardProps) {
     </Card>
   );
 }
+

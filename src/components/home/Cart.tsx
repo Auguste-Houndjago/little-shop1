@@ -57,8 +57,35 @@ const {user} = useAuth()
 	const [isPending, startTransition] = React.useTransition();
 
 	React.useEffect(() => {
-		setCart(JSON.parse(localStorage.getItem('cart') || '[]'));
-	}, [triggerUseEffect]);
+		try {
+		  const cartData = localStorage.getItem('cart');
+		  if (!cartData) {
+			setCart([]);
+			return;
+		  }
+		  
+		  const parsedCart = JSON.parse(cartData);
+		  
+		 
+		  if (!Array.isArray(parsedCart)) {
+			console.error('Cart data is not an array:', parsedCart);
+			setCart([]);
+			return;
+		  }
+	  
+		 
+		  const validCart = parsedCart.filter(item => 
+			item?.product && 
+			typeof item.amount === 'number' && 
+			typeof item.total === 'number'
+		  );
+	  
+		  setCart(validCart);
+		} catch (error) {
+		  console.error('Error parsing cart data:', error);
+		  setCart([]);
+		}
+	  }, [triggerUseEffect]);
 
 	const totalPrice: number =
 		cart?.reduce((total, curr) => total + curr.amount, 0) || 0;

@@ -10,25 +10,27 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Settings, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
-import { Product } from "@prisma/client";
+import { Image, Product } from "@prisma/client";
 import { ProductCard } from "../dashboard/products/Product-Card";
 import { OrderCard } from "../dashboard/orders/order-card";
 
 interface Order {
   id: string;
-  status: string;
+  isPaid: boolean;
   total: number;
   createdAt: string;
-  items: Array<{
+  orderItems: Array<{
     id: string;
-    quantity: number;
-    price: number;
+    amount: number;
     product: {
-      name: string;
-      images: string[];
+      title: string;
+      images: Array<{
+        url: string;
+      }>;
     };
   }>;
-}
+};
+
 
 interface UserProfile {
   id: string;
@@ -64,10 +66,14 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
+interface ProductWithImages extends Product {
+  images: Image[];
+}
+
 export default function MyPage() {
   const { user, signOut } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [wishlist, setWishlist] = useState<Product[]>([]);
+  const [wishlist, setWishlist] = useState<ProductWithImages[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("profile");
