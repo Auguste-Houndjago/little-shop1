@@ -29,6 +29,9 @@ export async function POST(req: Request) {
   })
 
 if (!vendor?.roles.includes('VENDOR')) {
+
+
+
   await prisma.user.update({
     where: {
       id: userId,
@@ -42,6 +45,9 @@ if (!vendor?.roles.includes('VENDOR')) {
 }
 
 
+const {data:authuser} = await supabase.auth.getUser()
+
+const rolers = authuser.user?.email
     // create=> vendor profile
     const vendorProfile = await prisma.vendorProfile.create({
       data: {

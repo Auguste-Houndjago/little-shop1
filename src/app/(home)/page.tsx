@@ -19,7 +19,7 @@ export type ProductFeatured = {
 } & Product;
 
 
-export const items=[
+const items=[
 	{
 		img: '/background1.jpg',
 		title: 'Collection Exclusive',
