@@ -213,7 +213,7 @@ const Navbar = ({
                 <DropdownMenuItem
                   onClick={handleSignOut}
                 >
-                  Se déconnecter
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
