@@ -45,9 +45,7 @@ if (!vendor?.roles.includes('VENDOR')) {
 }
 
 
-const {data:authuser} = await supabase.auth.getUser()
 
-const rolers = authuser.user?.email
     // create=> vendor profile
     const vendorProfile = await prisma.vendorProfile.create({
       data: {

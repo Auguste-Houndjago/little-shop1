@@ -32,6 +32,7 @@ export default function Register() {
         return;
       }
 
+
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -67,6 +68,10 @@ export default function Register() {
             {error}
           </div>
         )}
+
+  <div>
+    
+  </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

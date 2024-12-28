@@ -3,9 +3,9 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import prisma from '@/lib/prisma';
+import { getAuthStatus } from '@/app/auth-callback/actions';
 
 const supabase = createClient();
-
 
 interface UserMetadata {
   name?: string;
@@ -47,17 +47,16 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 
-// cree user via l'API
+
 const createPrismaUser = async (user: User) => {
-  // try {
-  //   await fetch('/api/register', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ user }),
-  //   });
-  // } catch (error) {
-  //   console.error('Failed to create Prisma user:', error);
-  // }
+  try {
+    const { success } = await getAuthStatus();
+    if (!success) {
+      console.error('Failed to create/verify user in database');
+    }
+  } catch (error) {
+    console.error('Failed to create Prisma user:', error);
+  }
 };
 
 
@@ -129,6 +128,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
       if (error) throw error;
+    
     } catch (err: any) {
       setState((prev) => ({
         ...prev,
