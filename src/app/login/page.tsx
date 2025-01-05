@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import HLogo from '@/components/ux/HomeLogo';
+import SLogo from '@/components/ux/SLogo';
 
 export default async function Login({
   searchParams,
@@ -21,9 +23,9 @@ export default async function Login({
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (session) {
-    return redirect('/');
-  }
+  // if (session) {
+  //   return redirect('/');
+  // }
 
   const signIn = async (formData: FormData) => {
     'use server';
@@ -58,19 +60,21 @@ export default async function Login({
       </Button>
 
       <div className="flex flex-col items-center space-y-2">
-        <LogIn className="h-12 w-12 text-primary" />
+    
         <h1 className="text-3xl font-bold">Connexion</h1>
-        <p className="text-muted-foreground">
-          Connectez-vous à votre compte
-        </p>
       </div>
 
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Se connecter</CardTitle>
-          <CardDescription>
-            Entrez vos identifiants pour accéder à votre compte
+          <CardTitle className='flex justify-center'>
+             <SLogo/>
+         </CardTitle>
+          
+          <CardDescription className='bg-transparent border-2 rounded-md p-4 flex align-middle justify-center'>
+          <h1 className="text-2xl font-bold text-black "> Smart - Shop</h1>
           </CardDescription>
+
+
         </CardHeader>
         <CardContent className="space-y-4">
           <form action={signIn} className="space-y-4">

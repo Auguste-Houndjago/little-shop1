@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "aos/dist/aos.css";
 
 @layer base {
 	:root {
@@ -66,3 +67,27 @@
 }
 
 
+
+.card-rotate-hover {
+	transform: rotate(35deg);
+	transform-origin: bottom;
+	transition: transform 0.3s ease;
+  }
+  
+  /* Définir une transition d'opacité */
+  .card-transition-opacity {
+	transition: opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Effet d'agrandissement au survol */
+  .btn-hover-scale {
+	transform: scale(1.1);
+	transition: transform 300ms ease-in-out;
+  }
+  
+  /* Changer la couleur de fond d'un bouton au survol */
+  .btn-hover-bg {
+	background-color: hsl(var(--primary));
+	transition: background-color 300ms ease-in-out;
+  }
+  

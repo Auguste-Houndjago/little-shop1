@@ -9,7 +9,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang='en'>
-			<body>
+			<body className='bg-[#e8e8e8]'>
 			<ThemeProvider
             attribute="class"
             defaultTheme="system"

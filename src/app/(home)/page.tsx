@@ -77,7 +77,7 @@ const Page = async () => {
 			/>
 
 <div>
- hello {user?.email|| 'toi'} 
+ hello {user?.user_metadata.full_name||user?.email|| 'toi'}  
 
 </div>
 

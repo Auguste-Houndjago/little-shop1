@@ -20,6 +20,13 @@ import { cn, formatPrice, addItemToStorage } from '@/lib/utils';
 import type { ProductFeatured } from '@/app/(home)/page';
 
 import useTriggerUseEffect from '@/hooks/useTriggerUseEffect';
+import { ProductModal } from '@/components/products/ProductModal';
+
+interface Location {
+  lat: number;
+  lng: number;
+  address: string;
+}
 
 const recursive = Recursive({ subsets: ['latin'] });
 
@@ -50,7 +57,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 						<Button
 							className={cn(
 								recursive.className,
-								'tracking-[.1rem] rounded-none w-full'
+								'tracking-[.1rem] rounded-sm w-full'
 							)}
 							disabled={isPending}
 							isLoading={isPending}
@@ -59,23 +66,31 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 								addItemToStorage(product, startTransition, setTriggerUseEffect)
 							}
 						>
-							ADD TO CART
+							Ajouter au panier
 						</Button>
 					</div>
 				</div>
 			</CardHeader>
 			<CardContent className='p-2'>
-				<CardContent>
+				<CardContent className='flex gap-x-2 justify-between'>
 					<Link
 						href={`/p/${product.id}`}
 						className='hover:underline'
 					>
 						<CardTitle className='text-xl'>{product.title}</CardTitle>
 					</Link>
-
-					<CardTitle> {product?.whatsappLink} </CardTitle>
+					<ProductModal 
+						product={{
+							name: product.title,
+							description: product?.description || '',
+							price: product.price,
+							images: product.images.map(img => img.url),
+							category: product.category.name,
+							localisation: product.localisation ? (product.localisation as unknown as Location) : undefined,
+						}}
+					/>
 				</CardContent>
-				
+	
 				<CardDescription className='capitalize'>
 					{product.category.name}
 				</CardDescription>

@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { FaWhatsapp } from "react-icons/fa";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -449,7 +450,7 @@ const Form = ({
 								onClick={() => setShowWhatsapp(!showWhatsapp)}
 								className="flex items-center gap-2"
 							>
-								<MessageSquare className="h-4 w-4" />
+								<FaWhatsapp className="h-4 w-4" />
 								{showWhatsapp ? 'Masquer WhatsApp' : 'Ajouter WhatsApp'}
 							</Button>
 							<Button
@@ -473,8 +474,8 @@ const Form = ({
 
 						{showLocation && (
 							<LocationField
-								onLocationChange={setSelectedLocation}
-								defaultLocation={selectedLocation}
+							onChange={setSelectedLocation}
+							defaultValue={selectedLocation}
 							/>
 						)}
 					</div>

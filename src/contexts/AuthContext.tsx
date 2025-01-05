@@ -90,7 +90,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }));
 
       if (session?.user) {
-        await createPrismaUser(session.user);
+        const provider = session.user.app_metadata.provider;
+        if (provider === 'google' || provider === 'github') {
+          await createPrismaUser(session.user);
+        }
       }
     });
 
@@ -160,10 +163,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (signUpError) throw signUpError;
       
    
-      if (data.user) {
-        await createPrismaUser(data.user);
-      }
-
       setState(prev => ({
         ...prev,
         user: data.user,

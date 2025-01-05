@@ -16,10 +16,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const { id, name, email, avatar_url, phone } = await request.json();
+    const { name, email, avatar_url, phone } = await request.json();
 
-    // Vérifier que l'ID de l'utilisateur correspond à celui de la session
-    if (id !== session.user.id) {
+
+    if (email !== session.user.email) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 403 }
@@ -28,7 +28,6 @@ export async function POST(request: Request) {
 
     const user = await prisma.user.create({
       data: {
-        id,
         name,
         email,
         avatar_url,

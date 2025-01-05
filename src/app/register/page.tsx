@@ -15,6 +15,7 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null);
   const supabase = createClient();
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -26,7 +27,9 @@ export default function Register() {
 
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      
+      console.log(user?.email , "e mail de l user")
+
+      console.log(user?.id, "id de user")
       if (!user) {
         setError('User not authenticated');
         return;
@@ -39,7 +42,6 @@ export default function Register() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: user.id,
           name,
           email: user.email,
           avatar_url: avatarUrl,
@@ -52,7 +54,7 @@ export default function Register() {
         throw new Error(data.error || 'Failed to register user');
       }
 
-      router.push('/dashboard'); 
+      router.push('/'); 
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     }
@@ -72,6 +74,7 @@ export default function Register() {
   <div>
     
   </div>
+
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

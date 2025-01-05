@@ -11,8 +11,8 @@ import { LogOut, Settings, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 import { Image, Product } from "@prisma/client";
-import { ProductCard } from "../dashboard/products/Product-Card";
-import { OrderCard } from "../dashboard/orders/order-card";
+import { ProductCard } from "../../dashboard/products/Product-Card";
+import { OrderCard } from "../../dashboard/orders/order-card";
 
 interface Order {
   id: string;

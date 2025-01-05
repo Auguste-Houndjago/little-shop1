@@ -23,18 +23,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Logo from '@/components/Logo';
 import NavbarParent from '@/components/NavbarParent';
 import Cart from '@/components/home/Cart';
 
 import Barrier from '../Barrier';
 
-import { Category } from '@prisma/client';
+
 import { User } from '@supabase/supabase-js';
 import { useAuth } from '@/contexts/AuthContext';
 import { ModeToggle } from '../ux/ModeToggle';
 import { signOut } from '@/app/actions/auth';
-import { getUserData } from '@/app/actions/user';
+import { Category } from '@prisma/client';
+import Logo from '../Logo';
+
 
 const urbanist = Urbanist({ subsets: ['latin'] });
 
@@ -59,7 +60,7 @@ const NavListMobile = ({
             variant: 'ghost',
           })}
         >
-          <Menu className='w-5 h-5' />
+          <Menu className='w-5 h-5' /> 
         </SheetTrigger>
         <SheetContent
           side='top'
@@ -109,6 +110,7 @@ const Navbar = ({
   isAdmin: initialIsAdmin,
   lists,
   userIcon: initialUserIcon,
+
 }: {
   user: User | null;
   isAdmin: boolean;
@@ -130,14 +132,14 @@ const Navbar = ({
     }
   }, [authUser, initialUser, router]);
 
-  // Utiliser initialUser pour la logique d'affichage pour être cohérent avec le serveur
   const isAuthenticated = Boolean(initialUser);
 
   return (
     <NavbarParent isSticky>
       <nav className='container flex items-center'>
         <div className='flex items-center gap-12 lg:gap-16'>
-          <Logo />
+      
+         <Logo/>
           <ul className='hidden lg:flex items-center gap-8'>
             {lists.map((list) => (
               <li key={list.id}>
@@ -181,7 +183,7 @@ const Navbar = ({
             <DropdownMenu >
               <DropdownMenuTrigger  className='rounded-full ring-0'>
                 <img
-                  src={initialUserIcon || '/profil_pic.jpg'}
+                  src={initialUserIcon || '/Logo.svg'}
                   alt='user icon'
                   className='w-9 h-9 rounded-full hover:ring-4  transition-all'
                 />

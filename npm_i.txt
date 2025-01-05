@@ -1,0 +1,5 @@
+npm i @react-three/drei @react-three/fiber @types/gsap @gsap/react @types/matter-js class-variance-authority clsx gsap leva@0.9.35 matter-js three three-react-obj-loader
+
+
+
+npm i @react-three/drei@9.115.0 @react-three/fiber@8.17.10 three three-react-obj-loader@1.0.4

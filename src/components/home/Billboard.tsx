@@ -10,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { cn } from '@/lib/utils';
+
 
 interface BillboardItem {
   img: string;
