@@ -82,7 +82,7 @@ const CartProduct = ({ product: cartItem }: { product: ProductStorage }) => {
 					<img
 						src={cartItem.product.images[0].url}
 						alt='img alt'
-						className='object-cover w-[70px] h-[90px] select-none'
+						className='object-cover w-[70px] h-[90px]  select-none '
 					/>
 
 					<div className='py-1'>

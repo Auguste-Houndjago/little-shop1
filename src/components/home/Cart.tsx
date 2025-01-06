@@ -137,7 +137,8 @@ const {user} = useAuth()
 				side='right'
 				className={cn(
 					openSans.className,
-					'w-full sm:w-[600px] sm:max-w-none flex flex-col space-y-1 p-[30px]'
+					'w-full sm:w-[600px]  sm:max-w-none flex flex-col space-y-1 p-[30px]',
+					
 				)}
 			>
 				<SheetHeader>

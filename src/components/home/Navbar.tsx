@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Urbanist } from 'next/font/google';
 
-import { ArrowRight, ArrowRightIcon, Menu } from 'lucide-react';
+import { ArrowRight, ArrowRightIcon, Menu, Loader2 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -182,11 +182,15 @@ const Navbar = ({
           ) : (
             <DropdownMenu >
               <DropdownMenuTrigger  className='rounded-full ring-0'>
-                <img
-                  src={initialUserIcon || '/Logo.svg'}
-                  alt='user icon'
-                  className='w-9 h-9 rounded-full hover:ring-4  transition-all'
-                />
+                {initialUser === undefined ? (
+                  <Loader2 className="h-9 w-9 animate-spin text-muted-foreground" />
+                ) : (
+                  <img
+                    src={initialUserIcon || '/Logo.svg'}
+                    alt='user icon'
+                    className='w-9 h-9 rounded-full hover:ring-4  transition-all'
+                  />
+                )}
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align='end'
