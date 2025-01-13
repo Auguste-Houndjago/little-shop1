@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 import { SodaCan, SodaCanProps } from './SodaCan';
 import { Button } from '@/components/ui/button';
 import FloatingCan from './FloatingCan';
@@ -26,6 +26,7 @@ const RotatingCan: React.FC<{ flavor: FlavorType; autoRotate?: boolean }> = ({ f
 };
 
 const flavorNames: Record<FlavorType, string> = {
+  smartshop:"smart-shop",
   lemonLime: "Citron-Lime",
   grape: "Raisin",
   blackCherry: "Cerise Noire",
@@ -49,6 +50,7 @@ export default function SodaCanSwitcher({ autoRotate = false }: SodaCanSwitcherP
           <ambientLight intensity={0.01} />
           <spotLight position={[1, 10, 10]} angle={0.15} penumbra={1} />
           <RotatingCan flavor={currentFlavor} autoRotate={autoRotate} />
+          <OrbitControls/>
           <Environment files={"/hdr/lobby.hdr"} environmentIntensity={1.5} />
         </Canvas>
       </div>

@@ -19,7 +19,7 @@ const HeadSection = ({
 	newButtonPath?: string;
 }) => {
 	return (
-		<section className='pt-2 border-b border-b-gray-200'>
+		<section className='pt-2 mt-4 border-b border-b-gray-200'>
 			<div className='h-24 flex items-center justify-between'>
 				<div className='flex flex-col space-y-1'>
 					<h1 className='text-3xl font-extrabold text-zinc-900'>{title}</h1>

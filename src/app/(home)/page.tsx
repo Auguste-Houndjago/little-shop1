@@ -8,6 +8,10 @@ import type { Color, Image, Product, Size } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import { createClient } from '@/utils/supabase/server';
 
+import ParallaxSection from '@/components/3d/cannettes/ParalaxeSection';
+import FeaturesProducts from '@/components/home/FeaturesProducts';
+
+
 
 export type ProductFeatured = {
 	images: Image[];
@@ -71,11 +75,14 @@ const Page = async () => {
 
 
 	return (
-		<div className='max-w-7xl mx-auto px-6 2xl:px-0'>
-			<Billboard
-				items={items}
-			/>
 
+		<div className='max-w-7xl mx-auto px-6 2xl:px-0'>
+			<div>
+<ParallaxSection/>
+				<Billboard
+					items={items}
+				/>
+			</div>
 <div>
  hello {user?.user_metadata.full_name||user?.email|| 'toi'}  
 
@@ -93,6 +100,7 @@ const Page = async () => {
 						/>
 					))}
 				</div>
+
 			</div>
 		</div>
 	);

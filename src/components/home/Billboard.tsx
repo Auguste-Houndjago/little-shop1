@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/carousel";
 
 
+
 interface BillboardItem {
   img: string;
   title: string;
@@ -66,6 +67,7 @@ const Billboard = ({ items }: BillboardProps) => {
                       {item.actionLabel}
                     </Button>
                   )}
+ 
                 </div>
               </div>
             </CarouselItem>
@@ -75,6 +77,7 @@ const Billboard = ({ items }: BillboardProps) => {
           <CarouselPrevious className="relative left-1 h-12 w-12 rounded-full border-2 opacity-70 hover:opacity-100 transition-opacity" />
           <CarouselNext className="relative right-1 h-12 w-12 rounded-full border-2 opacity-70 hover:opacity-100 transition-opacity" />
         </div>
+
       </Carousel>
     </div>
   );

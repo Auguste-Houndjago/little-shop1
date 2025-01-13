@@ -121,6 +121,7 @@ const Form = ({
 
 	const defaultValues = {
 		title: '',
+		description: '',
 		price: '',
 		categoryId: '',
 		colorId: '',
@@ -140,6 +141,7 @@ const Form = ({
 	const onSubmit = async (values: z.infer<typeof saveProductValidation>) => {
 		const {
 			title,
+			description,
 			price,
 			categoryId,
 			colorId,
@@ -159,6 +161,7 @@ const Form = ({
 		try {
 			const { data, success } = await saveProduct({
 				title,
+				description,
 				price,
 				categoryId,
 				colorId,
@@ -295,6 +298,28 @@ const Form = ({
 								</FormItem>
 							)}
 						/>
+
+						<FormField
+							control={form.control}
+							name='description'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Description</FormLabel>
+									<FormControl>
+										<Textarea
+											placeholder='Description (optional)'
+											className="resize-none"
+											{...field}
+										/>
+									</FormControl>
+									<FormDescription>
+										Maximum 300 characters
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
 						<FormField
 							control={form.control}
 							name='price'

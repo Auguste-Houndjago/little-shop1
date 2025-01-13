@@ -5,7 +5,7 @@ export default function GalleryScroll() {
     
 const IMAGE_URLS = [
     '/background1.jpg',
-    '/background1.jpg',
+    '/profil_pic.jpg',
     '/background1.jpg'
   ]
   return (

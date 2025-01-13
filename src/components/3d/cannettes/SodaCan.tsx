@@ -6,6 +6,7 @@ import * as THREE from "three";
 useGLTF.preload("/models/Soda-can.gltf");
 
 const flavorTextures = {
+  smartshop: "/labels/smart-shop.png",
   lemonLime: "/labels/lemon-lime.png",
   grape: "/labels/grape.png",
   blackCherry: "/labels/cherry.png",
@@ -34,12 +35,13 @@ export function SodaCan({
 
   const labels = useTexture(flavorTextures);
 
-// label mis en off
+// label Y renverser
   labels.strawberryLemonade.flipY = false;
   labels.blackCherry.flipY = false;
   labels.watermelon.flipY = false;
   labels.grape.flipY = false;
   labels.lemonLime.flipY = false;
+  labels.smartshop.flipY = false;
 
   const label = labels[flavor];
 

@@ -94,6 +94,7 @@ export const getProduct = async ({
 
 export const saveProduct = async ({
   title,
+  description,
   price,
   categoryId,
   colorId,
@@ -105,6 +106,7 @@ export const saveProduct = async ({
   localisation,
 }: {
   title: string;
+  description?:string;
   price: string;
   categoryId: string;
   colorId: string;

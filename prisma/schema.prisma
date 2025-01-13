@@ -52,9 +52,9 @@ model VendorProfile {
   id             String   @id @default(uuid()) @db.Uuid
   userId         String   @unique @db.Uuid
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  businessName   String?  @db.VarChar(200)
-  description    String?  @db.Text
-  whatsappNumber String   @db.VarChar(20)
+  businessName   String?  @db.VarChar
+  description    String?  @db.VarChar
+  whatsappNumber String   @db.VarChar
   address        String?  @db.Text
   isVerified     Boolean  @default(false)
   createdAt      DateTime @default(now()) @map("created_at")
@@ -66,8 +66,8 @@ model VendorProfile {
 
 model Product {
   id          String   @id @default(uuid()) @db.Uuid
-  title       String   @db.VarChar(200)
-  description String?  @db.Text
+  title       String   @db.VarChar(100)
+  description String?  @db.VarChar(300)
   price       Float    
   isFeatured  Boolean  @default(false)
   isArchived  Boolean  @default(false)

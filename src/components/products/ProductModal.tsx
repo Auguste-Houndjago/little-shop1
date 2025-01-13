@@ -86,7 +86,7 @@ export function ProductModal({ product }: ProductModalProps) {
             </div>
 
 
-            <Card className="my-5 flex flex-1 p-4  ">
+            <Card className="my-5 flex flex-1 p-4 ">
               <CardContent className="p-2  w-2/3">
                 <div >
 

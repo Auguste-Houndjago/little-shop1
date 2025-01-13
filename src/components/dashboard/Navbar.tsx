@@ -133,7 +133,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="w-full fixed top-0 z-50">
+    <div className="w-full sticky top-0 z-50">
       <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-xl border-b border-white/20" />
       <NavbarParent className="relative">
         <div className='flex items-center space-x-8'>

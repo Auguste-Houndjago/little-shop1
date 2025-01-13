@@ -41,7 +41,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 	const { setTriggerUseEffect } = useTriggerUseEffect();
 
 	return (
-		<Card className='group h-fit'>
+		<Card className='group h-fit hover:border-blue-700 transition-colors duration-1000'>
 			<CardHeader className='p-2'>
 				<div className='relative'>
 					<Image
@@ -72,12 +72,12 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 				</div>
 			</CardHeader>
 			<CardContent className='p-2'>
-				<CardContent className='flex gap-x-2 justify-between'>
+				<CardContent className='flex gap-x-2 justify-between  items-center py-0'>
 					<Link
 						href={`/p/${product.id}`}
 						className='hover:underline'
 					>
-						<CardTitle className='text-xl'>{product.title}</CardTitle>
+						<CardTitle className='text-xl capitalize'>{product.title}</CardTitle>
 					</Link>
 					<ProductModal 
 						product={{
@@ -86,13 +86,17 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 							price: product.price,
 							images: product.images.map(img => img.url),
 							category: product.category.name,
+							whatsappLink:product?.whatsappLink || undefined,
 							localisation: product.localisation ? (product.localisation as unknown as Location) : undefined,
 						}}
 					/>
 				</CardContent>
 	
-				<CardDescription className='capitalize'>
-					{product.category.name}
+				<CardDescription className='capitalize '>
+					{product.category.name} 
+				</CardDescription>
+				<CardDescription className="text-sm text-gray-500 line-clamp-1 " >
+					{product.description?.slice(0,70)} ...
 				</CardDescription>
 			</CardContent>
 			<CardFooter className='p-2'>

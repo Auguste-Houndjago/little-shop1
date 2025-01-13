@@ -65,26 +65,6 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
   const materialRef = useRef<THREE.ShaderMaterial | null>(null)
   const mousePositionRef = useRef<THREE.Vector2>(new THREE.Vector2(0.5, 0.5))
   const waveIntensityRef = useRef<number>(0)
-  const isDraggingRef = useRef<boolean>(false)
-  const lastMouseYRef = useRef<number>(0)
-  const accelerationRef = useRef<number>(0)
-
-  const handleMouseDown = (event: MouseEvent) => {
-    isDraggingRef.current = true
-    lastMouseYRef.current = event.clientY
-  }
-
-  const handleMouseMove = (event: MouseEvent) => {
-    if (isDraggingRef.current) {
-      const deltaY = event.clientY - lastMouseYRef.current
-      accelerationRef.current += deltaY * 0.1
-      lastMouseYRef.current = event.clientY
-    }
-  }
-
-  const handleMouseUp = () => {
-    isDraggingRef.current = false
-  }
 
   useEffect(() => {
     if (!containerRef.current || imageUrls.length < 2) return
@@ -94,6 +74,7 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
     let textures: THREE.Texture[] = []
     let scrollPos = 0
     let velocity = 0
+    let acceleration = 0
 
     const init = async () => {
       scene = new THREE.Scene()
@@ -149,14 +130,14 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
     }
 
     const updateScroll = () => {
-      velocity += accelerationRef.current
+      velocity += acceleration
       if (Math.abs(velocity) > 0.1) {
         velocity *= 0.95
         scrollPos += velocity
       } else {
         velocity = 0
       }
-      accelerationRef.current = 0
+      acceleration = 0
 
       if (scrollPos < 0) scrollPos = 0
       if (scrollPos > (imageUrls.length - 1) * 500) scrollPos = (imageUrls.length - 1) * 500
@@ -171,7 +152,7 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
 
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault()
-      accelerationRef.current += Math.sign(event.deltaY) * 2
+      acceleration += Math.sign(event.deltaY) * 2
     }
 
     const handleResize = () => {
@@ -182,8 +163,6 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
     }
 
     const handleMouseClick = (event: MouseEvent) => {
-      if (isDraggingRef.current) return // Don't trigger wave effect if dragging
-
       const rect = containerRef.current?.getBoundingClientRect()
       if (rect) {
         mousePositionRef.current.x = (event.clientX - rect.left) / rect.width
@@ -198,9 +177,6 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
     window.addEventListener('wheel', handleWheel)
     window.addEventListener('resize', handleResize)
     containerRef.current.addEventListener('click', handleMouseClick)
-    containerRef.current.addEventListener('mousedown', handleMouseDown)
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleMouseUp)
 
     init()
 
@@ -208,9 +184,6 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('resize', handleResize)
       containerRef.current?.removeEventListener('click', handleMouseClick)
-      containerRef.current?.removeEventListener('mousedown', handleMouseDown)
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleMouseUp)
       containerRef.current?.removeChild(rendererRef.current!.domElement)
     }
   }, [imageUrls])
