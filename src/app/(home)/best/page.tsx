@@ -2,7 +2,6 @@ import ProductShowcase from "@/components/3d/cannettes/ShowCan";
 import SodaCanSwitcher from "@/components/3d/cannettes/SodaCanSwitcher";
 import SodaView from "@/components/3d/cannettes/SodaView";
 import Hero from "@/components/3d/Hero";
-import SkyDiveContainer from "@/components/3d/SkyDive/SkyDD";
 
 import SkyDive from "@/components/3d/SkyDive/SkyDive";
 import { TextSplitter } from "@/components/3d/TextSpliter";
