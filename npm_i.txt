@@ -3,3 +3,9 @@ npm i @react-three/drei @react-three/fiber @types/gsap @gsap/react @types/matter
 
 
 npm i @react-three/drei@9.115.0 @react-three/fiber@8.17.10 three three-react-obj-loader@1.0.4
+
+
+
+# DATABASE_URL="postgresql://postgres.hahxjbtuwtssinoeazoh:Realiteme1+!@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+# DATABASE_URL="postgresql://postgres.hahxjbtuwtssinoeazoh:Realiteme1+!@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"

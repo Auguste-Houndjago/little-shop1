@@ -92,14 +92,14 @@ const Page = async () => {
 
 				<HeadingTitle title='featured products' />
 
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+				{/* <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
 					{products.map((product, productIndex) => (
 						<CardProduct
 							key={productIndex}
 							product={product}
 						/>
 					))}
-				</div>
+				</div> */}
 
 			</div>
 		</div>
