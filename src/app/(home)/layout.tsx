@@ -19,17 +19,17 @@ const Layout = async ({
 }: Readonly<{
 	children: React.ReactNode;
 }>) => {
-	// const { user, isAdmin, avatarUrl } = await getUserData();
-	// const lists = await prisma.category.findMany({}) || [];
+	const { user, isAdmin, avatarUrl } = await getUserData();
+	const lists = await prisma.category.findMany({}) || [];
 
 	return (
 		<div className={urbanist.className}>
-			{/* <Navbar
+			<Navbar
 				user={user}
 				isAdmin={isAdmin}
 				lists={lists}
 				userIcon={avatarUrl}
-			/> */}
+			/>
 			<main>{children}</main>
 			<Footer />
 		</div>

@@ -12,13 +12,46 @@
 		--popover: 0 0% 100%;
 		--popover-foreground: 240 10% 3.9%;
 		--primary: 240 5.9% 10%;
+		--color-primary-50: 255, 255, 255;
+		--color-primary-100: 249, 249, 249;
+		--color-primary-200: 243, 243, 243;
+		--color-primary-300: 232, 232, 232;
+		/* Color principal #E8E8E8 */
+		--color-primary-400: 209, 209, 209;
+		--color-primary-500: 185, 185, 185;
+		--color-primary-600: 162, 162, 162;
+		--color-primary-700: 139, 139, 139;
+		--color-primary-800: 115, 115, 115;
+		--color-primary-900: 92, 92, 92;
+
 		--primary-foreground: 0 0% 98%;
 		--secondary: 240 4.8% 95.9%;
 		--secondary-foreground: 240 5.9% 10%;
+		--color-secondary-50: 230, 242, 255;
+		--color-secondary-100: 204, 229, 255;
+		--color-secondary-200: 153, 203, 255;
+		--color-secondary-300: 102, 178, 255;
+		--color-secondary-400: 51, 152, 255;
+		--color-secondary-500: 0, 127, 255;
+		--color-secondary-600: 0, 102, 204;
+		--color-secondary-700: 0, 76, 153;
+		--color-secondary-800: 0, 51, 102;
+		--color-secondary-900: 0, 25, 51;
+
 		--muted: 240 4.8% 95.9%;
 		--muted-foreground: 240 3.8% 46.1%;
 		--accent: 240 4.8% 95.9%;
 		--accent-foreground: 240 5.9% 10%;
+		--color-accent-50: 255, 242, 230;
+		--color-accent-100: 255, 229, 204;
+		--color-accent-200: 255, 203, 153;
+		--color-accent-300: 255, 178, 102;
+		--color-accent-400: 255, 152, 51;
+		--color-accent-500: 255, 127, 0;
+		--color-accent-600: 204, 102, 0;
+		--color-accent-700: 153, 76, 0;
+		--color-accent-800: 102, 51, 0;
+		--color-accent-900: 51, 25, 0;
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 0 0% 98%;
 		--border: 240 5.9% 90%;
@@ -54,16 +87,17 @@
 	* {
 		@apply border-border;
 	}
+
 	body {
 		@apply bg-background text-foreground;
 	}
 }
 
 @layer utilities {
-  .select-none {
-	-webkit-user-select: none;
-	user-select: none;
-  }
+	.select-none {
+		-webkit-user-select: none;
+		user-select: none;
+	}
 }
 
 
@@ -72,22 +106,43 @@
 	transform: rotate(35deg);
 	transform-origin: bottom;
 	transition: transform 0.3s ease;
-  }
-  
-  /* Définir une transition d'opacité */
-  .card-transition-opacity {
+}
+
+
+.card-transition-opacity {
 	transition: opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Effet d'agrandissement au survol */
-  .btn-hover-scale {
+}
+
+
+.btn-hover-scale {
 	transform: scale(1.1);
 	transition: transform 300ms ease-in-out;
-  }
-  
-  /* Changer la couleur de fond d'un bouton au survol */
-  .btn-hover-bg {
+}
+
+
+.btn-hover-bg {
 	background-color: hsl(var(--primary));
 	transition: background-color 300ms ease-in-out;
-  }
+}
+
+
+@keyframes blurAnimation {
+	0% {
+	  filter: blur(5px);
+	}
   
+	45%,
+	55% {
+	  filter: blur(0px);
+	}
+  
+	100% {
+	  filter: blur(10px);
+	}
+  }
+
+  .blurx {
+	animation: blurAnimation 1s both;
+	animation-timeline: view();
+  }
+

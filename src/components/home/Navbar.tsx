@@ -37,6 +37,7 @@ import { Category } from '@prisma/client';
 import Logo from '../Logo';
 
 
+
 const urbanist = Urbanist({ subsets: ['latin'] });
 
 const NavListMobile = ({
@@ -136,8 +137,8 @@ const Navbar = ({
 
   return (
     <NavbarParent isSticky>
-      <nav className='container flex items-center'>
-        <div className='flex items-center gap-12 lg:gap-16'>
+      <nav className='container flex items-center '>
+        <div className='flex items-center lg:gap-16'>
       
          <Logo/>
           <ul className='hidden lg:flex items-center gap-8'>
@@ -159,7 +160,8 @@ const Navbar = ({
           </ul>
         </div>
 
-        <div className='flex items-center gap-4 ml-auto'>
+        <div className='flex items-center gap-x-2  md:gap-4 ml-auto'>
+
           <ModeToggle />
           <Cart />
           <NavListMobile
@@ -198,7 +200,7 @@ const Navbar = ({
                 className={cn(urbanist.className, 'me-6 2xl:me-0')}
               >
                 {initialIsAdmin ? (
-                  <DropdownMenuItem>
+                  <DropdownMenuItem>0
                     <Link
                       href='/dashboard'
                       className='w-full flex items-center'

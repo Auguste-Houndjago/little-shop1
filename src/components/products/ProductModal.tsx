@@ -8,7 +8,7 @@ import {
 } from "../ui/animated-modal";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {  Info, MapPin, ShoppingBag } from "lucide-react";
+import {  Eye, Info, MapPin, ShoppingBag } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
@@ -39,9 +39,9 @@ export function ProductModal({ product }: ProductModalProps) {
   return (
     <div className="flex items-center justify-between">
       <Modal>
-        <ModalTrigger className="bg-black border-2 border-black dark:bg-white dark:text-white text-white flex justify-center group/modal-btn">
+        <ModalTrigger className="bg-secondary/10 text-secondary-foreground hover:bg-secondary/30  border-[1px] border-secondary/40  dark:text-white text-white flex justify-center group/modal-btn">
           <span className="group-hover/modal-btn:translate-x-40 text-center transition duration-500">
-            <Info size={16} />
+          <Eye size={16} />
           </span>
           <div className="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
             <Info size={16} />
@@ -68,7 +68,7 @@ export function ProductModal({ product }: ProductModalProps) {
                     zIndex: 100,
                   }}
                   whileTap={{
-                    scale: 1.1,
+                    scale: 1.8,
                     rotate: 0,
                     zIndex: 100,
                   }}
@@ -86,7 +86,7 @@ export function ProductModal({ product }: ProductModalProps) {
             </div>
 
 
-            <Card className="my-5 flex flex-1 p-4 ">
+            <Card className="my-5 flex flex-1 p-4  ">
               <CardContent className="p-2  w-2/3">
                 <div >
 

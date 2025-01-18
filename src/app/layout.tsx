@@ -21,7 +21,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		<AuthProvider>
 
 
-		<PageTransition>{children}</PageTransition>
+		{/* <PageTransition> */}
+			{children}
+
+		{/* </PageTransition> */}
 
 
 				</AuthProvider>

@@ -1,0 +1,134 @@
+
+
+la cryptographie est l'art de rendre ininteligible , de crypter , de coder 
+un message pour ceux qui ne son pas habiliter a en prendre connaissance
+le chiffre , le code est le proceder , l argorithme la fonctiion qui permet de crypter un message .
+
+la cryptanalise elle est l'art pour une personne non habiliter de decrypter , de decoder ,de dechiffrer un message .
+c est donc l enssemble des proceder d ataque d'un systeme cryptographique 
+
+
+la cyptologie :
+elle est l enssemble fpormzr de cryptographie et de la cryptanalyse 
+
+la cryptologie fait partie d un enssemble de theorie de 
+theorie des ondes electromagnetique 
+-du signal ,
+-des codes correcteur d erreurs 
+-theorie de l information 
+
+de la complexiter ...
+
+un expediteur Alice veux envoyer un msg a destinataire , en evitant les oreilles indiscrette de EVE 
+, et les attaque malvcaillantes de martin 
+
+pour cella Alice veux se mettre d accord avec border_bottom
+ce  choix n a pas besoin d etre secret en vertu du principe de kerckohoffs que nous enoncerons plus loin
+
+
+
+le msg chiffrer es
+
+
+est appeller le decodage et utilise une fonction de dechiffrement : D(c)
+
+
+on demande que  => D(c)= D[E(M)]=M
+
+
+ainsi on demande que chque msg code provienne d un seul msg clair . D est alors une fonction subjective de l enssemble des msg C vers l enssemble des msg clair M 
+
+et E est une fonction injective de M sur C 
+
+4- algorithme Cryptographique 
+
+Un algorithme cryptographique est l enss des fonctions ( mathematique ou non)  utiliser pour le chiffrement et le dechiffrement en pratique 
+
+En pratique les fonctions E() (fonction de chiffrement ) et D() sont paramettrer par des clee 
+
+-K_e la clee de chiffrement et K_d la clee de dechiffrement qui peuvent prendre des valeur s d un enssemble appeller ESPACE DE CLEE 
+
+on a donc les relations :
+
+-premiere image 
+
+
+letype de relation qui unies les clee K_e et K_d 
+permet de definir des cathegorie de clee 
+
+*les systeme a clee secrettes ou symetrique (D E S) , (A E S) (IDA) , (Blow fish) ...
+
+les systemes a clee public ou asymetrique (RSA, LGAMAL ,un crypto systeme elliptique ... )
+
+
+en autre les fonctiion de codage E et de decodage D peuvent fonctionner de deux facons
+
+*Par block chaque msg est d abort partitionner en block fixe . les fonctions de chiffrement E et de dechiffrement D 
+
+agissent alors sur chaque block
+
+*En continue : chaque nv bite est manipuler directement 
+
+
+
+que l espediteur ( Alice) ne pourra pas nier avoir envoyer le msg -Non Repudiation 
+
+7- Attaque sur un chiffrement 
+
+{
+    la cryptanalyse : est l enssemble des procedee d'attaque d un crypto systeme,
+
+    desc: "elle est indispensable pr l etude de la securiter ,des proceder de chiffrement utiliser
+
+    en criptographie"
+    ,
+    objectif : "son but ultime est de trouver un algorithme de dechiffrement des msg .
+    Le plus souvent on essaie de reconstituer la clee secrete de dechiffrement .",
+
+    Add : On suppose en vertue du principe de Kerckhoffs pr toute les evalutions d securiter d un crypto systeme que l attaquant connais le systeme cryptographique utiliser ,
+    la seul partie secrete du crypto-systeme est la clee ,
+    par exemple dans un cryptosysteme baser sur des registre de decalage ,
+
+    on supose que l attaquant connais la forme des recurence lineaire , 
+    ainsi que la fonction de combinaisons 
+    mais pas les conditions de recurences initiales de recurences qui constituent la clee du code , 
+
+    on doit distinguer entre les types d attaque d'un adversert et les buts d attaque d'un adversert 
+
+    
+
+    
+}
+
+
+{
+    a)- attaque a text chiffrer connu  :
+    l opposant ne connait que le msg chiffrer Y 
+    b) attque a text clair connue : 
+    l opposant dispose d un text clair X et du msg coder correspondant 
+    c)- attaque a text chiffre croissante:  l oppasant a access a une machine chiffrante . il peut choisir un text clair et obtenir le text chiffrer correspondant Y , mais il ne connaiss pas la clee de dechiffrement 
+
+    d)- attque a text chiffrer choisie : l opposant a acces a une machine dechiffrante , il peut choisir un text chiffrer Y et obtenir un text clair X , 
+    mais il ne connais pas la clee de dechiffrement 
+
+    En plus de ses attaques baser sur une etude , il y a aussi des attque physique : le principe de ses attque est d essayer de reconstituer la clee secrette en espionnant la transmistion entre le clavier de l ordinateur et l uniqter centraleou encore en messurant la consomation electrique du micro-processeur qui effetctue le decodage 
+    ou encore en messurant son echaufement 
+
+    on n essaie de remmonter de ses donnee physique au clees de codage et de decodage ,
+
+    but: le but de l attaque d un attquant peut etre soit de decouvrir la clee de chiffrement et de pouvoir ainssi decrypter tt les message de l emmetteur 
+ou plus modestement de dehiffrer un msg particulier sans necessairement disposer de la clee du code 
+
+Garantir la confidentialiter des communications entre Alice et Bob supose qu EVE ne peut pas trouver M (le msg clair) a partir de E(M) (le cripto-systeme doit etre resistant ) aux attaques sur le msg coder.
+-Trouver la methode de dechiffrement D a partir d une fammille de couple {(Mi , E(Mi))} =>( msg clair , msg chiffrer correspondant)
+
+-Acceder a des donnee contenue dans le microprocesseur , qui code et decode et plus generalement ne puissent pas espionner les ordinateurs d Alice et de Bob .
+
+}
+
+
+
+ 
+
+
+

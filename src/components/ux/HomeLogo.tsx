@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const HLogo = () => {
+const HLogo = ({className}: {className?: string}) => {
     const [currentPath, setCurrentPath] = useState(0)
     const [isVisible, setIsVisible] = useState(false)
 
@@ -27,7 +27,7 @@ const HLogo = () => {
     return (
         <Link
             href='/'
-            className='relative w-fit text-balance font-extrabold text-zinc-900 text-xl uppercase'
+            className={`${className} relative w-fit text-balance font-extrabold text-zinc-900 text-xl uppercase `}
         >
             <button 
                 type='button' 

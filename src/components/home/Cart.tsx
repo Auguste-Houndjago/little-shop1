@@ -143,7 +143,7 @@ const {user} = useAuth()
 			>
 				<SheetHeader>
 					<SheetTitle className='tracking-[.3rem] font-[600] uppercase'>
-						CART
+				Pannier
 					</SheetTitle>
 				</SheetHeader>
 
@@ -169,7 +169,7 @@ const {user} = useAuth()
 							aria-hidden='true'
 							className='text-[13px] tracking-[.04rem]'
 						>
-							 Shipping calculated at checkout.
+						Prix Calculer
 						</span>
 						<Button
 							type='button'
@@ -188,13 +188,13 @@ const {user} = useAuth()
 								});
 							}}
 						>
-							checkout
+							Achetez
 							<div
 								aria-hidden='true'
 								className='w-[14px] h-[2px] bg-white'
 							/>
 							<span className='tracking-widest'>
-								{formatPrice(totalPrice)} usd
+								{formatPrice(totalPrice)} 
 							</span>
 						</Button>
 					</div>

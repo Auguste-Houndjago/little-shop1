@@ -27,18 +27,18 @@ interface BillboardProps {
 
 const Billboard = ({ items }: BillboardProps) => {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <Carousel
         opts={{
           align: "start",
           loop: true,
         }}
-        className="relative w-full"
+        className="relative w-full "
       >
         <CarouselContent>
           {items.map((item, index) => (
-            <CarouselItem key={index} className="relative group">
-              <div className="relative aspect-[2.5/1] w-full overflow-hidden">
+            <CarouselItem key={index} className="relative group ">
+              <div className="relative aspect-[2.5/1] md:h-full h-[300px]  w-full overflow-hidden">
                 <Image
                   src={item.img}
                   alt={item.title}
@@ -74,8 +74,8 @@ const Billboard = ({ items }: BillboardProps) => {
           ))}
         </CarouselContent>
         <div className="absolute w-full top-1/2 flex -translate-y-1/2 justify-between ">
-          <CarouselPrevious className="relative left-1 h-12 w-12 rounded-full border-2 opacity-70 hover:opacity-100 transition-opacity" />
-          <CarouselNext className="relative right-1 h-12 w-12 rounded-full border-2 opacity-70 hover:opacity-100 transition-opacity" />
+          <CarouselPrevious className="relative left-1 md:h-12 w-12 rounded-full border-2 opacity-50 hover:opacity-100 transition-opacity" />
+          <CarouselNext className="relative right-1 md:h-12 w-12 rounded-full border-2 opacity-50 hover:opacity-100 transition-opacity" />
         </div>
 
       </Carousel>

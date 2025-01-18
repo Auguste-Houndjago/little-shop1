@@ -179,69 +179,69 @@ export default function Scene({ sentences, flavor }: SkyDiveProps) {
   
 
 
-  //   const phoneMove = gsap.timeline({
-  //     scrollTrigger:{
-  //       trigger:"#quality-products",
-  //      start: "center center",
-  //      end: "bottom bottom",
-  //      scrub: true,
-  //      markers:true,
-  //     }
-  //   })
-  //   // .to("#quality-products", {
+    const phoneMove = gsap.timeline({
+      scrollTrigger:{
+        trigger:"#quality-products",
+       start: "center center",
+       end: "bottom bottom",
+       scrub: true,
+       markers:true,
+      }
+    })
+    // .to("#quality-products", {
    
-  //   //   y: "50%",
-  //   //   transformOrigin: "center center"
-  //   // });
+    //   y: "50%",
+    //   transformOrigin: "center center"
+    // });
       
 
 
-  //  ScrollTrigger.matchMedia({
+   ScrollTrigger.matchMedia({
    
-  //     "(min-width: 950px)": () => {
-  //       phoneMove.to(phoneRef.current!.position, {
-  //         y: "-2",
-  //         x:"-1",
-  //         duration: 1,
-  //         ease: "sine.inOut",
-  //       },
-  //       `+=0.1` 
-  //     ).to(
-  //       phoneRef.current!.rotation,
-  //       {
-  //         y: "-=0.3",
-  //         z:"-0.6",
-  //         duration: 0.5,
-  //         repeat: 2,
-  //         ease: "sine.inOut",
+      "(min-width: 950px)": () => {
+        phoneMove.to(phoneRef.current!.position, {
+          y: "-2",
+          x:"-1",
+          duration: 1,
+          ease: "sine.inOut",
+        },
+        `+=0.1` 
+      ).to(
+        phoneRef.current!.rotation,
+        {
+          y: "-=0.3",
+          z:"-0.6",
+          duration: 0.5,
+          repeat: 2,
+          ease: "sine.inOut",
     
-  //       },
-  //      `<`
-  //     )
-  //     },
+        },
+       `<`
+      )
+      },
       
-  //     "(max-width: 949px)": () => {
-  //       phoneMove.to(phoneRef.current!.position, {
-  //         y: "-2",
-  //         x:"-1",
-  //         duration: 1,
-  //         ease: "sine.inOut",
-  //       },
-  //       `+=0.1` 
-  //     ).to(
-  //       phoneRef.current!.rotation,
-  //       {
-  //         y: "-=0.3",
-  //         z:"-0.6",
-  //         duration: 0.5,
-  //         repeat: 2,
-  //         ease: "sine.inOut",
+      "(max-width: 949px)": () => {
+        phoneMove.to(phoneRef.current!.position, {
+          y: "-2",
+          x:"-1",
+          duration: 1,
+          ease: "sine.inOut",
+        },
+        `+=0.1` 
+      ).to(
+        phoneRef.current!.rotation,
+        {
+          y: "-=0.3",
+          z:"-0.6",
+          duration: 0.5,
+          repeat: 2,
+          ease: "sine.inOut",
     
-  //       },
-  //      `<`
-  //     )
-  //     },
-  //   });
+        },
+       `<`
+      )
+      },
+    });
 
     
 // const canMove = gsap.timeline({
@@ -334,16 +334,3 @@ return () => {
     </group>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,5 @@
 import { supabase } from "./supabase";
+import prisma from "./prisma";
 
 export const fetchProducts = async () => {
     try {
@@ -18,10 +19,38 @@ export const fetchProducts = async () => {
       console.error("Erreur :", error);
       return [];
     }
-  };
-  
+};
 
-  export async function uploadProductImage(file: File) {
+export const fetchFeaturedProducts = async () => {
+  try {
+    const featuredProducts = await prisma.product.findMany({
+      where: {
+        isArchived: false,
+        isFeatured: true,
+        images: {
+          some: {},
+        },
+      },
+      include: {
+        images: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        color: true,
+        size: true,
+      },
+    });
+
+    return featuredProducts;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des produits en vedette :", error);
+    return [];
+  }
+};
+
+export async function uploadProductImage(file: File) {
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${Math.random()}.${fileExt}`;
@@ -45,4 +74,4 @@ export const fetchProducts = async () => {
       console.error('Error uploading image:', error);
       throw error;
     }
-  }
+}

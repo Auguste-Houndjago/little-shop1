@@ -4,9 +4,13 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import FloatingCan from "@/components/3d/cannettes/FloatingCan";
 
+
 const Can = () => {
+
+
+
   return (
-    <Canvas className="fixed  inset-0 bg-transparent p-0 m-0 border-4 "
+    <Canvas className="fixed  inset-0 bg-transparent p-0 m-0 "
       camera={{ position: [0, 0, 10], fov: 45 }}
     >
       <ambientLight intensity={0.5} />

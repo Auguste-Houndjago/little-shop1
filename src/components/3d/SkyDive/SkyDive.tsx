@@ -38,7 +38,7 @@ const SkyDive = () => {
   <section id="section2" className="bg-white h-[400px] w-full relative z-10">
         <h2 className="text-3xl font-bold p-8 text-center">Section Suivante</h2>
         <p className="p-8">
-          Cette section apparaîtra après l'animation de la canette.
+          Bienvenu sur votre boutique de vente en ligne.
         </p>
       </section>
 
@@ -49,7 +49,7 @@ const SkyDive = () => {
       <section className="bg-white min-h-screen w-full relative z-10">
         <h2 className="text-3xl font-bold p-8">Section Suivante</h2>
         <p className="p-8">
-          Cette section apparaîtra après l'animation de la canette.
+        Bienvenu sur votre boutique de vente en ligne.
         </p>
 
       </section>
@@ -57,7 +57,7 @@ const SkyDive = () => {
       <section className="bg-transparent min-h-screen w-full relative z-10">
         <h2 className="text-3xl font-bold p-8 text-center">Smart Shop</h2>
         <p className="p-8">
-          Cette section apparaîtra après l'animation de la canette.
+        Bienvenu sur votre boutique de vente en ligne.
         </p>
       </section>
  <AIntroduction/>

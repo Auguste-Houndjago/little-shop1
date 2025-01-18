@@ -1,11 +1,7 @@
-import ProductShowcase from "@/components/3d/cannettes/ShowCan";
-import SodaCanSwitcher from "@/components/3d/cannettes/SodaCanSwitcher";
-import SodaView from "@/components/3d/cannettes/SodaView";
-import Hero from "@/components/3d/Hero";
+
 
 import SkyDive from "@/components/3d/SkyDive/SkyDive";
-import { TextSplitter } from "@/components/3d/TextSpliter";
-import ViewCanvas from "@/components/3d/ViewCanvas";
+
 
 export default function Page() {
   return (

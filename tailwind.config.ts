@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        smoke: '0 0 15px 15px rgba(0, 0, 0, 0.2)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -52,6 +55,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        boxShadow: {
+          'huge': '0 0 0px 1000px #000',
+        },
+        
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -59,6 +66,21 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        wave: {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '0.8'
+          },
+          '100%': {
+            transform: 'scale(1.4)',
+            opacity: '0'
+          }
+        },
+        smoke: {
+          '0%': { boxShadow: '0 0 150px 150px rgba(0, 0, 0, 0.1)' },
+          '50%': { boxShadow: '0 0 20px 20px rgba(0, 0, 0, 0.3)' },
+          '100%': { boxShadow: '0 0 15px 15px rgba(0, 0, 0, 0.1)' },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -76,6 +98,9 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "gentle-zoom": "gentle-zoom 20s ease-in-out infinite",
+        'wave': 'wave 3s infinite ease-out',
+        'wave-delayed': 'wave 3s infinite ease-out 1.4s',
+        smoke: 'smoke 4s infinite ease-in-out',
       },
     },
   },

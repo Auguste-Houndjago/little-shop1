@@ -1,0 +1,62 @@
+CREATE OR REPLACE FUNCTION get_all_product_details()
+RETURNS TABLE (
+    id uuid,
+    title text,
+    description text,
+    price float,
+    is_featured boolean,
+    is_archived boolean,
+    stock int,
+    whatsapp_link text,
+    localisation jsonb,
+    category_name text,
+    color_name text,
+    size_value text,
+    created_at timestamp,
+    updated_at timestamp,
+    images jsonb,
+    reviews jsonb
+) 
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    p.id,
+    CAST(p.title AS text) AS title,  -- Conversion ici
+    CAST(p.description AS text) AS description,  -- Conversion ici
+    p.price,
+    p."isFeatured" AS is_featured,
+    p."isArchived" AS is_archived,
+    p.stock,
+    CAST(p."whatsappLink" AS text) AS whatsapp_link,  -- Conversion ici
+    p.localisation,
+    CAST(c.name AS text) AS category_name,  -- Conversion ici
+    CAST(col.name AS text) AS color_name,    -- Conversion ici
+    CAST(s.value AS text) AS size_value,      -- Conversion ici
+    p."created_at",
+    p."updated_at",
+    (
+      SELECT jsonb_agg(i.url) 
+      FROM public.images i
+      WHERE i."productId" = p.id
+    ) AS images,
+    (
+      SELECT jsonb_agg(jsonb_build_object(
+          'rating', r.rating, 
+          'comment', r.comment, 
+          'user', u.name
+        )) 
+      FROM public.reviews r
+      JOIN public.users u ON u.id = r."userId"
+      WHERE r."productId" = p.id
+    ) AS reviews
+  FROM public.products p
+  LEFT JOIN public.categories c ON c.id = p."categoryId"
+  LEFT JOIN public.colors col ON col.id = p."colorId"
+  LEFT JOIN public.sizes s ON s.id = p."sizeId"
+  WHERE p."isArchived" = false;
+END;
+$$;
