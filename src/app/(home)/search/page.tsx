@@ -11,6 +11,8 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { createClient } from '@/utils/supabase/client';
+import { fetchCategories, fetchLocations, fetchSellers } from '@/lib/products';
+
 
 export default function SearchPage() {
   const supabase = createClient();
@@ -26,28 +28,24 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const [locationsResponse, sellersResponse, categoriesResponse] = await Promise.all([
-          supabase.from('locations').select('*'),
-          supabase.from('sellers').select('*'),
-          supabase.from('categories').select('*')
-        ]);
+    async function loadInitialData() {
+      const [loadedLocations, loadedSellers, loadedCategories] = await Promise.all([
+        fetchLocations(),
+        fetchSellers(),
+        fetchCategories()
+      ]);
 
-        setLocations(locationsResponse.data || []);
-        setSellers(sellersResponse.data || []);
-        setCategories(categoriesResponse.data || []);
-      } catch (error) {
-        console.error('Error fetching initial data:', error);
-      }
-    };
+      setLocations(loadedLocations);
+      setSellers(loadedSellers);
+      setCategories(loadedCategories);
+    }
 
-    fetchInitialData();
+    loadInitialData();
   }, []);
 
-  const handleSearch = async () => {
+ 
+  const fetchFilteredProducts = async () => {
     try {
-    
       let query = supabase.from('products').select('*');
 
       if (searchQuery) {
@@ -83,6 +81,11 @@ export default function SearchPage() {
       console.error('Error in search:', error);
     }
   };
+
+  // Déclenche la recherche automatiquement à chaque modification des filtres
+  useEffect(() => {
+    fetchFilteredProducts();
+  }, [searchQuery, category, location, priceRange, seller]);
 
   return (
     <div className="container mx-auto p-4">
@@ -128,7 +131,7 @@ export default function SearchPage() {
           <SelectContent>
             {sellers.map((sel) => (
               <SelectItem key={sel.id} value={sel.id}>
-                {sel.name}
+                {sel.businessName}
               </SelectItem>
             ))}
           </SelectContent>
@@ -146,7 +149,7 @@ export default function SearchPage() {
           </SelectContent>
         </Select>
 
-        <Button onClick={handleSearch}>
+        <Button onClick={fetchFilteredProducts}>
           Search
         </Button>
       </div>

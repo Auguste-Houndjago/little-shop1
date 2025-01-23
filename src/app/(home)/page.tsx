@@ -12,6 +12,11 @@ import { fetchFeaturedProducts } from '@/lib/products';
 import ProductSlider from '@/components/products/ProductSlider';
 import ProductsCard from '@/components/products/ProductsCard';
 import SearchBar from '@/components/home/SearchBar';
+import { ProductHome } from '@/components/home/ProductHome';
+import { ProductCard } from '@/dashboard/products/Product-Card';
+import { ProductCards } from '@/components/home/ProductCards';
+import GlassmorphismCard from '@/components/products/Glass';
+
 
 export type ProductFeatured = {
 	images: Image[];
@@ -21,6 +26,9 @@ export type ProductFeatured = {
 	color: Color;
 	size: Size;
 } & Product;
+
+
+
 
 const items = [
 	{
@@ -53,10 +61,34 @@ const Page = async () => {
 
 	const { data: { user } } = await supabase.auth.getUser();
 
-	let { data, error } = await supabase
-		.rpc('get_all_product_details')
-	if (error) console.error(error)
-	else console.log("get_products_details", data)
+
+// 	let { data, error } = await supabase
+// 	.rpc('get_filtered_products', {
+// 	})
+//   if (error) console.error(error)
+//   else console.log(data)
+  
+
+let { data, error } = await supabase
+  .rpc('register_vendor', {
+    p_business_logo: "logo", 
+    p_business_name:"bussnes name", 
+    p_city:"city", 
+    p_country:"country", 
+    p_description:"description", 
+    p_postal_code:"122", 
+    p_state:"state", 
+    p_user_id:"9bff9958-5118-422d-9952-0141f74f6efe", 
+    p_whatsapp_number:"1111111111"
+  })
+if (error) console.error(error)
+else console.log(data)
+
+
+	// let { data, error } = await supabase
+	// 	.rpc('get_all_product_details')
+	// if (error) console.error(error)
+	// else console.log("get_products_details", data)
 
 	return (
 		<div className='max-w-7xl mx-auto px-6 2xl:px-0'>
@@ -78,6 +110,8 @@ const Page = async () => {
 			<div className='flex flex-col gap-5 mt-16 mb-8'>
 
 				<HeadingTitle title='featured products' />
+
+
 				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
 					{products.slice(0, 4).map((product, productIndex) => (
 						<CardProduct
@@ -87,15 +121,25 @@ const Page = async () => {
 					))}
 				</div>
 
+				<GlassmorphismCard/>
+
 				<ProductSlider />
 
-				{/* <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
 					{products.map((product, productIndex) => (
-				
-						<ProductsCard  />
+		
+					<ProductCard product={product} key={productIndex}/>
 					))}
-				</div>  */}
-				<SearchBar />
+				</div> 
+
+				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+					{products.map((product, productIndex) => (
+		
+					<ProductCards product={product} key={productIndex}/>
+					))}
+				</div> 
+
+		
 				<ProductsCard />
 
 

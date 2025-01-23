@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -38,12 +39,13 @@ model User {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  products      Product[]
-  orders        Order[]
-  reviews       Review[]
-  wishlists       Wishlist[]
-  vendorProfile VendorProfile?
-  notifications Notification[]
+  products      Product[] 
+  orders        Order[]   
+  reviews       Review[]   
+  wishlists     Wishlist[]   
+  vendorProfile VendorProfile?   
+  notifications Notification[]   
+  address       Address?    
 
   @@map("users")
 }
@@ -53,9 +55,12 @@ model VendorProfile {
   userId         String   @unique @db.Uuid
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   businessName   String?  @db.VarChar
+  businessLogo   String?  @db.VarChar
   description    String?  @db.VarChar
   whatsappNumber String   @db.VarChar
-  address        String?  @db.Text
+  dateOfBirth    DateTime? @db.Timestamp
+  addressId      String?  @unique @db.Uuid
+  address        Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
   isVerified     Boolean  @default(false)
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
@@ -63,6 +68,8 @@ model VendorProfile {
   @@index([userId])
   @@map("vendor_profiles")
 }
+
+
 
 model Product {
   id          String   @id @default(uuid()) @db.Uuid
@@ -72,9 +79,9 @@ model Product {
   isFeatured  Boolean  @default(false)
   isArchived  Boolean  @default(false)
   stock       Int      @default(0)
-  images      Image[]
-  orderItems  OrderItem[]
-  reviews     Review[]
+  images      Image[] 
+  orderItems  OrderItem[] 
+  reviews     Review[] 
   whatsappLink   String?
   localisation Json? 
 
@@ -92,7 +99,7 @@ model Product {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   wishlists  Wishlist[]
-
+  
   @@index([userId])
   @@index([categoryId])
   @@map("products")
@@ -149,7 +156,7 @@ model Order {
   amount     Float    
   total      Int
   isPaid     Boolean     @default(false)
-  orderItems OrderItem[]
+  orderItems OrderItem[] 
   delivery   Delivery?
   userId     String      @db.Uuid
   user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -182,16 +189,15 @@ model Delivery {
   order        Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
   status       DeliveryStatus @default(PENDING)
   deliveryDate DateTime?
-  address      String         @db.Text
-  city         String         @db.VarChar(100)
-  postalCode   String         @db.VarChar(20)
-  country      String         @db.VarChar(100)
+  addressId    String         @unique @db.Uuid
+  address      Address        @relation(fields: [addressId], references: [id], onDelete: Cascade)
   createdAt    DateTime       @default(now()) @map("created_at")
   updatedAt    DateTime       @updatedAt @map("updated_at")
 
   @@index([orderId])
   @@map("deliveries")
 }
+
 
 model Review {
   id        String   @id @default(uuid()) @db.Uuid
@@ -209,18 +215,20 @@ model Review {
 }
 
 model Notification {
-  id        String           @id @default(uuid()) @db.Uuid
-  content   String           @db.Text
-  type      NotificationType
-  isRead    Boolean          @default(false)
-  userId    String           @db.Uuid
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime         @default(now()) @map("created_at")
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @db.Uuid
+  message     String   @db.Text
+  type        String   @db.VarChar(100)  // Type de notification, ex: "Order Update", "Message", etc.
+  metadata    Json?    // Détails spécifiques de la notification (ex: données supplémentaires)
+  read        Boolean  @default(false)   // Statut de lecture
+  createdAt   DateTime @default(now())   
+  updatedAt   DateTime @updatedAt      
 
-  @@index([userId])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])   
   @@map("notifications")
 }
-
 
 model Wishlist {
   id       String    @id @default(uuid()) @db.Uuid
@@ -229,4 +237,21 @@ model Wishlist {
   products Product[]
   createdAt DateTime         @default(now()) @map("created_at")
   @@map("wishlists")
+}
+
+model Address {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String?  @unique @db.Uuid
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country     String?  @db.VarChar(20)
+  region      String?  @db.VarChar(20)
+  city        String?  @db.VarChar(50)
+  postalCode  String?  @db.VarChar(20)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  vendorProfile VendorProfile?
+  delivery      Delivery?
+
+  @@map("address")
 }

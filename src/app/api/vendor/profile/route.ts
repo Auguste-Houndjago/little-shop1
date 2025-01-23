@@ -57,6 +57,8 @@ if (!vendor?.roles.includes('VENDOR')) {
       }
     });
 
+    
+
     return NextResponse.json(vendorProfile);
   } catch (error) {
     console.log('[VENDOR_PROFILE_POST]', error);

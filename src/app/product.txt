@@ -1,0 +1,108 @@
+"use client"
+
+import { useState } from "react"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { Share2, User2, ShoppingCart, Heart } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+
+interface Image {
+  id: string
+  url: string
+}
+
+interface Product {
+  id: string
+  title: string
+  description?: string
+  price: number
+  images: Image[]
+  categoryId: string
+  category: {
+    name: string
+  }
+  userId: string
+  stock: number
+}
+
+interface ProductCardProps {
+  data: Product
+}
+
+export const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+  const router = useRouter()
+  const [isLiked, setIsLiked] = useState(false)
+
+  const onShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: data.title,
+          text: data.description,
+          url: window.location.href,
+        })
+      } else {
+        await navigator.clipboard.writeText(window.location.href)
+      }
+    } catch (error) {
+      console.error("Error sharing:", error)
+    }
+  }
+
+  return (
+    <div className="group relative rounded-3xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+      <div className="p-3 space-y-4">
+        {/* Image section with overlaid icons */}
+        <div className="aspect-square rounded-2xl bg-gray-100 relative overflow-hidden">
+          <Image src={data.images[0]?.url || "/placeholder.svg"} alt={data.title} fill className="object-cover" />
+          <div className="absolute inset-x-0 top-0 p-3 flex justify-between items-start">
+            <Button
+              onClick={() => setIsLiked(!isLiked)}
+              variant="ghost"
+              size="icon"
+              className={`h-8 w-8 rounded-full ${
+                isLiked ? "bg-pink-100 text-pink-500 hover:bg-pink-200" : "bg-white/80 hover:bg-white"
+              }`}
+            >
+              <Heart className={`h-4 w-4 ${isLiked ? "fill-current" : ""}`} />
+            </Button>
+          </div>
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition">
+            <Button
+              onClick={() => router.push(`/user/${data.userId}`)}
+              variant="ghost"
+              size="icon"
+              className="absolute right-2 top-12 bg-white/80 hover:bg-white transition rounded-full"
+            >
+              <User2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Product info */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Badge variant="secondary" className="font-medium rounded-full px-3 bg-gray-100 hover:bg-gray-200">
+              {data.category?.name}
+            </Badge>
+            <Button onClick={onShare} variant="ghost" size="icon" className="h-8 w-8 rounded-full">
+              <Share2 className="h-4 w-4" />
+            </Button>
+          </div>
+
+          <h3 className="font-semibold text-lg truncate">{data.title}</h3>
+
+          <div className="flex items-center justify-between pt-2">
+            <p className="font-semibold text-xl">${data.price.toFixed(2)}</p>
+            <Button size="sm" className="rounded-full px-4 flex items-center gap-2">
+              <ShoppingCart className="h-4 w-4" />
+              Add
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

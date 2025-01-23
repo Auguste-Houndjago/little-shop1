@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Recursive } from 'next/font/google';
@@ -11,7 +11,8 @@ import { cn, formatPrice, addItemToStorage } from '@/lib/utils';
 import type { ProductFeatured } from '@/app/(home)/page';
 import useTriggerUseEffect from '@/hooks/useTriggerUseEffect';
 import { ProductModal } from '@/components/products/ProductModal';
-import { ShoppingCart, Eye } from 'lucide-react';
+import { Heart, ShoppingCart } from 'lucide-react';
+import { toast } from "sonner";
 
 interface Location {
   lat: number;
@@ -29,34 +30,55 @@ export interface ProductStorage {
 
 const CardProduct = ({ product }: { product: ProductFeatured }) => {
   const [isPending, startTransition] = React.useTransition();
+  const [isWished, setIsWished] = useState(false);
   const { setTriggerUseEffect } = useTriggerUseEffect();
 
+  const handleShare = async () => {
+    const shareUrl = window.location.href;
+    try {
+      await navigator.share({
+        title: product.title,
+        text: `Check out ${product.title}!`,
+        url: shareUrl,
+      });
+    } catch (err) {
+      navigator.clipboard.writeText(shareUrl);
+      toast.success("Link copied to clipboard!");
+    }
+  };
+
   return (
-    <Card className="group overflow-hidden border-2 border-transparent hover:border-primary transition-all duration-300 hover:shadow-lg">
-      <CardHeader className="p-0">
-        <div className="relative overflow-hidden">
+
+
+    <Card className='group p-1 hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
+      <CardHeader className="p-0 rounded-md">
+        <div className="relative">
           <Image
-            src={product.images[0].url || "/placeholder.svg"}
+            src={ "/background1.jpg" }
             alt={product.title}
             width={300}
             height={260}
-            className="w-full h-[260px] object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            className="w-full rounded-md h-[260px] object-cover bg-blend-saturation transition-transform duration-500 ease-in-out group-hover:scale-95"
             priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <div className="space-x-2">
-              <Button
-                size="sm"
-                variant="secondary"
-                className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"
-                onClick={() => addItemToStorage(product, startTransition, setTriggerUseEffect)}
-                disabled={isPending}
-              >
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                {isPending ? 'Adding...' : 'Add to Cart'}
-              </Button>
-<span className=' absolute top-4 right-4 '>
-<ProductModal 
+
+          <div className="absolute bg-se right-4 top-4 flex gap-2">
+            <Button
+              variant="secondary"
+              size="icon"
+              className="h-8 w-8 bg-background/50  opacity-25 group-hover:opacity-95"
+              onClick={() => setIsWished(!isWished)}
+            >
+              <Heart
+                className={`h-4 w-4 ${isWished ? "fill-current opacity-100 text-red-500" : ""}`}
+              />
+            </Button>
+
+
+
+          </div>
+          <span className='absolute bottom-0 '>
+              <ProductModal
                 product={{
                   name: product.title,
                   description: product?.description || '',
@@ -66,13 +88,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
                   localisation: product.localisation ? (product.localisation as unknown as Location) : undefined,
                 }}
               />
-</span>
-
-            
-      
-      
-            </div>
-          </div>
+            </span>
         </div>
       </CardHeader>
       <CardContent className="p-4">
@@ -90,12 +106,15 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         <CardTitle className="text-xl font-bold text-primary">{formatPrice(product.price)}</CardTitle>
+
         <Button
           size="sm"
-          className={cn(recursive.className, 'tracking-wider')}
+          variant="secondary"
+          className=" "
           onClick={() => addItemToStorage(product, startTransition, setTriggerUseEffect)}
           disabled={isPending}
         >
+          <ShoppingCart className="w-4 h-4 mr-2" />
           {isPending ? 'Adding...' : 'Add to Cart'}
         </Button>
       </CardFooter>

@@ -85,7 +85,7 @@ const ProductsCard = () => {
         fetchProducts();
     }, []);
 
-    // Le reste du code reste identique
+ 
     const calculateAverageRating = (reviews: ProductDetail['reviews']) => {
         if (!reviews || reviews.length === 0) return 0;
         const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -94,7 +94,7 @@ const ProductsCard = () => {
 
     if (isLoading) return (
         <div className="flex justify-center items-center h-64">
-            <p>Chargement des produits...</p>
+            <p>...</p>
         </div>
     );
 
@@ -118,7 +118,7 @@ const ProductsCard = () => {
                                 alt={product.title}
                                 width={300}
                                 height={260}
-                                className="w-full h-[260px] transition-transform duration-500 ease-in-out object-cover rounded-lg group-hover:scale-[1.09] group-hover:-translate-y-2"
+                                className="w-full h-[260px] transition-transform duration-500 ease-in-out object-cover rounded-lg group-hover: group-hover:-translate-y-2"
                                 priority
                             />
                             {product.is_featured && (
@@ -128,8 +128,9 @@ const ProductsCard = () => {
                             )}
                         </div>
                     </CardHeader>
-                    <CardContent className='p-2'>
-                        <CardContent className='flex gap-x-2 justify-between items-center'>
+                    <CardContent className='p-2 bg-[rgba(80,240,240,0.7)]
+ '>
+                        <CardContent className='flex  gap-x-2 justify-between items-center'>
                             <Link
                                 href={`/p/${product.id}`}
                                 className='hover:underline flex-grow'

@@ -25,17 +25,17 @@ BEGIN
   RETURN QUERY
   SELECT 
     p.id,
-    CAST(p.title AS text) AS title,  -- Conversion ici
-    CAST(p.description AS text) AS description,  -- Conversion ici
+    CAST(p.title AS text) AS title,  
+    CAST(p.description AS text) AS description, 
     p.price,
     p."isFeatured" AS is_featured,
     p."isArchived" AS is_archived,
     p.stock,
-    CAST(p."whatsappLink" AS text) AS whatsapp_link,  -- Conversion ici
+    CAST(p."whatsappLink" AS text) AS whatsapp_link,  
     p.localisation,
-    CAST(c.name AS text) AS category_name,  -- Conversion ici
-    CAST(col.name AS text) AS color_name,    -- Conversion ici
-    CAST(s.value AS text) AS size_value,      -- Conversion ici
+    CAST(c.name AS text) AS category_name,  
+    CAST(col.name AS text) AS color_name,    
+    CAST(s.value AS text) AS size_value,      
     p."created_at",
     p."updated_at",
     (
@@ -60,3 +60,230 @@ BEGIN
   WHERE p."isArchived" = false;
 END;
 $$;
+
+--vendor_profiles
+
+--certified vendorProfile 
+
+
+CREATE OR REPLACE FUNCTION get_vendor_profiles()
+RETURNS TABLE (
+    id uuid,
+    business_name text
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    v.id,
+    CAST(v."businessName" AS text) AS business_name
+  FROM public.vendor_profiles v
+  WHERE v."isVerified" = true; -- Optionnel, pour ne récupérer que les vendeurs vérifiés
+END;
+$$;
+
+//all vendorProfile 
+
+
+CREATE OR REPLACE FUNCTION get_all_vendor_profiles()
+RETURNS TABLE (
+    id uuid,
+    business_name text
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    v.id,
+    CAST(v."businessName" AS text) AS business_name
+  FROM public.vendor_profiles v;
+END;
+$$;
+
+
+
+
+select * from get_vendor_profiles();
+
+select * from get_all_vendor_profiles();
+
+
+
+
+
+
+
+
+
+
+enum Role {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+enum DeliveryStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id         String   @id @default(uuid()) @db.Uuid
+  email      String   @unique
+  name       String?  @db.VarChar(100)
+  avatar_url String?  @db.Text
+  phone      String?  @db.VarChar(20)
+  roles      Role[]   @default([CUSTOMER])
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  products      Product[] 
+  orders        Order[]   
+  reviews       Review[]   
+  wishlists     Wishlist[]   
+  vendorProfile VendorProfile?   
+  notifications Notification[]   
+  address       Address?    
+
+  @@map("users")
+}
+
+model VendorProfile {
+  id             String   @id @default(uuid()) @db.Uuid
+  userId         String   @unique @db.Uuid
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName   String?  @db.VarChar
+  businessLogo   String?  @db.VarChar
+  description    String?  @db.VarChar
+  whatsappNumber String   @db.VarChar
+  dateOfBirth    DateTime? @db.Timestamp
+  addressId      String?  @unique @db.Uuid
+  address        Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  isVerified     Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("vendor_profiles")
+}
+
+
+
+model Category {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String    @unique @db.VarChar(100)
+  billboard String    @db.Text
+  title     String    @db.VarChar(50)
+  products  Product[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@map("categories")
+}
+
+model Order {
+  id         String      @id @default(uuid()) @db.Uuid
+  amount     Float    
+  total      Int
+  isPaid     Boolean     @default(false)
+  orderItems OrderItem[] 
+  delivery   Delivery?
+  userId     String      @db.Uuid
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(uuid()) @db.Uuid
+  amount    Float    
+  total     Int
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String   @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+model Delivery {
+  id           String         @id @default(uuid()) @db.Uuid
+  orderId      String         @unique @db.Uuid
+  order        Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status       DeliveryStatus @default(PENDING)
+  deliveryDate DateTime?
+  addressId    String         @unique @db.Uuid
+  address      Address        @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+
+  @@index([orderId])
+  @@map("deliveries")
+}
+
+
+model Review {
+  id        String   @id @default(uuid()) @db.Uuid
+  rating    Int      @db.SmallInt
+  comment   String?  @db.Text
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([productId])
+  @@map("reviews")
+}
+
+model Notification {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @db.Uuid
+  message     String   @db.Text
+  type        String   @db.VarChar(100)  // Type de notification, ex: "Order Update", "Message", etc.
+  metadata    Json?    // Détails spécifiques de la notification (ex: données supplémentaires)
+  read        Boolean  @default(false)   // Statut de lecture
+  createdAt   DateTime @default(now())    // Date de création
+  updatedAt   DateTime @updatedAt         // Date de dernière mise à jour
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])   // Index sur userId pour faciliter les requêtes
+  @@map("notifications")
+}
+
+
+
+model Address {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String?  @unique @db.Uuid
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country     String?  @db.VarChar(20)
+  region      String?  @db.VarChar(20)
+  city        String?  @db.VarChar(50)
+  postalCode  String?  @db.VarChar(20)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  vendorProfile VendorProfile?
+  delivery      Delivery?
+
+  @@map("address")
+}

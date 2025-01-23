@@ -1,7 +1,7 @@
-# Little Shop - Modern E-Commerce Platform
+# Smart Shop - Modern E-Commerce Platform
 
 ## Overview
-Little Shop is a modern e-commerce platform built with Next.js 14, featuring a beautiful UI and robust functionality. The platform combines cutting-edge technologies to deliver a seamless shopping experience.
+Smart Shop is a modern e-commerce platform built with Next.js 14, featuring a beautiful UI and robust functionality. The platform combines cutting-edge technologies to deliver a seamless shopping experience.
 
 ## Tech Stack
 - **Frontend Framework**: Next.js 14
