@@ -5,63 +5,89 @@ import { NextResponse } from "next/server";
 
 
 export async function POST(req: Request) {
-  const supabase = createClient();
-
   try {
-
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    const  userId  = user?.id;
+
+    if (!user?.id) {
+      return new NextResponse('Non autorisé', { status: 401 });
+    }
+
     const body = await req.json();
+    const { businessName, description, whatsappNumber, businessLogo, addressId } = body;
 
-    const { businessName, description, whatsappNumber, address } = body;
-
-    if (!userId) {
-      return new NextResponse("Non autorisé", { status: 401 });
+    // Validation des données requises
+    if (!businessName || !description || !whatsappNumber || !addressId) {
+      return new NextResponse('Données manquantes', { status: 400 });
     }
 
-    if (!businessName || !description || !whatsappNumber || !address) {
-      return new NextResponse("Tous les champs sont requis", { status: 400 });
-    }
-
-  const vendor = await prisma.user.findUnique({
-    where:{id: userId},
-    select:{roles:true}
-  })
-
-if (!vendor?.roles.includes('VENDOR')) {
-
-
-
-  await prisma.user.update({
-    where: {
-      id: userId,
-    },
-    data: {
-      roles: {
-        push: "VENDOR"
-      }
-    }
-  }); 
-}
-
-
-
-    // create=> vendor profile
-    const vendorProfile = await prisma.vendorProfile.create({
-      data: {
-        userId,
-        businessName,
-        description,
-        whatsappNumber,
-        address,
-      }
+    // Vérifier si l'utilisateur a déjà un profil vendeur
+    const existingProfile = await prisma.vendorProfile.findUnique({
+      where: { userId: user.id },
     });
 
-    
+    // Utiliser une transaction pour la création/mise à jour du profil et la gestion du rôle
+    const result = await prisma.$transaction(async (tx) => {
+      let profile;
 
-    return NextResponse.json(vendorProfile);
+      if (existingProfile) {
+        // Mise à jour du profil existant
+        profile = await tx.vendorProfile.update({
+          where: { userId: user.id },
+          data: {
+            businessName,
+            description,
+            whatsappNumber,
+            businessLogo: businessLogo || "",
+            addressId,
+          },
+        });
+      } else {
+        // Création d'un nouveau profil
+        profile = await tx.vendorProfile.create({
+          data: {
+            userId: user.id,
+            businessName,
+            description,
+            whatsappNumber,
+            businessLogo: businessLogo || "",
+            addressId,
+          },
+        });
+
+        // Ajouter le rôle VENDOR si l'utilisateur ne l'a pas déjà
+        const currentUser = await tx.user.findUnique({
+          where: { id: user.id },
+          select: { roles: true }
+        });
+
+        if (!currentUser?.roles.includes('VENDOR')) {
+          await tx.user.update({
+            where: { id: user.id },
+            data: {
+              roles: {
+                push: 'VENDOR'
+              }
+            }
+          });
+        }
+      }
+
+      return profile;
+    });
+
+    const message = existingProfile ? 'Profil vendeur mis à jour' : 'Profil vendeur créé';
+    return NextResponse.json({ message, profile: result }, { status: 200 });
+
   } catch (error) {
-    console.log('[VENDOR_PROFILE_POST]', error);
-    return new NextResponse("Erreur interne", { status: 500 });
+    console.error('Vendor profile operation error:', error);
+    return new NextResponse(
+      JSON.stringify({ 
+        error: 'Erreur lors de l\'opération sur le profil vendeur',
+        details: error instanceof Error ? error.message : 'Erreur inconnue'
+      }), 
+      { status: 500 }
+    );
   }
 }
+

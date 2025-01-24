@@ -11,8 +11,9 @@ import { cn, formatPrice, addItemToStorage } from '@/lib/utils';
 import type { ProductFeatured } from '@/app/(home)/page';
 import useTriggerUseEffect from '@/hooks/useTriggerUseEffect';
 import { ProductModal } from '@/components/products/ProductModal';
-import { Heart, ShoppingCart } from 'lucide-react';
+import { Heart, MessageCircle, ShoppingCart } from 'lucide-react';
 import { toast } from "sonner";
+import Chat from '../products/Chat';
 
 interface Location {
   lat: number;
@@ -31,6 +32,7 @@ export interface ProductStorage {
 const CardProduct = ({ product }: { product: ProductFeatured }) => {
   const [isPending, startTransition] = React.useTransition();
   const [isWished, setIsWished] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const { setTriggerUseEffect } = useTriggerUseEffect();
 
   const handleShare = async () => {
@@ -50,7 +52,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
   return (
 
 
-    <Card className='group p-1 hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
+    <Card className='group p-1 w-[300px] md:w-full hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
       <CardHeader className="p-0 rounded-md">
         <div className="relative">
           <Image
@@ -77,7 +79,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 
 
           </div>
-          <span className='absolute bottom-0 '>
+          <span className='absolute bottom-0 -left-4 '>
               <ProductModal
                 product={{
                   name: product.title,
@@ -107,6 +109,8 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         <CardTitle className="text-xl font-bold text-primary">{formatPrice(product.price)}</CardTitle>
 
+
+
         <Button
           size="sm"
           variant="secondary"
@@ -117,7 +121,25 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
           <ShoppingCart className="w-4 h-4 mr-2" />
           {isPending ? 'Adding...' : 'Add to Cart'}
         </Button>
+        
+        <div className="relative ">
+        <Button
+          variant="secondary"
+          size="icon"
+          className="h-8 w-8 bg-background/50 opacity-25 group-hover:opacity-95 absolute bottom-4 -right-14"
+          onClick={() => setShowChat(!showChat)}
+        >
+          <MessageCircle className="h-4 w-4" />
+        </Button>
+      
+      </div>
+
       </CardFooter>
+      {showChat && (
+        <div className="mt-4 p-4">
+          <Chat productId={product.id} />
+        </div>
+      )}
     </Card>
   );
 };

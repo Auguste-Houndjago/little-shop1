@@ -7,16 +7,14 @@ import Billboard from '@/components/home/Billboard';
 import type { Color, Image, Product, Size } from '@prisma/client';
 import { createClient } from '@/utils/supabase/server';
 import { fetchFeaturedProducts } from '@/lib/products';
-
+import { fetchCategoriesWithProducts } from '@/lib/categories';
 
 import ProductSlider from '@/components/products/ProductSlider';
-import ProductsCard from '@/components/products/ProductsCard';
-import SearchBar from '@/components/home/SearchBar';
-import { ProductHome } from '@/components/home/ProductHome';
-import { ProductCard } from '@/dashboard/products/Product-Card';
-import { ProductCards } from '@/components/home/ProductCards';
-import GlassmorphismCard from '@/components/products/Glass';
 
+import CategorySection from '@/components/home/CategorySection';
+import Chat from '@/components/products/Chat';
+import ChatBotComponent from '@/components/products/ChatComponent';
+import UserCard from '@/components/products/UserCard';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -26,9 +24,6 @@ export type ProductFeatured = {
 	color: Color;
 	size: Size;
 } & Product;
-
-
-
 
 const items = [
 	{
@@ -56,61 +51,44 @@ const items = [
 
 const Page = async () => {
 	const supabase = createClient();
-
-	const products: ProductFeatured[] = await fetchFeaturedProducts();
-
+	const products = await fetchFeaturedProducts();
+	const categories = await fetchCategoriesWithProducts();
 	const { data: { user } } = await supabase.auth.getUser();
-
-
-// 	let { data, error } = await supabase
-// 	.rpc('get_filtered_products', {
-// 	})
-//   if (error) console.error(error)
-//   else console.log(data)
-  
-
-let { data, error } = await supabase
-  .rpc('register_vendor', {
-    p_business_logo: "logo", 
-    p_business_name:"bussnes name", 
-    p_city:"city", 
-    p_country:"country", 
-    p_description:"description", 
-    p_postal_code:"122", 
-    p_state:"state", 
-    p_user_id:"9bff9958-5118-422d-9952-0141f74f6efe", 
-    p_whatsapp_number:"1111111111"
-  })
-if (error) console.error(error)
-else console.log(data)
-
-
-	// let { data, error } = await supabase
-	// 	.rpc('get_all_product_details')
-	// if (error) console.error(error)
-	// else console.log("get_products_details", data)
 
 	return (
 		<div className='max-w-7xl mx-auto px-6 2xl:px-0'>
-			<div className='mt-4 '>
-				{/* <ParallaxSection/> */}
-				<Billboard
-					items={items}
-				/>
+			<div className='mt-4'>
+				<Billboard items={items} />
 			</div>
+
 			<div className='flex justify-center'>
 				<h1 className='text-2xl font-bold'>
 					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
 				</h1>
-
 			</div>
 
-
+			<div className="mt-16 space-y-8">
+				<HeadingTitle title='Nos Collections' />
+				
+				{/* <div className="relative">
+					<div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-3xl" />
+					
+					<div className="relative space-y-8">
+						{categories.map((category) => (
+							<CategorySection 
+								key={category.id} 
+								category={category}
+							/>
+						))}
+					</div>
+				</div> */}
+				<UserCard/>
+<ChatBotComponent/>
+				<Chat productId='1'/>
+			</div>
 
 			<div className='flex flex-col gap-5 mt-16 mb-8'>
-
 				<HeadingTitle title='featured products' />
-
 
 				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
 					{products.slice(0, 4).map((product, productIndex) => (
@@ -121,28 +99,7 @@ else console.log(data)
 					))}
 				</div>
 
-				<GlassmorphismCard/>
-
 				<ProductSlider />
-
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-					{products.map((product, productIndex) => (
-		
-					<ProductCard product={product} key={productIndex}/>
-					))}
-				</div> 
-
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-					{products.map((product, productIndex) => (
-		
-					<ProductCards product={product} key={productIndex}/>
-					))}
-				</div> 
-
-		
-				<ProductsCard />
-
-
 			</div>
 		</div>
 	);

@@ -31,7 +31,7 @@ import Barrier from '../Barrier';
 
 import { User } from '@supabase/supabase-js';
 import { useAuth } from '@/contexts/AuthContext';
-import { ModeToggle } from '../ux/ModeToggle';
+// import { ModeToggle } from '../ux/ModeToggle';
 import { signOut } from '@/app/actions/auth';
 import { Category } from '@prisma/client';
 import Logo from '../Logo';
@@ -162,7 +162,7 @@ const Navbar = ({
 
         <div className='flex items-center gap-x-2  md:gap-4 ml-auto'>
 
-          <ModeToggle />
+          {/* <ModeToggle /> */}
           <Cart />
           <NavListMobile
             user={initialUser}

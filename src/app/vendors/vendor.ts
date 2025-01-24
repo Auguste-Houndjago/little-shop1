@@ -84,7 +84,7 @@ export async function getVendorProducts(vendorId: string) {
 // Récupérer les statistiques du vendeur
 export async function getVendorStats(vendorId: string) {
   try {
-    // Récupérer les produits actifs
+
     const activeProducts = await prisma.product.count({
       where: {
         userId: vendorId,
@@ -149,6 +149,184 @@ export async function getVendorStats(vendorId: string) {
       completedOrders: 0,
       pendingOrders: 0,
     };
+  }
+}
+
+// Récupérer les produits avec leurs tags
+export async function getVendorProductsWithTags(vendorId: string) {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        userId: vendorId,
+        isArchived: false,
+      },
+      include: {
+        images: true,
+        tags: {
+          include: {
+            _count: {
+              select: {
+                certifiedBy: true
+              }
+            }
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return products.map(product => ({
+      id: product.id,
+      title: product.title,
+      images: product.images,
+      tags: product.tags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        _count: {
+          certifiedBy: tag._count.certifiedBy
+        }
+      }))
+    }));
+  } catch (error) {
+    console.error("Error fetching vendor products with tags:", error);
+    return [];
+  }
+}
+
+// Récupérer tous les produits du vendeur pour la gestion des tags
+export async function getVendorProductsForTagging(vendorId: string) {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        userId: vendorId,
+        isArchived: false,
+      },
+      include: {
+        images: true,
+        tags: true, 
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return products;
+  } catch (error) {
+    console.error("Error fetching vendor products:", error);
+    return [];
+  }
+}
+
+// Ajouter un tag à un produit
+export async function addTagToProduct(productId: string, tagId: string) {
+  try {
+    return await prisma.product.update({
+      where: { id: productId },
+      data: {
+        tags: {
+          connect: { id: tagId }
+        }
+      },
+      include: {
+        tags: true
+      }
+    });
+  } catch (error) {
+    console.error("Error adding tag to product:", error);
+    throw error;
+  }
+}
+
+// Retirer un tag d'un produit
+export async function removeTagFromProduct(productId: string, tagId: string) {
+  try {
+    return await prisma.product.update({
+      where: { id: productId },
+      data: {
+        tags: {
+          disconnect: { id: tagId }
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Error removing tag from product:", error);
+    throw error;
+  }
+}
+
+// Récupérer tous les tags disponibles
+export async function getAllTags() {
+  try {
+    return await prisma.tag.findMany({
+      orderBy: {
+        name: 'asc'
+      },
+      include: {
+        _count: {
+          select: {
+            products: true
+          }
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching tags:", error);
+    return [];
+  }
+}
+
+// Récupérer les tags d'un produit spécifique
+export async function getProductTags(productId: string) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        tags: true
+      }
+    });
+    return product?.tags || [];
+  } catch (error) {
+    console.error("Error fetching product tags:", error);
+    return [];
+  }
+}
+
+// Créer un nouveau tag
+export async function createTag(data: {
+  name: string;
+  category: TagCategory;
+  description?: string;
+  createdById: string;
+}) {
+  try {
+    return await prisma.tag.create({
+      data
+    });
+  } catch (error) {
+    console.error("Error creating tag:", error);
+    throw error;
+  }
+}
+
+// Assigner un tag à un produit
+export async function assignTagToProduct(productId: string, tagId: string) {
+  try {
+    return await prisma.product.update({
+      where: { id: productId },
+      data: {
+        tags: {
+          connect: { id: tagId }
+        }
+      },
+      include: {
+        tags: true
+      }
+    });
+  } catch (error) {
+    console.error("Error assigning tag to product:", error);
+    throw error;
   }
 }
 

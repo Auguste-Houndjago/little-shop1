@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -28,6 +27,15 @@ enum NotificationType {
   SYSTEM
 }
 
+enum TagCategory {
+  PRODUCT_QUALITY    // Qualité du produit
+  SHIPPING_SERVICE   // Service de livraison
+  CUSTOMER_SERVICE   // Service client
+  PRICE_VALUE       // Rapport qualité-prix
+  AUTHENTICITY      // Authenticité
+  CUSTOM            // Tags personnalisés
+}
+
 model User {
   id         String   @id @default(uuid()) @db.Uuid
   email      String   @unique
@@ -46,6 +54,9 @@ model User {
   vendorProfile VendorProfile?   
   notifications Notification[]   
   address       Address?    
+
+  tagsCreated   Tag[]   @relation("UserCreatedTags")  // Tags créés par l'utilisateur
+  tagsCertified UserTag[]  // Tags certifiés par l'utilisateur (ajout de la relation inverse)
 
   @@map("users")
 }
@@ -69,8 +80,6 @@ model VendorProfile {
   @@map("vendor_profiles")
 }
 
-
-
 model Product {
   id          String   @id @default(uuid()) @db.Uuid
   title       String   @db.VarChar(100)
@@ -81,7 +90,7 @@ model Product {
   stock       Int      @default(0)
   images      Image[] 
   orderItems  OrderItem[] 
-  reviews     Review[] 
+  reviews     Review[]
   whatsappLink   String?
   localisation Json? 
 
@@ -94,7 +103,8 @@ model Product {
   colorId    String   @db.Uuid
   size       Size     @relation(fields: [sizeId], references: [id])
   sizeId     String   @db.Uuid
-  
+  tags      Tag[]     // Ajout de la relation avec les tags
+
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
@@ -198,21 +208,79 @@ model Delivery {
   @@map("deliveries")
 }
 
-
 model Review {
   id        String   @id @default(uuid()) @db.Uuid
   rating    Int      @db.SmallInt
   comment   String?  @db.Text
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productId String   @db.Uuid
+  productId String   @db.Uuid  // Assurez-vous que c'est bien @db.Uuid
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now()) @map("created_at")
+  tags      ReviewTag[]
 
   @@index([userId])
   @@index([productId])
   @@map("reviews")
 }
+
+model Tag {
+  id          String      @id @default(uuid()) @db.Uuid
+  name        String      @unique @db.Text
+  category    TagCategory @default(CUSTOM)
+  description String?     @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relations
+  createdById String?     @db.Uuid    
+  createdBy   User?       @relation("UserCreatedTags", fields: [createdById], references: [id], onDelete: Cascade)
+  
+  // Statistiques
+  usageCount  Int         @default(0)
+  
+  // Relations avec les reviews et utilisateurs
+  reviews     ReviewTag[]
+  certifiedBy UserTag[]
+  products    Product[]   // Relation many-to-many avec les produits
+
+  @@index([category])
+  @@index([usageCount])
+  @@map("tags")
+}
+
+model ReviewTag {
+  reviewId    String   @db.Uuid
+  tagId       String   @db.Uuid
+  createdAt   DateTime @default(now())
+  
+  relevanceScore Int    @default(0)
+
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([reviewId, tagId])
+  @@index([relevanceScore])
+  @@map("review_tags")
+}
+
+model UserTag {
+  userId    String   @db.Uuid
+  tagId     String   @db.Uuid
+  createdAt DateTime @default(now())
+  
+  // Indique si l'utilisateur certifie ce tag comme pertinent
+  certified Boolean  @default(true)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([userId, tagId])
+  @@index([certified])
+  @@map("user_tags")
+}
+
 
 model Notification {
   id          String   @id @default(uuid()) @db.Uuid

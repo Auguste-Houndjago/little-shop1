@@ -42,10 +42,11 @@ export function ProductModal({ product }: ProductModalProps) {
           <span className="group-hover/modal-btn:translate-x-8 text-center transition-all duration-500">
             <Eye size={16} />
           </span>
-          <div className="-translate-x-8 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition-all duration-500 text-white">
-            <Info size={16} />
+          <div className="-translate-x-8 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition-all duration-500 text-black">
+            {/* <Info size={16} /> */}
           </div>
         </ModalTrigger>
+        
         <ModalBody>
           <ModalContent className=" bg-[url('/images/tactile_noise.png')] bg-repeat bg-x-0 bg-y-0 h-screen from-red-500 via-red-900/90 to-neutral-red/70 backdrop-blur-xl border border-white/10 shadow-2xl">
             {/* Decorative circles */}
@@ -97,7 +98,7 @@ export function ProductModal({ product }: ProductModalProps) {
 
                   <div className="flex flex-col gap-4">
                     {product.whatsappLink && (
-                      <Button variant="outline" className="bg-white/10 border-white/20 hover:bg-white/20 text-white w-full">
+                      <Button variant="outline"  className="  bg-white/10 border-white/20 hover:bg-white/20 text-white w-1/2">
                         <a
                           href={`https://wa.me/${product.whatsappLink}`}
                           target="_blank"
@@ -119,8 +120,8 @@ export function ProductModal({ product }: ProductModalProps) {
                           className="flex items-center justify-center gap-2"
                         >
                           <MapPin className="w-4 h-4" />
-                          <span>
-                            <span className="hidden md:inline">Voir sur</span> Google Maps
+                          <span className='hidden lg:flex'>
+                           Google Maps
                           </span>
                         </a>
                       </Button>
@@ -133,6 +134,8 @@ export function ProductModal({ product }: ProductModalProps) {
                 Ajouter
                 <ShoppingBag className="w-5 h-5" />
               </Button>
+
+
             </div>
           </ModalContent>
         </ModalBody>

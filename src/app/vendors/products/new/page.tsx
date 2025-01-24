@@ -7,6 +7,7 @@ export default function page() {
     <div>
       <h1> cree les produits </h1>
     <CreateProduct/>
+    
     </div>
   )
 }

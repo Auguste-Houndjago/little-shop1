@@ -5,7 +5,10 @@ import ProductGrid from "../ui/ProductGrid"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Package, Archive, AlertCircle } from "lucide-react"
 
+
+
 export default async function ProductsPage() {
+
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -66,6 +69,8 @@ export default async function ProductsPage() {
           <ProductGrid products={lowStockProducts} />
         </TabsContent>
       </Tabs>
+
+
     </div>
   )
 } 

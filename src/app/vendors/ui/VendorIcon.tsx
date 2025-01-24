@@ -17,15 +17,18 @@ interface VendorIconProps {
 
 export default function VendorIcon({ businessName, businessLogo, isVerified, address }: VendorIconProps) {
   return (
-    <div className="text-center">
+    <div 
+
+      className="text-center"
+    >
       <div className="relative inline-block">
-        <div className="relative">
+        <div className="relative p-3 bg-white rounded-full shadow-md">
           <Image
             src={businessLogo || "/placeholder.svg"}
             alt={businessName}
             width={128}
             height={128}
-            className="h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 rounded-full border-4 border-background shadow-xl"
+            className="h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 rounded-full border-4 border-background ] shadow-[0px_0px_10px_rgba(0,0,0,0.3)]"
           />
           {isVerified && (
             <Badge className="absolute -right-2 -top-2 h-8 w-8 rounded-full">

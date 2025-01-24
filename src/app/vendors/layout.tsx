@@ -25,11 +25,12 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<VendorProvider>
-			<div className="h-full relative">
-				<div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-gray-100">
-					<VendorSidebar />
-				</div>
-				<main className="md:pl-72">
+			<div className="flex h-screen">
+				{/* Sidebar */}
+				<VendorSidebar />
+				
+				{/* Main Content */}
+				<div className="flex-1 m-2 rounded-md overflow-auto">
 					<VendorHeader 
 						vendor={vendorData.vendor}
 						unreadNotifications={vendorData.unreadNotifications}
@@ -37,7 +38,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 					<div className="p-8">
 						{children}
 					</div>
-				</main>
+				</div>
 			</div>
 		</VendorProvider>
 	);

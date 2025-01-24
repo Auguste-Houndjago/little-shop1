@@ -120,8 +120,6 @@ select * from get_all_vendor_profiles();
 
 
 
-
-
 enum Role {
   CUSTOMER
   VENDOR

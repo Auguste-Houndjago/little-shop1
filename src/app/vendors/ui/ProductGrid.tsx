@@ -44,7 +44,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
         <Link href="/vendors/products/new">
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
-            Nouveau Produit
+           
           </Button>
         </Link>
       </div>

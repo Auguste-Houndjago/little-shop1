@@ -9,3 +9,82 @@ npm i @react-three/drei@9.115.0 @react-three/fiber@8.17.10 three three-react-obj
 # DATABASE_URL="postgresql://postgres.hahxjbtuwtssinoeazoh:Realiteme1+!@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
 
 # DATABASE_URL="postgresql://postgres.hahxjbtuwtssinoeazoh:Realiteme1+!@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+
+
+
+
+
+
+chat.tsx source 
+
+https://uiverse.io/Cobp/dangerous-dolphin-47
+
+https://uiverse.io/m1her/rotten-jellyfish-93 // check avec effet rebon de bg color
+
+https://uiverse.io/Tsiangana/hot-panther-73 // magnifique check heart
+
+https://uiverse.io/kennyotsu-monochromia/tender-lizard-64 // options button 
+
+https://uiverse.io/Darlley/tall-ape-86 // box card checked  
+https://uiverse.io/Yaya12085/silent-liger-85 // similar option card
+
+https://uiverse.io/elijahgummer/hard-liger-45 // signed component 
+
+https://uiverse.io/checkboxes?page=6 // options components 
+
+https://uiverse.io/codebykay101/ugly-lion-23 // hover glass card
+
+https://uiverse.io/ElSombrero2/tricky-robin-67 // hover card flip arriere
+
+https://uiverse.io/alexruix/tame-fly-42 // loader progress 
+
+https://uiverse.io/vinodjangid07/good-donkey-28 // message component 
+
+https://uiverse.io/eslam-hany/selfish-bobcat-73 // book 
+
+https://uiverse.io/Pradeepsaranbishnoi/heavy-dragonfly-92 // item choises
+
+
+https://uiverse.io/geekgao/little-mole-12 // product create options 
+
+https://uiverse.io/Na3ar-17/terrible-gecko-91 // option modal 
+
+https://uiverse.io/vinodjangid07/tricky-bullfrog-41 // notification
+
+https://uiverse.io/ozgeozkaraa01/sharp-rattlesnake-74
+https://uiverse.io/Maximinodotpy/thin-sheep-13 // for input
+
+https://uiverse.io/vinodjangid07/popular-owl-27 // shiping image 
+
+https://uiverse.io/neerajbaniwal/hungry-mule-59 // beautiful text
+
+https://uiverse.io/JkHuger/ugly-shrimp-50 // loader
+
+https://uiverse.io/vinodjangid07/light-cobra-86 // delete animation 
+
+https://uiverse.io/mRcOol7/stupid-warthog-90 //delete color 
+
+https://uiverse.io/vinodjangid07/lazy-dog-51 // deleted animation 
+
+https://uiverse.io/vinodjangid07/neat-monkey-68 // archives 
+
+https://uiverse.io/Shoh2008/yellow-dolphin-16 // 404 animation page component
+
+https://uiverse.io/G4b413l/massive-vampirebat-17 //...same 
+
+https://uiverse.io/SelfMadeSystem/giant-bobcat-72 // black blob 
+
+https://uiverse.io/Ashon-G/unlucky-crab-35 // paying and attente
+
+
+https://uiverse.io/successfulfadwa/curly-impala-12 // personal boit 
+
+
+
+https://uiverse.io/catraco/orange-insect-24 // loader
+
+
+
+
+

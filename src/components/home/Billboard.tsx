@@ -27,7 +27,7 @@ interface BillboardProps {
 
 const Billboard = ({ items }: BillboardProps) => {
   return (
-    <div className="w-full ">
+    <div className="w-full  ">
       <Carousel
         opts={{
           align: "start",
@@ -38,13 +38,13 @@ const Billboard = ({ items }: BillboardProps) => {
         <CarouselContent>
           {items.map((item, index) => (
             <CarouselItem key={index} className="relative group ">
-              <div className="relative aspect-[2.5/1] md:h-full h-[300px]  w-full overflow-hidden">
+              <div className="relative aspect-[2.5/1] md:h-full h-[300px]  rounded-md w-full overflow-hidden">
                 <Image
                   src={item.img}
                   alt={item.title}
                   fill
         
-                  className="object-cover animate-gentle-zoom transform transition-transform transition-700 scale-100 group-hover:scale-105"
+                  className="  object-cover animate-gentle-zoom transform transition-transform transition-700 scale-100 group-hover:scale-105"
                   priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />

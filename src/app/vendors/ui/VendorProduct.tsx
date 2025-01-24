@@ -17,12 +17,12 @@ export default function VendorProduct({
   imageUrl = "https://images.thenorthface.com/is/image/TheNorthFace/NF0A4R2W_70M_hero",
 }: VendorProductProps) {
   return (
-    <Card className="relative w-48 h-48 group overflow-hidden rounded-3xl">
+    <Card className="relative w-48 border-2 border-secondary/20 h-48 group overflow-hidden rounded-3xl">
       <Image
         src={imageUrl || "/placeholder.svg"}
         alt={name}
         fill
-        className="object-cover transition-transform group-hover:scale-110"
+        className="object-contain transition-transform group-hover:scale-110"
       />
 
       {/* Gradient Overlay */}
@@ -41,11 +41,12 @@ export default function VendorProduct({
           </Button>
         </div>
 
-        {/* Bottom Section */}
-        <div className="space-y-1">
-          <h3 className="font-medium text-white">{name}</h3>
-          <p className="text-lg font-semibold text-white">${price.toFixed(2)}</p>
-        </div>
+        {/* Bottom Section a mettre en bg-blur */}
+        
+        <div className="absolute bottom-0 left-0 right-0 rounded-3xl m-1 space-y-1 p-2 backdrop-blur-sm bg-white/10">
+  <h3 className="font-medium text-white">{name}</h3>
+  <p className="text-lg font-semibold text-white">${price.toFixed(2)}</p>
+</div>
       </CardContent>
     </Card>
   )
