@@ -35,6 +35,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { signOut } from '@/app/actions/auth';
 import { Category } from '@prisma/client';
 import Logo from '../Logo';
+import SearchBar from '../ux/search-bar';
 
 
 
@@ -162,7 +163,7 @@ const Navbar = ({
 
         <div className='flex items-center gap-x-2  md:gap-4 ml-auto'>
 
-          {/* <ModeToggle /> */}
+         <SearchBar/>
           <Cart />
           <NavListMobile
             user={initialUser}
@@ -212,7 +213,7 @@ const Navbar = ({
 
                 <DropdownMenuItem>
                   <Link
-                    href='/profile'
+                    href='/my-page'
                     className='w-full flex items-center'
                   >
                     Profile

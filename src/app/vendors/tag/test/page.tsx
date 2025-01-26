@@ -2,22 +2,24 @@
 import { useState, useEffect } from 'react'
 import TagCreator from '../../components/TagCreator'
 import { toast } from 'sonner'
+import ProductTagManager from '../../components/ProductTagManager'
 
 export default function TestTagPage() {
   const [tags, setTags] = useState<any[]>([])
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
 
-  // Charger les tags existants
-  useEffect(() => {
-    const loadTags = async () => {
-      try {
-        const response = await fetch('/api/vendor/tags')
-        if (!response.ok) throw new Error('Failed to fetch tags')
-        const data = await response.json()
-        setTags(data)
-      } catch (error) {
-        toast.error("Erreur lors du chargement des tags")
-      }
+  const loadTags = async () => {
+    try {
+      const response = await fetch('/api/vendor/tags')
+      if (!response.ok) throw new Error('Failed to fetch tags')
+      const data = await response.json()
+      setTags(data)
+    } catch (error) {
+      toast.error("Erreur lors du chargement des tags")
     }
+  }
+
+  useEffect(() => {
     loadTags()
   }, [])
 
@@ -25,7 +27,20 @@ export default function TestTagPage() {
     <div className="p-6 space-y-6">
       <div className="max-w-md">
         <h2 className="text-lg font-semibold mb-4">Créer un nouveau tag</h2>
-        <TagCreator />
+        <TagCreator onSuccess={loadTags} />
+      </div>
+
+      <div className="max-w-md">
+        <h2 className="text-lg font-semibold mb-4">Tester l'assignation de tags</h2>
+        <input 
+          type="text"
+          placeholder="Entrez l'ID du produit"
+          className="w-full p-2 border rounded mb-4"
+          onChange={(e) => setSelectedProductId(e.target.value)}
+        />
+        {selectedProductId && (
+          <ProductTagManager productId={selectedProductId} />
+        )}
       </div>
 
       <div>

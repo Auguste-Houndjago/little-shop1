@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { TagCategory } from "@prisma/client";
 
 // Récupérer les données du vendeur
 export async function getVendorData(userId: string) {
@@ -327,6 +328,203 @@ export async function assignTagToProduct(productId: string, tagId: string) {
   } catch (error) {
     console.error("Error assigning tag to product:", error);
     throw error;
+  }
+}
+
+// Récupérer les tags d'un produit avec le nombre de certifications
+export async function getProductTagsWithCertifications(productId: string) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        tags: {
+          include: {
+            _count: {
+              select: {
+                certifiedBy: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    return product?.tags.map(tag => ({
+      id: tag.id,
+      name: tag.name,
+      _count: {
+        certifiedBy: tag._count.certifiedBy
+      }
+    })) || [];
+  } catch (error) {
+    console.error("Error fetching product tags:", error);
+    return [];
+  }
+}
+
+// Vérifier si un utilisateur a certifié un tag
+export async function getUserTagCertifications(userId: string, productId: string) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        tags: {
+          include: {
+            certifiedBy: {
+              where: {
+                userId: userId
+              }
+            }
+          }
+        }
+      }
+    });
+
+    return new Set(
+      product?.tags
+        .filter(tag => tag.certifiedBy.length > 0)
+        .map(tag => tag.id) || []
+    );
+  } catch (error) {
+    console.error("Error fetching user certifications:", error);
+    return new Set();
+  }
+}
+
+// Certifier ou décertifier un tag
+export async function toggleTagCertification(userId: string, tagId: string) {
+  try {
+    const existingCertification = await prisma.userTag.findFirst({
+      where: {
+        userId,
+        tagId
+      }
+    });
+
+    if (existingCertification) {
+      await prisma.userTag.delete({
+        where: {
+          userId_tagId: {
+            userId: userId,
+            tagId: tagId
+          }
+        }
+      });
+      return false; // Tag décertifié
+    } else {
+      await prisma.userTag.create({
+        data: {
+          userId,
+          tagId
+        }
+      });
+      return true; // Tag certifié
+    }
+  } catch (error) {
+    console.error("Error toggling tag certification:", error);
+    throw error;
+  }
+}
+
+// Récupérer les reviews et tags d'un produit
+export async function getProductReviewsAndTags(productId: string) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        reviews: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                email: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: 'desc'
+          }
+        },
+        tags: {
+          include: {
+            _count: {
+              select: {
+                certifiedBy: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    if (!product) {
+      console.error(`Product not found: ${productId}`);
+      return null;
+    }
+
+    console.log('Product found:', {
+      reviewCount: product.reviews.length,
+      tagCount: product.tags.length
+    });
+
+    return {
+      reviews: product.reviews.map(review => ({
+        id: review.id,
+        message: review.comment,
+        createdAt: review.createdAt,
+        user: {
+          name: review.user.name || review.user.email,
+          email: review.user.email
+        }
+      })),
+      tags: product.tags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        _count: {
+          certifiedBy: tag._count.certifiedBy
+        }
+      }))
+    };
+  } catch (error) {
+    console.error("Error fetching product reviews and tags:", error);
+    return null;
+  }
+}
+
+// Fonction simple pour récupérer les tags d'un produit
+export async function getSimpleProductTags(productId: string) {
+  try {
+    console.log("Fetching tags for product:", productId);
+    
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      select: {
+        tags: {
+          select: {
+            id: true,
+            name: true,
+            category: true,
+            _count: {
+              select: {
+                certifiedBy: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    console.log("Found product with tags:", product);
+    
+    if (!product) {
+      console.log("No product found with ID:", productId);
+      return [];
+    }
+
+    return product.tags;
+  } catch (error) {
+    console.error("Error in getSimpleProductTags:", error);
+    return [];
   }
 }
 

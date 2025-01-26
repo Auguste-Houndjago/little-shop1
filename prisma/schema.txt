@@ -1,0 +1,325 @@
+    generator client {
+      provider = "prisma-client-js"
+    }
+
+    datasource db {
+      provider = "postgresql"
+      url      = env("DATABASE_URL")
+    }
+
+    enum Role {
+      CUSTOMER
+      VENDOR
+      ADMIN
+    }
+
+    enum DeliveryStatus {
+      PENDING
+      PROCESSING
+      COMPLETED
+      CANCELLED
+    }
+
+    enum NotificationType {
+      ORDER_STATUS
+      REVIEW
+      PRODUCT_UPDATE
+      SYSTEM
+    }
+
+    enum TagCategory {
+      PRODUCT_QUALITY    // Qualité du produit
+      SHIPPING_SERVICE   // Service de livraison
+      CUSTOMER_SERVICE   // Service client
+      PRICE_VALUE       // Rapport qualité-prix
+      AUTHENTICITY      // Authenticité
+      CUSTOM            // Tags personnalisés
+    }
+
+    model User {
+      id         String   @id @default(uuid()) @db.Uuid
+      email      String   @unique
+      name       String?  @db.VarChar(100)
+      avatar_url String?  @db.Text
+      phone      String?  @db.VarChar(20)
+      roles      Role[]   @default([CUSTOMER])
+      createdAt  DateTime @default(now()) @map("created_at")
+      updatedAt  DateTime @updatedAt @map("updated_at")
+
+      // Relations
+      products      Product[] 
+      orders        Order[]   
+      reviews       Review[]   
+      wishlists     Wishlist[]   
+      vendorProfile VendorProfile?   
+      notifications Notification[]   
+      address       Address?    
+
+      tagsCreated   Tag[]   @relation("UserCreatedTags")  // Tags créés par l'utilisateur
+      tagsCertified UserTag[]  // Tags certifiés par l'utilisateur (ajout de la relation inverse)
+
+      @@map("users")
+    }
+
+    model VendorProfile {
+      id             String   @id @default(uuid()) @db.Uuid
+      userId         String   @unique @db.Uuid
+      user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      businessName   String?  @db.VarChar
+      businessLogo   String?  @db.VarChar
+      description    String?  @db.VarChar
+      whatsappNumber String   @db.VarChar
+      dateOfBirth    DateTime? @db.Timestamp
+      addressId      String?  @unique @db.Uuid
+      address        Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+      isVerified     Boolean  @default(false)
+      createdAt      DateTime @default(now()) @map("created_at")
+      updatedAt      DateTime @updatedAt @map("updated_at")
+
+      @@index([userId])
+      @@map("vendor_profiles")
+    }
+
+    model Product {
+      id          String   @id @default(uuid()) @db.Uuid
+      title       String   @db.VarChar(100)
+      description String?  @db.VarChar(300)
+      price       Float    
+      isFeatured  Boolean  @default(false)
+      isArchived  Boolean  @default(false)
+      stock       Int      @default(0)
+      images      Image[] 
+      orderItems  OrderItem[] 
+      reviews     Review[]
+      whatsappLink   String?
+      localisation Json? 
+
+      // Relations
+      userId     String   @db.Uuid
+      user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      category   Category @relation(fields: [categoryId], references: [id])
+      categoryId String   @db.Uuid
+      color      Color    @relation(fields: [colorId], references: [id])
+      colorId    String   @db.Uuid
+      size       Size     @relation(fields: [sizeId], references: [id])
+      sizeId     String   @db.Uuid
+      tags      Tag[]     // Ajout de la relation avec les tags
+
+      createdAt  DateTime @default(now()) @map("created_at")
+      updatedAt  DateTime @updatedAt @map("updated_at")
+
+      wishlists  Wishlist[]
+      
+      @@index([userId])
+      @@index([categoryId])
+      @@map("products")
+    }
+
+    model Color {
+      id        String    @id @default(uuid()) @db.Uuid
+      name      String    @unique @db.VarChar(100)
+      color     String    @unique @db.VarChar(10)
+      products  Product[]
+      createdAt DateTime  @default(now()) @map("created_at")
+      updatedAt DateTime  @updatedAt @map("updated_at")
+
+      @@map("colors")
+    }
+
+    model Size {
+      id        String    @id @default(uuid()) @db.Uuid
+      name      String    @unique @db.VarChar(100)
+      value     String    @unique @db.VarChar(10)
+      products  Product[]
+      createdAt DateTime  @default(now()) @map("created_at")
+      updatedAt DateTime  @updatedAt @map("updated_at")
+
+      @@map("sizes")
+    }
+
+    model Image {
+      id        String   @id @default(uuid()) @db.Uuid
+      url       String   @db.Text
+      product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+      productId String   @db.Uuid
+      createdAt DateTime @default(now()) @map("created_at")
+      updatedAt DateTime @updatedAt @map("updated_at")
+
+      @@index([productId])
+      @@map("images")
+    }
+
+    model Category {
+      id        String    @id @default(uuid()) @db.Uuid
+      name      String    @unique @db.VarChar(100)
+      billboard String    @db.Text
+      title     String    @db.VarChar(50)
+      products  Product[]
+      createdAt DateTime  @default(now()) @map("created_at")
+      updatedAt DateTime  @updatedAt @map("updated_at")
+
+      @@map("categories")
+    }
+
+    model Order {
+      id         String      @id @default(uuid()) @db.Uuid
+      amount     Float    
+      total      Int
+      isPaid     Boolean     @default(false)
+      orderItems OrderItem[] 
+      delivery   Delivery?
+      userId     String      @db.Uuid
+      user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+      createdAt  DateTime    @default(now()) @map("created_at")
+      updatedAt  DateTime    @updatedAt @map("updated_at")
+
+      @@index([userId])
+      @@map("orders")
+    }
+
+    model OrderItem {
+      id        String   @id @default(uuid()) @db.Uuid
+      amount    Float    
+      total     Int
+      order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+      orderId   String   @db.Uuid
+      product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+      productId String   @db.Uuid
+      createdAt DateTime @default(now()) @map("created_at")
+      updatedAt DateTime @updatedAt @map("updated_at")
+
+      @@index([orderId])
+      @@index([productId])
+      @@map("order_items")
+    }
+
+    model Delivery {
+      id           String         @id @default(uuid()) @db.Uuid
+      orderId      String         @unique @db.Uuid
+      order        Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+      status       DeliveryStatus @default(PENDING)
+      deliveryDate DateTime?
+      addressId    String         @unique @db.Uuid
+      address      Address        @relation(fields: [addressId], references: [id], onDelete: Cascade)
+      createdAt    DateTime       @default(now()) @map("created_at")
+      updatedAt    DateTime       @updatedAt @map("updated_at")
+
+      @@index([orderId])
+      @@map("deliveries")
+    }
+
+    model Review {
+      id        String   @id @default(uuid()) @db.Uuid
+      rating    Int      @db.SmallInt
+      comment   String?  @db.Text
+      userId    String   @db.Uuid
+      user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+      productId String   @db.Uuid  // Assurez-vous que c'est bien @db.Uuid
+      product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+      createdAt DateTime @default(now()) @map("created_at")
+      tags      ReviewTag[]
+
+      @@index([userId])
+      @@index([productId])
+      @@map("reviews")
+    }
+
+    model Tag {
+      id          String      @id @default(uuid()) @db.Uuid
+      name        String      @unique @db.Text
+      category    TagCategory @default(CUSTOM)
+      description String?     @db.Text
+      createdAt   DateTime    @default(now())
+      updatedAt   DateTime    @updatedAt
+      
+      // Relations
+      createdById String?     @db.Uuid    
+      createdBy   User?       @relation("UserCreatedTags", fields: [createdById], references: [id], onDelete: Cascade)
+      
+      // Statistiques
+      usageCount  Int         @default(0)
+      
+      // Relations avec les reviews et utilisateurs
+      reviews     ReviewTag[]
+      certifiedBy UserTag[]
+      products    Product[]   // Relation many-to-many avec les produits
+
+      @@index([category])
+      @@index([usageCount])
+      @@map("tags")
+    }
+
+    model ReviewTag {
+      reviewId    String   @db.Uuid
+      tagId       String   @db.Uuid
+      createdAt   DateTime @default(now())
+      
+      relevanceScore Int    @default(0)
+
+      review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+      tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+      @@id([reviewId, tagId])
+      @@index([relevanceScore])
+      @@map("review_tags")
+    }
+
+    model UserTag {
+      userId    String   @db.Uuid
+      tagId     String   @db.Uuid
+      createdAt DateTime @default(now())
+      
+      // Indique si l'utilisateur certifie ce tag comme pertinent
+      certified Boolean  @default(true)
+
+      user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+      tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+      @@id([userId, tagId])
+      @@index([certified])
+      @@map("user_tags")
+    }
+
+
+    model Notification {
+      id          String   @id @default(uuid()) @db.Uuid
+      userId      String   @db.Uuid
+      message     String   @db.Text
+      type        String   @db.VarChar(100)  // Type de notification, ex: "Order Update", "Message", etc.
+      metadata    Json?    // Détails spécifiques de la notification (ex: données supplémentaires)
+      read        Boolean  @default(false)   // Statut de lecture
+      createdAt   DateTime @default(now())   
+      updatedAt   DateTime @updatedAt      
+
+      user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+      @@index([userId])   
+      @@map("notifications")
+    }
+
+    model Wishlist {
+      id       String    @id @default(uuid()) @db.Uuid
+      userId   String    @db.Uuid
+      user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+      products Product[]
+      createdAt DateTime         @default(now()) @map("created_at")
+      @@map("wishlists")
+    }
+
+    model Address {
+      id          String   @id @default(uuid()) @db.Uuid
+      userId      String?  @unique @db.Uuid
+      user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+      country     String?  @db.VarChar(20)
+      region      String?  @db.VarChar(20)
+      city        String?  @db.VarChar(50)
+      postalCode  String?  @db.VarChar(20)
+      createdAt   DateTime @default(now()) @map("created_at")
+      updatedAt   DateTime @updatedAt @map("updated_at")
+
+      vendorProfile VendorProfile?
+      delivery      Delivery?
+
+      @@map("address")
+    }

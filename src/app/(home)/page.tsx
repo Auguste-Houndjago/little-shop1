@@ -11,10 +11,9 @@ import { fetchCategoriesWithProducts } from '@/lib/categories';
 
 import ProductSlider from '@/components/products/ProductSlider';
 
-import CategorySection from '@/components/home/CategorySection';
-import Chat from '@/components/products/Chat';
-import ChatBotComponent from '@/components/products/ChatComponent';
-import UserCard from '@/components/products/UserCard';
+import RevealWrapper from '@/components/animations/RevealWrapper';
+import GalleryParallax from '@/components/3d/galery/GalleryParallax';
+import CollectionsSection from '@/components/home/CollectionsSection';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -69,23 +68,17 @@ const Page = async () => {
 
 			<div className="mt-16 space-y-8">
 				<HeadingTitle title='Nos Collections' />
-				
-				{/* <div className="relative">
-					<div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-3xl" />
-					
-					<div className="relative space-y-8">
-						{categories.map((category) => (
-							<CategorySection 
-								key={category.id} 
-								category={category}
-							/>
-						))}
-					</div>
-				</div> */}
-				<UserCard/>
-<ChatBotComponent/>
-				<Chat productId='1'/>
+				<CollectionsSection />
+
 			</div>
+			{/* <div className='h-[400px]'>
+			<RevealWrapper delay={0}>
+<GalleryParallax/>
+			</RevealWrapper>
+
+		
+			</div> */}
+
 
 			<div className='flex flex-col gap-5 mt-16 mb-8'>
 				<HeadingTitle title='featured products' />

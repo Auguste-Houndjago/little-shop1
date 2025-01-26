@@ -1,0 +1,31 @@
+fetch('/api/tags', {
+  method: 'POST',
+  body: JSON.stringify({ 
+    name: 'Summer Collection', 
+    category: 'CUSTOM', 
+    description: 'Trendy summer items' 
+  })
+})
+
+
+fetch('/api/tags', {
+  method: 'PUT',
+  body: JSON.stringify({ 
+    productId: 'product-uuid', 
+    tagIds: ['tag-uuid-1', 'tag-uuid-2'] 
+  })
+})
+
+fetch('/api/tags', {
+  method: 'PATCH',
+  body: JSON.stringify({ 
+    title: 'Summer Shirt',
+    description: 'Lightweight cotton shirt',
+    price: 29.99,
+    userId: 'user-uuid',
+    categoryId: 'category-uuid',
+    colorId: 'color-uuid',
+    sizeId: 'size-uuid',
+    tagIds: ['tag-uuid-1', 'tag-uuid-2']
+  })
+})

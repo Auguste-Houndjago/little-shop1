@@ -1,9 +1,13 @@
 "use client"
+
 import { Heart, Share2 } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { createClient } from '@/utils/supabase/client';
+import TagsView from './TagsView';
+
+
 
 interface Review {
   id: string;
@@ -22,9 +26,6 @@ interface WishlistStatus {
 interface Tag {
   id: string;
   name: string;
-  _count?: {
-    certifiedBy: number;
-  }
 }
 
 const Chat = ({ productId }: { productId: string }) => {
@@ -36,124 +37,25 @@ const Chat = ({ productId }: { productId: string }) => {
   const router = useRouter();
   const supabase = createClient();
 
-  useEffect(() => {
-    loadReviews();
-    checkWishlistStatus();
-    loadProductTags();
-  }, [productId]);
-
-  const loadReviews = async () => {
-    const { data: reviews, error } = await supabase
-      .from('Review')
-      .select(`
-        id,
-        message,
-        createdAt,
-        user:userId (
-          name,
-          email
-        )
-      `)
-      .eq('productId', productId)
-      .order('createdAt', { ascending: false });
-
-    if (error) {
-      toast.error("Erreur lors du chargement des commentaires");
-      return;
-    }
-
-    setReviews(reviews?.map(review => ({
-      id: review.id,
-      message: review.message,
-      createdAt: review.createdAt,
-      user: {
-        name: review.user[0].name,
-        email: review.user[0].email
+useEffect(() => {
+  const fetchTags = async () => {
+    try {
+      const response = await fetch(`/api/tags`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch tags');
       }
-    })) || []);
-  };
-
-  const checkWishlistStatus = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { data, error } = await supabase
-      .from('Wishlist')
-      .select()
-      .eq('userId', user.id)
-      .eq('productId', productId)
-      .single();
-
-    if (!error) {
-      setIsWishlisted(!!data);
+      const tags = await response.json();
+      setProductTags(tags);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des tags:', error);
+      toast.error('Impossible de charger les tags');
     }
   };
 
-  const handleSubmit = async () => {
-    if (!message.trim()) return;
+  fetchTags();
+}, [productId]);
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      toast.error("Veuillez vous connecter pour laisser un commentaire");
-      return;
-    }
-
-    const { error } = await supabase
-      .from('Review')
-      .insert({
-        message: message.trim(),
-        productId,
-        userId: user.id
-      });
-
-    if (error) {
-      toast.error("Erreur lors de l'envoi du commentaire");
-      return;
-    }
-
-    setMessage('');
-    loadReviews();
-    toast.success("Commentaire ajouté avec succès");
-  };
-
-  const toggleWishlist = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      toast.error("Veuillez vous connecter pour ajouter à vos favoris");
-      return;
-    }
-
-    if (isWishlisted) {
-      // Retirer de la wishlist
-      const { error } = await supabase
-        .from('Wishlist')
-        .delete()
-        .eq('userId', user.id)
-        .eq('productId', productId);
-
-      if (error) {
-        toast.error("Erreur lors du retrait des favoris");
-        return;
-      }
-      toast.success("Retiré des favoris");
-    } else {
-      // Ajouter à la wishlist
-      const { error } = await supabase
-        .from('Wishlist')
-        .insert({
-          userId: user.id,
-          productId
-        });
-
-      if (error) {
-        toast.error("Erreur lors de l'ajout aux favoris");
-        return;
-      }
-      toast.success("Ajouté aux favoris");
-    }
-
-    setIsWishlisted(!isWishlisted);
-  };
+  
 
   const handleShare = async () => {
     const url = `${window.location.origin}/p/${productId}`;
@@ -166,78 +68,6 @@ const Chat = ({ productId }: { productId: string }) => {
       await navigator.clipboard.writeText(url);
       toast.success("Lien copié dans le presse-papier");
     }
-  };
-
-  const loadProductTags = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    const { data: tags, error } = await supabase
-      .from('products')
-      .select(`
-        tags (
-          id,
-          name,
-          certifiedBy:user_tags(count)
-        )
-      `)
-      .eq('id', productId)
-      .single();
-
-    if (error) return;
-
-    setProductTags(tags?.tags || []);
-
-    // Charger les certifications de l'utilisateur
-    if (user) {
-      const { data: certifications } = await supabase
-        .from('user_tags')
-        .select('tagId')
-        .eq('userId', user.id)
-        .eq('certified', true);
-
-      setUserCertifications(new Set(certifications?.map(c => c.tagId)));
-    }
-  };
-
-  const toggleTagCertification = async (tagId: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      toast.error("Veuillez vous connecter pour certifier un tag");
-      return;
-    }
-
-    const isCertified = userCertifications.has(tagId);
-
-    if (isCertified) {
-      // Supprimer la certification
-      const { error } = await supabase
-        .from('user_tags')
-        .delete()
-        .eq('userId', user.id)
-        .eq('tagId', tagId);
-
-      if (error) {
-        toast.error("Erreur lors de la décertification");
-        return;
-      }
-    } else {
-      // Ajouter la certification
-      const { error } = await supabase
-        .from('user_tags')
-        .insert({
-          userId: user.id,
-          tagId,
-          certified: true
-        });
-
-      if (error) {
-        toast.error("Erreur lors de la certification");
-        return;
-      }
-    }
-
-    loadProductTags();
-    toast.success(isCertified ? "Tag décertifié" : "Tag certifié");
   };
 
   return (
@@ -274,13 +104,13 @@ const Chat = ({ productId }: { productId: string }) => {
             
             <div className="flex justify-between items-end p-2.5">
               <div className="flex gap-2">
-                <button 
-                  onClick={toggleWishlist} 
+                <button title='b' about='b' 
+                  // onClick={toggleWishlist} 
                   className="flex opacity-50 hover:opacity-100 hover:translate-y-[-5px] transition-all duration-300"
                 >
                   <Heart className={`h-4 w-4 ${isWishlisted ? "fill-current text-red-500" : ""}`} />
                 </button>
-                <button 
+                <button title='b1' 
                   onClick={handleShare} 
                   className="flex opacity-50 hover:opacity-100 hover:translate-y-[-5px] transition-all duration-300"
                 >
@@ -288,8 +118,8 @@ const Chat = ({ productId }: { productId: string }) => {
                 </button>
               </div>
 
-              <button 
-                onClick={handleSubmit}
+              <button about='b' title='b'
+                // onClick={handleSubmit}
                 className="flex p-0.5 bg-white/20 backdrop-blur-md rounded-lg border border-white/30 shadow-md hover:bg-white/40 active:scale-90 transition-all duration-150"
               >
                 <i className="w-[30px] h-[30px] p-1.5 bg-white/10 rounded-lg backdrop-blur-sm text-gray-700 hover:text-black hover:bg-white/30">
@@ -304,34 +134,8 @@ const Chat = ({ productId }: { productId: string }) => {
 
 
       </div>
-      {/* Tag destinne qu tag */}
-      <div className="flex gap-1 py-3.5 text-gray-700 text-[10px]">
-        {productTags.map((tag) => (
-          <button
-            key={tag.id}
-            onClick={() => toggleTagCertification(tag.id)}
-            className={`px-2 py-1 
-              ${userCertifications.has(tag.id) 
-                ? 'bg-blue-100 text-blue-700' 
-                : 'bg-white/10'} 
-              backdrop-blur-sm 
-              border border-white/30 
-              rounded-lg 
-              cursor-pointer 
-              hover:bg-white/20 
-              transition-all 
-              dark:border-[#363636]
-              dark:bg-[#1b1b1b]
-              duration-300
-              flex items-center gap-1`}
-          >
-            <span>{tag.name}</span>
-            <span className="text-xs opacity-50">
-              ({tag._count?.certifiedBy || 0})
-            </span>
-          </button>
-        ))}
-      </div>
+      {/* Section des tags */}
+<TagsView productId={productId} />
     </div>
   );
 };

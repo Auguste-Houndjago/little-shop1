@@ -54,9 +54,7 @@ export default function VendorHeader({ vendor, unreadNotifications }: VendorHead
             {vendor.description}
           </p>
 
-          <div className="mt-6">
-            <VendorStats vendorId={vendor.id} />
-          </div>
+  
 
           {/* Action Buttons avec style modernisé */}
           <div className="mt-6 flex justify-center gap-3">

@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, ReactNode } from "react";
-import { Float, PresentationControls } from "@react-three/drei";
+import { Float, OrbitControls, PresentationControls } from "@react-three/drei";
 
 import { SodaCan, SodaCanProps } from "@/components/3d/cannettes/SodaCan";
 import { Group } from "three";
@@ -39,7 +39,11 @@ const FloatingCan = forwardRef<Group, FloatingCanProps>(
           floatingRange={floatingRange}
         >
           {children}
-          <SodaCan flavor={flavor} scale={scale} /> 
+          
+          <SodaCan  flavor={flavor} scale={scale}  /> 
+       
+
+       
         </Float>
       </group>
     );

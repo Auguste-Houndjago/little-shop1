@@ -13,6 +13,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Image, Product } from "@prisma/client";
 import { ProductCard } from "../../dashboard/products/Product-Card";
 import { OrderCard } from "../../dashboard/orders/order-card";
+import { FaWhatsapp } from "react-icons/fa";
+import Link from "next/link";
 
 interface Order {
   id: string;
@@ -88,7 +90,7 @@ export default function MyPage() {
           fetch("/api/orders"),
         ]);
 
-        if (!profileRes.ok || !wishlistRes.ok || !ordersRes.ok) 
+        if (!profileRes.ok || !wishlistRes.ok || !ordersRes.ok)
           throw new Error("Failed to fetch data");
 
         const [profileData, wishlistData, ordersData] = await Promise.all([
@@ -119,7 +121,7 @@ export default function MyPage() {
           <CardContent className="p-8 text-center">
             <h2 className="mb-4 text-2xl font-bold">Please sign in to view your account</h2>
             <Button asChild>
-              <a href="/signin">Sign In</a>
+              <a href="/login">Sign In</a>
             </Button>
           </CardContent>
         </Card>
@@ -144,7 +146,7 @@ export default function MyPage() {
 
       <Card>
         <CardTitle>
-          
+
         </CardTitle>
 
       </Card>
@@ -193,14 +195,14 @@ export default function MyPage() {
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
                       <h3 className="font-medium">Phone</h3>
-                      <p>{userProfile?.phone || "No phone number set"}</p>
+                      <p>{userProfile?.phone || "Pas de numero defini"}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">Account Type</h3>
+                      <h3 className="font-medium">Type de Compte</h3>
                       <p>{userProfile?.roles.join(", ")}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">Member Since</h3>
+                      <h3 className="font-medium">Membre depuis</h3>
                       <p>{new Date(userProfile?.createdAt || "").toLocaleDateString()}</p>
                     </div>
                   </div>
@@ -216,9 +218,13 @@ export default function MyPage() {
               <CardContent className="p-6">
                 <motion.div variants={itemVariants} className="space-y-4">
                   <div>
-                    <h2 className="text-2xl font-semibold">
-                      {userProfile.vendorProfile.businessName || "No business name set"}
-                    </h2>
+                    <Link href={userProfile.vendorProfile ? "/vendors" : "#"}>
+                      <h2 className="text-2xl font-semibold">
+                        {userProfile.vendorProfile?.businessName || "Pas de boutique"}
+                      </h2>
+                    </Link>
+
+
                     {userProfile.vendorProfile.isVerified && (
                       <span className="ml-2 inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
                         Verified
@@ -231,12 +237,12 @@ export default function MyPage() {
                       <p>{userProfile.vendorProfile.description || "No description set"}</p>
                     </div>
                     <div>
-                      <h3 className="font-medium">WhatsApp</h3>
+                      <h3 className="font-medium flex "> <FaWhatsapp className="align-middle mt-1 mx-1" /> WhatsApp </h3>
                       <p>{userProfile.vendorProfile.whatsappNumber}</p>
                     </div>
                     <div>
                       <h3 className="font-medium">Address</h3>
-                      <p>{userProfile.vendorProfile.address || "No address set"}</p>
+                      <p>{userProfile.vendorProfile.address || "Pas d'address"}</p>
                     </div>
                   </div>
                 </motion.div>

@@ -41,7 +41,7 @@ export default function TagManagerPage() {
         {products.map((product) => (
           <div 
             key={product.id} 
-            className="bg-white rounded-lg shadow-md overflow-hidden"
+            className="bg-white rounded-lg shadow-md overflow-hidden p-2"
           >
             {/* Image du produit */}
             <div className="aspect-square relative overflow-hidden bg-gray-100">

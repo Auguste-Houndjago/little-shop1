@@ -9,10 +9,14 @@
 		"lint": "next lint",
 		"postinstall": "npx prisma generate",
 		"seed": "prisma db seed"
+
 	},
 	"prisma": {
-		"seed": "ts-node prisma/seed.ts"
+		"seed": "ts-node prisma/seed.ts",
+		"tag": "ts-node prisma/tag.ts"
 	},
+
+	"include":["prisma/**/*" , "src/**/*"],
 	"dependencies": {
 		"@gsap/react": "^2.1.1",
 		"@hookform/resolvers": "^3.10.0",

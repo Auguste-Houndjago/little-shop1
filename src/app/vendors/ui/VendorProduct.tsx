@@ -37,7 +37,7 @@ export default function VendorProduct({
             <span className="text-sm font-medium text-white">{rating}</span>
           </div>
           <Button variant="ghost" size="icon" className="text-white hover:text-pink-500 p-0">
-            <Heart className="w-5 h-5" />
+            archiver
           </Button>
         </div>
 

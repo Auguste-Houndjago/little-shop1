@@ -1,63 +1,200 @@
 'use server';
 
-import { createClient } from '@/utils/supabase/server';
+import { PrismaClient, Prisma, Product, Category, Tag, VendorProfile, TagCategory } from '@prisma/client';
 
-export async function fetchCategories() {
-  const supabase = createClient();
-  
+const prisma = new PrismaClient();
+
+export interface SearchFilters {
+  productName?: string;
+  categoryId?: string;
+  vendorBusinessName?: string;
+  vendorCountry?: string;
+  vendorRegion?: string;
+  vendorCity?: string;
+  tagName?: string;
+  minPrice?: number;
+  maxPrice?: number;
+}
+
+export async function searchProducts(filters: SearchFilters) {
   try {
-    const { data: categories, error } = await supabase
-      .from('categories')
-      .select('id, name');
+    const where: Prisma.ProductWhereInput = {
+      ...(filters.productName && {
+        title: {
+          contains: filters.productName,
+          mode: 'insensitive'
+        }
+      }),
+      ...(filters.categoryId && { categoryId: filters.categoryId }),
+      ...(filters.minPrice !== undefined && { price: { gte: filters.minPrice } }),
+      ...(filters.maxPrice !== undefined && { price: { lte: filters.maxPrice } }),
+      ...(filters.vendorBusinessName && {
+        user: {
+          vendorProfile: {
+            businessName: {
+              contains: filters.vendorBusinessName,
+              mode: 'insensitive'
+            }
+          }
+        }
+      }),
+      ...(filters.vendorCountry && {
+        user: {
+          address: {
+            country: {
+              contains: filters.vendorCountry,
+              mode: 'insensitive'
+            }
+          }
+        }
+      }),
+      ...(filters.vendorRegion && {
+        user: {
+          address: {
+            region: {
+              contains: filters.vendorRegion,
+              mode: 'insensitive'
+            }
+          }
+        }
+      }),
+      ...(filters.vendorCity && {
+        user: {
+          address: {
+            city: {
+              contains: filters.vendorCity,
+              mode: 'insensitive'
+            }
+          }
+        }
+      }),
+      ...(filters.tagName && {
+        tags: {
+          some: {
+            name: {
+              contains: filters.tagName,
+              mode: 'insensitive'
+            }
+          }
+        }
+      })
+    };
 
-    if (error) {
-      console.error('Error fetching categories:', error);
-      return [];
-    }
+    const products = await prisma.product.findMany({
+      where,
+      include: {
+        category: true,
+        user: {
+          include: {
+            vendorProfile: true,
+            address: true
+          }
+        },
+        tags: true,
+        images: true,
+        color: true,
+        size: true
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
 
-    return categories;
+    return products;
   } catch (error) {
-    console.error('Unexpected error fetching categories:', error);
-    return [];
+    console.error('Error searching products:', error);
+    throw error;
   }
 }
 
-export async function fetchSellers() {
-  const supabase = createClient();
-  
+export async function fetchSearchFilters() {
   try {
-    const { data: sellers, error } = await supabase
-      .from('sellers')
-      .select('id, name');
+    const [categories, tags, vendorProfiles] = await Promise.all([
+      prisma.category.findMany({
+        select: { 
+          id: true, 
+          name: true, 
+          billboard: true, 
+          title: true,
+          createdAt: true,
+          updatedAt: true
+        }
+      }),
+      prisma.tag.findMany({
+        select: { 
+          id: true, 
+          name: true, 
+          category: true,
+          description: true,
+          createdAt: true,
+          updatedAt: true,
+          certified: true
+        }
+      }),
+      prisma.vendorProfile.findMany({
+        include: {
+          user: {
+            include: {
+              address: true
+            }
+          }
+        }
+      })
+    ]);
 
-    if (error) {
-      console.error('Error fetching sellers:', error);
-      return [];
-    }
+    // Deduplicate locations
+    const locations = {
+      countries: Array.from(new Set(
+        vendorProfiles
+          .map(vp => vp.user?.address?.country)
+          .filter((country): country is string => country !== null && country !== undefined)
+      )),
+      regions: Array.from(new Set(
+        vendorProfiles
+          .map(vp => vp.user?.address?.region)
+          .filter((region): region is string => region !== null && region !== undefined)
+      )),
+      cities: Array.from(new Set(
+        vendorProfiles
+          .map(vp => vp.user?.address?.city)
+          .filter((city): city is string => city !== null && city !== undefined)
+      ))
+    };
 
-    return sellers;
+    return {
+      categories,
+      tags,
+      vendorProfiles,
+      locations
+    };
   } catch (error) {
-    console.error('Unexpected error fetching sellers:', error);
-    return [];
+    console.error('Error fetching search filters:', error);
+    throw error;
   }
 }
 
-export async function fetchLocations() {
-  const supabase = createClient();
-  
+export async function fetchProductById(productId: string) {
   try {
-    const { data: locations, error } = await supabase
-      .from('locations')
-      .select('id, name');
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        category: true,
+        user: {
+          include: {
+            vendorProfile: true,
+            address: true
+          }
+        },
+        tags: true,
+        images: true,
+        color: true,
+        size: true
+      }
+    });
 
-    if (error) {
-      console.error('Error fetching locations:', error);
-      return [];
-    }
-
-    return locations;
+    return product;
   } catch (error) {
-    console.error('Unexpected error fetching locations:', error);
-    return [];
+    console.error('Error fetching product details:', error);
+    throw error;
   }
 }

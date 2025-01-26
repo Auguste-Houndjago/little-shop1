@@ -1,0 +1,25 @@
+
+
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+
+async function createTags() {
+
+let tagename = "5";
+
+    const tag1 = await prisma.tag.create({
+        data:{
+            name: 'tag-exemple0'+ tagename,
+            description: 'first tage exemple',
+            category: 'CUSTOM',
+
+        },
+    });
+
+
+    console.log({tag1 });
+}
+
+
+createTags().catch((e)=>{console.error(e), process.exit(1)}).finally(()=>prisma.$disconnect());

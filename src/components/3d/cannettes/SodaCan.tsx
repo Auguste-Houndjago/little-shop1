@@ -46,7 +46,7 @@ export function SodaCan({
   const label = labels[flavor];
 
   return (
-    <group {...props} dispose={null} scale={scale} rotation={[0, -Math.PI, 0]}>
+    <group {...props} dispose={null} scale={scale} rotation={[0, -Math.PI, 0]}  >
       <mesh
         castShadow
         receiveShadow

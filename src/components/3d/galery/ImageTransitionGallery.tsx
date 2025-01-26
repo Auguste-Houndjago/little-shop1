@@ -65,6 +65,7 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
   const materialRef = useRef<THREE.ShaderMaterial | null>(null)
   const mousePositionRef = useRef<THREE.Vector2>(new THREE.Vector2(0.5, 0.5))
   const waveIntensityRef = useRef<number>(0)
+  const meshRef = useRef<THREE.Mesh | null>(null)
 
   useEffect(() => {
     if (!containerRef.current || imageUrls.length < 2) return
@@ -78,16 +79,21 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
 
     const init = async () => {
       scene = new THREE.Scene()
-      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000)
+      const container = containerRef.current
+      if (!container) return 
+
+      const width = container.offsetWidth
+      const height = container.offsetHeight
+
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 2000)
       camera.position.set(0, 0, 10)
       scene.add(camera)
 
-      rendererRef.current = new THREE.WebGLRenderer({ antialias: false })
-      rendererRef.current.setSize(window.innerWidth, window.innerHeight)
-      containerRef.current?.appendChild(rendererRef.current.domElement)
+      rendererRef.current = new THREE.WebGLRenderer({ antialias: true })
+      rendererRef.current.setSize(width, height)
+      container.appendChild(rendererRef.current.domElement)
 
-      const geometry = new THREE.PlaneGeometry(4.75, 7, 64, 64)
-
+      const geometry = new THREE.PlaneGeometry(1, 1, 64, 64) 
       textures = await Promise.all(imageUrls.map(loadTexture))
 
       materialRef.current = new THREE.ShaderMaterial({
@@ -104,10 +110,28 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
       })
 
       const mesh = new THREE.Mesh(geometry, materialRef.current)
+      meshRef.current = mesh
       scene.add(mesh)
 
+      resizePlane() 
       setLoading(false)
       animate()
+    }
+
+    const resizePlane = () => {
+      const container = containerRef.current
+      if (!container) return 
+
+      const width = container.offsetWidth
+      const height = container.offsetHeight
+      const aspect = width / height
+      meshRef.current?.geometry.dispose()
+      if (meshRef.current) {
+        meshRef.current.geometry = new THREE.PlaneGeometry(aspect * 10, 10, 64, 64)
+      }
+      camera.aspect = aspect
+      camera.updateProjectionMatrix()
+      rendererRef.current?.setSize(width, height)
     }
 
     const loadTexture = (url: string): Promise<THREE.Texture> => {
@@ -156,10 +180,7 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
     }
 
     const handleResize = () => {
-      if (!containerRef.current) return
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix()
-      rendererRef.current?.setSize(window.innerWidth, window.innerHeight)
+      resizePlane()
     }
 
     const handleMouseClick = (event: MouseEvent) => {
@@ -190,13 +211,7 @@ export default function ImageTransitionGallery({ imageUrls }: ImageTransitionGal
 
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-white border-dashed rounded-full animate-spin"></div>
-        </div>
-      )}
       <div ref={containerRef} className="w-full h-full"></div>
     </div>
   )
 }
-

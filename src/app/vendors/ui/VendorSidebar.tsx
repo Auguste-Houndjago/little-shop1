@@ -87,10 +87,10 @@ export default function VendorSidebar() {
     <motion.div 
       initial={{ width: "16rem" }}
       animate={{ width: isCollapsed ? "5rem" : "16rem" }}
-      className="relative h-full bg-white/30 backdrop-blur-lg border-r border-white/20 shadow-xl rounded-r-2xl overflow-hidden"
+      className="relative h-full bg-white/30 backdrop-blur-lg border-r border-white/20 shadow-xl rounded-md overflow-hidden"
     >
       {/* Bouton de toggle */}
-      <button
+      <button title="d"
         onClick={() => setIsCollapsed(!isCollapsed)}
         className="absolute -right-3 top-6 p-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-white/30 shadow-md hover:bg-white/70 transition-colors z-10"
       >

@@ -22,21 +22,20 @@ const PageTransition: React.FC<PageTransitionProps> = ({
 
     if (!overlay || !content) return;
 
-    // Timeline principale pour la séquence d'animation
     const tl = gsap.timeline({
       onComplete: () => onComplete?.()
     });
 
-    // Configuration initiale
+      
     gsap.set(overlay, {
       [isHorizontal ? 'xPercent' : 'yPercent']: -100,
       opacity: 0
     });
     gsap.set(content, { opacity: 0 });
 
-    // Séquence d'animation
+
     tl
-      // Phase 1: Apparition de l'overlay avec effet de rebond
+
       .to(overlay, {
         opacity: 1,
         duration: 0.3
@@ -47,7 +46,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({
         ease: "back.out(1.7)"
       })
       
-      // Phase 2: Animation de pulsation
+
       .to(overlay, {
         scale: 1.1,
         duration: 0.3,

@@ -25,15 +25,16 @@ enum NotificationType {
   REVIEW
   PRODUCT_UPDATE
   SYSTEM
+  MESSAGE
 }
 
 enum TagCategory {
-  PRODUCT_QUALITY    // Qualité du produit
-  SHIPPING_SERVICE   // Service de livraison
-  CUSTOMER_SERVICE   // Service client
-  PRICE_VALUE       // Rapport qualité-prix
-  AUTHENTICITY      // Authenticité
-  CUSTOM            // Tags personnalisés
+  PRODUCT_QUALITY
+  SHIPPING_SERVICE
+  CUSTOMER_SERVICE
+  PRICE_VALUE
+  AUTHENTICITY
+  CUSTOM
 }
 
 model User {
@@ -46,18 +47,13 @@ model User {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-  // Relations
-  products      Product[] 
-  orders        Order[]   
-  reviews       Review[]   
-  wishlists     Wishlist[]   
-  vendorProfile VendorProfile?   
-  notifications Notification[]   
-  address       Address?    
-
-  tagsCreated   Tag[]   @relation("UserCreatedTags")  // Tags créés par l'utilisateur
-  tagsCertified UserTag[]  // Tags certifiés par l'utilisateur (ajout de la relation inverse)
-
+  products        Product[] 
+  orders          Order[]   
+  reviews         Review[]   
+  wishlists       Wishlist[]   
+  vendorProfile   VendorProfile?   
+  notifications   Notification[]   
+  address         Address?    
   @@map("users")
 }
 
@@ -81,34 +77,33 @@ model VendorProfile {
 }
 
 model Product {
-  id          String   @id @default(uuid()) @db.Uuid
-  title       String   @db.VarChar(100)
-  description String?  @db.VarChar(300)
-  price       Float    
-  isFeatured  Boolean  @default(false)
-  isArchived  Boolean  @default(false)
-  stock       Int      @default(0)
-  images      Image[] 
-  orderItems  OrderItem[] 
-  reviews     Review[]
-  whatsappLink   String?
-  localisation Json? 
+  id            String   @id @default(uuid()) @db.Uuid
+  title         String   @db.VarChar(100)
+  description   String?  @db.VarChar(300)
+  price         Float    
+  isFeatured    Boolean  @default(false)
+  isArchived    Boolean  @default(false)
+  stock         Int      @default(0)
+  images        Image[] 
+  orderItems    OrderItem[] 
+  reviews       Review[]
+  whatsappLink  String?
+  localisation  Json? 
 
-  // Relations
-  userId     String   @db.Uuid
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String   @db.Uuid
-  color      Color    @relation(fields: [colorId], references: [id])
-  colorId    String   @db.Uuid
-  size       Size     @relation(fields: [sizeId], references: [id])
-  sizeId     String   @db.Uuid
-  tags      Tag[]     // Ajout de la relation avec les tags
+  userId        String   @db.Uuid
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    String   @db.Uuid
+  color         Color    @relation(fields: [colorId], references: [id])
+  colorId       String   @db.Uuid
+  size          Size     @relation(fields: [sizeId], references: [id])
+  sizeId        String   @db.Uuid
+  tags          Tag[]    @relation("ProductTags")
 
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
 
-  wishlists  Wishlist[]
+  wishlists     Wishlist[]
   
   @@index([userId])
   @@index([categoryId])
@@ -155,6 +150,7 @@ model Category {
   billboard String    @db.Text
   title     String    @db.VarChar(50)
   products  Product[]
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
@@ -214,11 +210,11 @@ model Review {
   comment   String?  @db.Text
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productId String   @db.Uuid  // Assurez-vous que c'est bien @db.Uuid
+  productId String   @db.Uuid
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-
+  tags      Tag[]    @relation("ReviewTags")
   createdAt DateTime @default(now()) @map("created_at")
-  tags      ReviewTag[]
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([userId])
   @@index([productId])
@@ -232,78 +228,37 @@ model Tag {
   description String?     @db.Text
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  
-  // Relations
-  createdById String?     @db.Uuid    
-  createdBy   User?       @relation("UserCreatedTags", fields: [createdById], references: [id], onDelete: Cascade)
-  
-  // Statistiques
-  usageCount  Int         @default(0)
-  
-  // Relations avec les reviews et utilisateurs
-  reviews     ReviewTag[]
-  certifiedBy UserTag[]
-  products    Product[]   // Relation many-to-many avec les produits
+  certified   Int         @default(0)
+  products    Product[]   @relation("ProductTags")
+  reviews     Review[]    @relation("ReviewTags")
 
   @@index([category])
-  @@index([usageCount])
   @@map("tags")
 }
 
-model ReviewTag {
-  reviewId    String   @db.Uuid
-  tagId       String   @db.Uuid
-  createdAt   DateTime @default(now())
-  
-  relevanceScore Int    @default(0)
-
-  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([reviewId, tagId])
-  @@index([relevanceScore])
-  @@map("review_tags")
-}
-
-model UserTag {
-  userId    String   @db.Uuid
-  tagId     String   @db.Uuid
-  createdAt DateTime @default(now())
-  
-  // Indique si l'utilisateur certifie ce tag comme pertinent
-  certified Boolean  @default(true)
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([userId, tagId])
-  @@index([certified])
-  @@map("user_tags")
-}
-
-
 model Notification {
-  id          String   @id @default(uuid()) @db.Uuid
-  userId      String   @db.Uuid
-  message     String   @db.Text
-  type        String   @db.VarChar(100)  // Type de notification, ex: "Order Update", "Message", etc.
-  metadata    Json?    // Détails spécifiques de la notification (ex: données supplémentaires)
-  read        Boolean  @default(false)   // Statut de lecture
-  createdAt   DateTime @default(now())   
-  updatedAt   DateTime @updatedAt      
+  id          String           @id @default(uuid()) @db.Uuid
+  userId      String           @db.Uuid
+  message     String           @db.Text
+  type        NotificationType
+  metadata    Json?
+  read        Boolean          @default(false)
+  createdAt   DateTime         @default(now())   
+  updatedAt   DateTime         @updatedAt      
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])   
   @@map("notifications")
 }
 
 model Wishlist {
-  id       String    @id @default(uuid()) @db.Uuid
-  userId   String    @db.Uuid
-  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  products Product[]
-  createdAt DateTime         @default(now()) @map("created_at")
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products  Product[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   @@map("wishlists")
 }
 

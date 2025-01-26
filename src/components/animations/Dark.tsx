@@ -11,19 +11,18 @@ interface DarkFrameWrapperProps {
 }
 
 const DarkFrameWrapper: React.FC<DarkFrameWrapperProps> = ({ children }) => {
-  const frameRef = useRef<HTMLDivElement>(null); // Référence au cadre sombre
-
+  const frameRef = useRef<HTMLDivElement>(null); 
   useEffect(() => {
     if (frameRef.current) {
-      // Configuration de l'animation au scroll
+
       gsap.to(frameRef.current, {
-        height: 0, // Réduit la hauteur du cadre sombre
-        ease: "power2.out", // Courbe d'accélération
+        height: 0, 
+        ease: "power2.out", 
         scrollTrigger: {
-          trigger: frameRef.current, // Élément déclencheur
-          start: "top top", // Début de l'animation (au haut de la page)
-          end: "bottom top", // Fin de l'animation
-          scrub: 1, // Synchronisation avec le défilement
+          trigger: frameRef.current, 
+          start: "top top", 
+          end: "bottom top", 
+          scrub: 1, 
         },
       });
     }

@@ -12,7 +12,7 @@ import AIntroduction from "./Presentation";
 
 const SkyDive = () => {
   const containerRef = useRef(null);
-  const canRef = useRef(null);
+  // const canRef = useRef(null);
 
 
   const sentences = [
@@ -30,37 +30,37 @@ const SkyDive = () => {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <Suspense fallback={null}>
 
-        <Scene flavor={"smartshop"} sentences={sentences} />
+        <Scene flavor={"smartshop"} sentences={sentences}  />
       </Suspense>
     </Canvas>
   </div>
    
-  <section id="section2" className="bg-white h-[400px] w-full relative z-10">
-        <h2 className="text-3xl font-bold p-8 text-center">Section Suivante</h2>
+  <section id="section2" className="bg-transparent h-[400px] w-full relative z-10">
+        {/* <h2 className="text-3xl font-bold p-8 text-center">Section Suivante</h2>
         <p className="p-8">
           Bienvenu sur votre boutique de vente en ligne.
-        </p>
+        </p> */}
       </section>
 
 
 
 
       {/* Section suivante qui apparaîtra après le scroll */}
-      <section className="bg-white min-h-screen w-full relative z-10">
-        <h2 className="text-3xl font-bold p-8">Section Suivante</h2>
+      <section className="bg-transparent min-h-screen w-full relative z-10">
+        {/* <h2 className="text-3xl font-bold p-8">Section Suivante</h2>
         <p className="p-8">
         Bienvenu sur votre boutique de vente en ligne.
-        </p>
+        </p> */}
 
       </section>
 
       <section className="bg-transparent min-h-screen w-full relative z-10">
-        <h2 className="text-3xl font-bold p-8 text-center">Smart Shop</h2>
+        {/* <h2 className="text-3xl font-bold p-8 text-center">Smart Shop</h2>
         <p className="p-8">
         Bienvenu sur votre boutique de vente en ligne.
-        </p>
+        </p> */}
       </section>
- <AIntroduction/>
+ {/* <AIntroduction/> */}
     </div>
   );
 };

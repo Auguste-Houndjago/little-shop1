@@ -1,6 +1,6 @@
 "use client";
 
-import { Cloud, Clouds, Environment, OrbitControls, PresentationControls, Text } from "@react-three/drei";
+import { Cloud, Clouds, Environment, OrbitControls,  } from "@react-three/drei";
 import { useRef, RefObject } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -53,9 +53,9 @@ export default function Scene({ sentences, flavor }: SkyDiveProps) {
 
 
   const getScale = () => {
-    if (isMobile) return 0.3; 
-    if (isTablet) return 0.5; 
-    return 0.5; 
+    if (isMobile) return 2; 
+    if (isTablet) return 2; 
+    return 3; 
   };
 
   const getPositionOffset = () => {
@@ -79,8 +79,7 @@ export default function Scene({ sentences, flavor }: SkyDiveProps) {
         trigger:"#canvas-container",
         start: "25% top",
         end : " bottom bottom",
-        scrub: 20,
-        // pin: true, 
+        scrub: 20, 
         markers:true 
       }
     })
@@ -129,50 +128,28 @@ export default function Scene({ sentences, flavor }: SkyDiveProps) {
       );
     });
   
-    // Ajout du mouvement de cart synchronisé
-    principal.to(
-      canRef.current.position,
-      {
-        y: 1,
-        duration: 2,
-        ease: "sine.inOut",
 
-      },
-      `+=0.5` 
-    ).to(
-      groupRef.current.position,
-      {
-        y: 1,
-        duration: 2,
-        ease: "sine.inOut",
+    // principal.to(
+    //   canRef.current.position,
+    //   {
+    //     y: 1,
+    //     duration: 2,
+    //     ease: "sine.inOut",
 
-      },
-      `+=0.01` 
-    ).to(
-      canRef.current.rotation,
-      {
-        y:10,
-     
-      
-        duration: 1.5,
-        ease: "sine.inOut",
+    //   },
+    //   `+=0.5` 
+    // ).to(
+    //   groupRef.current.position,
+    //   {
+    //     y: 1,
+    //     duration: 2,
+    //     ease: "sine.inOut",
 
-      },
-      `<` 
-    ).to(
-      canRef.current.scale,
-      {
-        y: 0.8,
-        x: 0.8,
-        z: 0.8,
-        duration: 0.5,
-        ease: "sine.inOut",
-
-      },
-       
-    )
+    //   },
+    //   `+=0.01` 
+    // )
     
-    ;
+    // ;
 
 
 
@@ -186,6 +163,13 @@ export default function Scene({ sentences, flavor }: SkyDiveProps) {
        end: "bottom bottom",
        scrub: true,
        markers:true,
+      },
+      onUpdate: ()=>{
+        if (phoneRef.current) {
+          const phonePosition= phoneRef.current.position;
+
+          
+        }
       }
     })
     // .to("#quality-products", {
@@ -244,18 +228,18 @@ export default function Scene({ sentences, flavor }: SkyDiveProps) {
     });
 
     
-// const canMove = gsap.timeline({
-//   scrollTrigger:{
-//     trigger:"#section2",
-//    start: "90% 60%",
-//    end: "bottom bottom",
-//    scrub: true,
-//    pin:true,
-//    markers:true,
-//   }
-// }).to("#sky", {
+const canMove = gsap.timeline({
+  scrollTrigger:{
+    trigger:"#section2",
+   start: "90% 60%",
+   end: "bottom bottom",
+   scrub: true,
+   pin:true,
+   markers:true,
+  }
+}).to("#sky", {
 
-// });
+});
 
 // canMove.to(canRef.current.position, {
 //   y:1,
@@ -276,7 +260,7 @@ return () => {
   return (
     <group ref={groupRef} scale={scale} >
   
-      <group scale={1}  rotation={[0, 1, 0]} renderOrder={4}>
+      <group scale={1}  rotation={[0, -2, 0]} renderOrder={999}  >
 
       
         <FloatingCan
@@ -286,8 +270,13 @@ return () => {
           floatIntensity={0.8}
           floatSpeed={1.5}
           floatingRange={[-0.1, 0.1]}
+        
+        
+
         >
+          <meshStandardMaterial depthTest={false} transparent />
           <pointLight intensity={20} color="#8C0413" decay={0.6} />
+       
         </FloatingCan>
 
 

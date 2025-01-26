@@ -16,22 +16,21 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { businessName, description, whatsappNumber, businessLogo, addressId } = body;
 
-    // Validation des données requises
+  
     if (!businessName || !description || !whatsappNumber || !addressId) {
       return new NextResponse('Données manquantes', { status: 400 });
     }
 
-    // Vérifier si l'utilisateur a déjà un profil vendeur
+
     const existingProfile = await prisma.vendorProfile.findUnique({
       where: { userId: user.id },
     });
 
-    // Utiliser une transaction pour la création/mise à jour du profil et la gestion du rôle
     const result = await prisma.$transaction(async (tx) => {
       let profile;
 
       if (existingProfile) {
-        // Mise à jour du profil existant
+   
         profile = await tx.vendorProfile.update({
           where: { userId: user.id },
           data: {
@@ -43,7 +42,7 @@ export async function POST(req: Request) {
           },
         });
       } else {
-        // Création d'un nouveau profil
+   
         profile = await tx.vendorProfile.create({
           data: {
             userId: user.id,
@@ -55,7 +54,7 @@ export async function POST(req: Request) {
           },
         });
 
-        // Ajouter le rôle VENDOR si l'utilisateur ne l'a pas déjà
+     
         const currentUser = await tx.user.findUnique({
           where: { id: user.id },
           select: { roles: true }

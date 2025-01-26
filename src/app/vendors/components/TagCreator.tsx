@@ -6,7 +6,11 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from 'sonner'
 
-export default function TagCreator() {
+interface TagCreatorProps {
+  onSuccess?: () => void
+}
+
+export default function TagCreator({ onSuccess }: TagCreatorProps) {
   const [name, setName] = useState('')
   const [category, setCategory] = useState('CUSTOM')
   const [description, setDescription] = useState('')
@@ -35,6 +39,7 @@ export default function TagCreator() {
       setName('')
       setDescription('')
       setCategory('CUSTOM')
+      onSuccess?.()
     } catch (error) {
       console.error('Error creating tag:', error)
       toast.error('Erreur lors de la création du tag')
