@@ -1,12 +1,11 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
-import { cookies } from 'next/headers'
+import { NextRequest } from 'next/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
-export async function signIn(formData: FormData) {
-  const cookieStore = cookies()
+export async function signIn(request: NextRequest, formData: FormData) {
   const supabase = createClient()
 
   const email = formData.get('email') as string
@@ -25,7 +24,6 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signUp(formData: FormData) {
- 
   const supabase = createClient()
 
   const email = formData.get('email') as string
@@ -49,7 +47,7 @@ export async function signUp(formData: FormData) {
   redirect('/confirm')
 }
 
-export async function logOut() {
+export async function logOut(request: NextRequest) {
   const supabase = createClient()
 
   const { error } = await supabase.auth.signOut()
@@ -61,7 +59,7 @@ export async function logOut() {
   redirect('/login')
 }
 
-export async function signOut() {
+export async function signOut(request: NextRequest) {
   const supabase = createClient();
   
   try {
@@ -81,7 +79,6 @@ export async function signOut() {
 
 // Exemple d'utilisation dans un composant form
 export async function updateProfile(formData: FormData) {
-  const cookieStore = cookies()
   const supabase = createClient()
 
   const name = formData.get('name') as string
@@ -101,5 +98,6 @@ export async function updateProfile(formData: FormData) {
     return { error: error.message }
   }
 
-  redirect('/profile')
+  revalidatePath('/profile')
+  return { success: true }
 }
