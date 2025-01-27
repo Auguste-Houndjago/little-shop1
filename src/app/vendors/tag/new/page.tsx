@@ -2,7 +2,6 @@
 import { useSearchParams } from 'next/navigation'
 
 import { useRouter } from 'next/navigation'
-import ProductTagManager from '../../components/ProductTagManager'
 import TagCreator from '../../components/TagCreator'
 
 
@@ -10,9 +9,9 @@ export default function TagManagerPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-const handleManageTags = (productId: string) => {
-  router.push(`/vendors/tag?productId=${productId}`)
-}
+// const handleManageTags = (productId: string) => {
+//   router.push(`/vendors/tag?productId=${productId}`)
+// }
 
   const productId = searchParams.get('productId')
 
