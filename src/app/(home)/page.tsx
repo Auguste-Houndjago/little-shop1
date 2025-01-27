@@ -70,9 +70,9 @@ const Page = async () => {
 
 			<div className="mt-16 md-h-full h-40 space-y-8">
 			<HeadingTitle title='Nos Collections' />
-			<RevealWrapper delay={0}>
+		
 			<CollectionsSection />
-			</RevealWrapper>
+
 
 		
 
