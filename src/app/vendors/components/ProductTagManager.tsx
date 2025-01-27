@@ -19,16 +19,26 @@ export default function ProductTagManager({ productId }: { productId: string }) 
 
   useEffect(() => {
     const loadTags = async () => {
+      setIsLoading(true);
       try {
         const tagsResponse = await fetch("/api/vendor/tags");
+        if (!tagsResponse.ok) {
+          throw new Error(`Failed to fetch available tags: ${tagsResponse.status}`);
+        }
         const allTags = await tagsResponse.json();
         setAvailableTags(allTags);
 
         const productTagsResponse = await fetch(`/api/vendor/products/${productId}/tags`);
+        if (!productTagsResponse.ok) {
+          throw new Error(`Failed to fetch product tags: ${productTagsResponse.status}`);
+        }
         const currentTags = await productTagsResponse.json();
         setProductTags(currentTags);
       } catch (error) {
-        toast.error("Erreur lors du chargement des tags");
+        console.error("Error in loadTags:", error);
+        toast.error(error instanceof Error ? error.message : "Erreur lors du chargement des tags");
+      } finally {
+        setIsLoading(false);
       }
     };
     loadTags();
@@ -92,7 +102,7 @@ export default function ProductTagManager({ productId }: { productId: string }) 
               className="flex items-center gap-1"
             >
               {tag.name}
-              <button
+              <button title="sdd"
                 onClick={() => handleRemoveTag(tag.id)}
                 disabled={isLoading}
                 className="ml-1 hover:text-destructive"
