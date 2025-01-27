@@ -59,7 +59,7 @@ export async function logOut(request: NextRequest) {
   redirect('/login')
 }
 
-export async function signOut(request: NextRequest) {
+export async function signOut(request?: NextRequest) {
   const supabase = createClient();
   
   try {
