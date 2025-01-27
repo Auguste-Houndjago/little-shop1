@@ -141,7 +141,7 @@ export default function CreateProduct() {
 
       const uploadedImageUrls = await Promise.all(imagePromises);
 
-      // 2. Créer le produit dans la base de données
+  
       const response = await fetch("/api/products", {
         method: "POST",
         headers: { 
@@ -191,7 +191,7 @@ export default function CreateProduct() {
                     fill
                     className="object-cover rounded-lg"
                   />
-                  <button
+                  <button title="remove"
                     type="button"
                     onClick={() => removeImage(index)}
                     className="absolute -top-2 -right-2 p-1 rounded-full bg-red-500 text-white"
@@ -204,7 +204,7 @@ export default function CreateProduct() {
                 <label className="aspect-square flex items-center justify-center 
                   border-2 border-dashed border-gray-300 rounded-lg cursor-pointer
                   hover:border-gray-400 transition-colors">
-                  <input
+                  <input title="image"
                     type="file"
                     accept="image/*"
                     multiple

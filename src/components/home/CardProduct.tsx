@@ -71,7 +71,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
               className="h-8 w-8 bg-background/50  opacity-25 group-hover:opacity-95"
               onClick={() => setIsWished(!isWished)}
             >
-              <Heart
+              <Heart  onClick={() => setIsWished(!isWished)}
                 className={`h-4 w-4 ${isWished ? "fill-current opacity-100 text-red-500" : ""}`}
               />
             </Button>

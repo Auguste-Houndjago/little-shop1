@@ -31,11 +31,11 @@ import Barrier from '../Barrier';
 
 import { User } from '@supabase/supabase-js';
 import { useAuth } from '@/contexts/AuthContext';
-// import { ModeToggle } from '../ux/ModeToggle';
 import { signOut } from '@/app/actions/auth';
 import { Category } from '@prisma/client';
 import Logo from '../Logo';
 import SearchBar from '../ux/search-bar';
+
 
 
 
@@ -87,7 +87,9 @@ const NavListMobile = ({
                 </li>
               ))}
             </ul>
+
           </SheetHeader>
+
 
           {user ? null : (
             <SheetFooter className='!mt-0 !pt-0'>
@@ -139,11 +141,11 @@ const Navbar = ({
   return (
     <NavbarParent isSticky>
       <nav className='container flex items-center '>
-        <div className='flex items-center lg:gap-16'>
+        <div className='flex items-center lg:gap-4'>
       
          <Logo/>
-          <ul className='hidden lg:flex items-center gap-8'>
-            {lists.map((list) => (
+          <ul className='hidden lg:flex items-center gap-4'>
+            {lists.slice(0,2).map((list) => (
               <li key={list.id}>
                 <Link
                   href={`/${encodeURIComponent(list.id)}`}
@@ -159,6 +161,9 @@ const Navbar = ({
               </li>
             ))}
           </ul>
+      
+
+
         </div>
 
         <div className='flex items-center gap-x-2  md:gap-4 ml-auto'>
@@ -184,7 +189,7 @@ const Navbar = ({
             </Link>
           ) : (
             <DropdownMenu >
-              <DropdownMenuTrigger  className='rounded-full ring-0'>
+              <DropdownMenuTrigger  className='rounded-full w-24  ring-0'>
                 {initialUser === undefined ? (
                   <Loader2 className="h-9 w-9 animate-spin text-muted-foreground" />
                 ) : (

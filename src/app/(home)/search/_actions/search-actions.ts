@@ -14,6 +14,7 @@ export interface SearchFilters {
   tagName?: string;
   minPrice?: number;
   maxPrice?: number;
+  sortBy?: 'featured' | 'newest' | 'price_asc' | 'price_desc';
 }
 
 export async function searchProducts(filters: SearchFilters) {
@@ -80,8 +81,15 @@ export async function searchProducts(filters: SearchFilters) {
       })
     };
 
+    const orderBy: Prisma.ProductOrderByWithRelationInput = 
+      filters.sortBy === 'newest' ? { createdAt: 'desc' } :
+      filters.sortBy === 'price_asc' ? { price: 'asc' } :
+      filters.sortBy === 'price_desc' ? { price: 'desc' } :
+      { isFeatured: 'desc' }; 
+
     const products = await prisma.product.findMany({
       where,
+      orderBy,
       include: {
         category: true,
         user: {
@@ -94,9 +102,6 @@ export async function searchProducts(filters: SearchFilters) {
         images: true,
         color: true,
         size: true
-      },
-      orderBy: {
-        createdAt: 'desc'
       }
     });
 

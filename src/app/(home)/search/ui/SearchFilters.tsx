@@ -55,7 +55,7 @@ export function SearchFiltersComponent({
   const hasActiveFilters = Object.values(filters).some(value => value !== undefined && value !== '');
 
   return (
-    <div>
+    <div className="space-y-4">
       {/* Clear All Filters Button - Only show if there are active filters */}
       {hasActiveFilters && (
         <div className="mb-4">
@@ -68,6 +68,28 @@ export function SearchFiltersComponent({
           </Button>
         </div>
       )}
+
+      {/* New Sorting Select */}
+      <div className="flex items-center space-x-2">
+        <label className="text-sm text-gray-600">Sort by:</label>
+        <Select 
+          value={filters.sortBy || 'featured'}
+          onValueChange={(value) => {
+            updateFilter('sortBy', value);
+            performSearch();
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Sort Products" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="featured">Featured</SelectItem>
+            <SelectItem value="newest">Newest</SelectItem>
+            <SelectItem value="price_asc">Price: Low to High</SelectItem>
+            <SelectItem value="price_desc">Price: High to Low</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
         {/* Product Name Filter with Clear Button */}

@@ -10,7 +10,7 @@ export default async function VendorOrdersPage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/signup');
   }
 
   return (

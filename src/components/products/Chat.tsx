@@ -11,11 +11,11 @@ import TagsView from './TagsView';
 
 interface Review {
   id: string;
-  message: string;
+  comment: string;
   createdAt: string;
   user: {
-    name: string;
-    email: string;
+    name: string | null;
+    email: string | null;
   };
 }
 
@@ -34,8 +34,9 @@ const Chat = ({ productId }: { productId: string }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [productTags, setProductTags] = useState<Tag[]>([]);
   const [userCertifications, setUserCertifications] = useState<Set<string>>(new Set());
-  const router = useRouter();
-  const supabase = createClient();
+
+
+
 
 useEffect(() => {
   const fetchTags = async () => {
@@ -86,7 +87,7 @@ useEffect(() => {
                     {new Date(review.createdAt).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-sm mt-1">{review.message}</p>
+                <p className="text-sm mt-1">{review.comment}</p>
               </div>
             ))}
           </div>
@@ -134,6 +135,7 @@ useEffect(() => {
 
 
       </div>
+      
       {/* Section des tags */}
 <TagsView productId={productId} />
     </div>

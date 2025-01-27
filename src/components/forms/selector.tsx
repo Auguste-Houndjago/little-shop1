@@ -53,7 +53,7 @@ export default function CountrySelector({
         <button
           type="button"
           className={`${
-            disabled ? "bg-neutral-100" : "bg-white"
+            disabled ? "bg-neutral-100" : ""
           } relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
           aria-haspopup="listbox"
           aria-expanded="true"
@@ -61,7 +61,7 @@ export default function CountrySelector({
           onClick={onToggle}
           disabled={disabled}
         >
-          <span className="truncate flex items-center">
+          <span className="truncate flex items-center  text-white bg-zinc-900">
             <img
               alt={`${selectedValue.isoCode}`}
               src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedValue.isoCode}.svg`}
@@ -75,7 +75,7 @@ export default function CountrySelector({
             }`}
           >
             <svg
-              className="h-5 w-5 text-gray-400"
+              className="h-5 w-5 text-gray-400 bg-zinc-900"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -97,14 +97,14 @@ export default function CountrySelector({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-80 rounded-md text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              className="absolute z-10 mt-1 w-full text-white bg-zinc-900 shadow-lg max-h-80 rounded-md text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               tabIndex={-1}
               role="listbox"
               aria-labelledby="listbox-label"
               aria-activedescendant="listbox-option-3"
             >
-              <div className="sticky top-0 z-10 bg-white">
-                <motion.li className=" text-gray-900 cursor-default select-none relative py-2 px-3">
+              <div className="sticky top-0 z-10 text-white  bg-zinc-900">
+                <motion.li className=" text-white cursor-default select-none relative py-2 px-3">
                   <Input alt='search contry'
                     type="search"
                     name="search"
@@ -119,7 +119,7 @@ export default function CountrySelector({
 
               <div
                 className={
-                  "max-h-64 scrollbar scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-600 scrollbar-thumb-rounded scrollbar-thin overflow-y-scroll"
+                  "max-h-64 scrollbar text-white scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-600 scrollbar-thumb-rounded scrollbar-thin overflow-y-auto"
                 }
               >
       
@@ -128,7 +128,7 @@ export default function CountrySelector({
                   country.name.toLowerCase().startsWith(query.toLowerCase())
                 ).length === 0 ?     (
                   <ul>
-                  <li className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9">
+                  <li className="text-white cursor-default select-none relative py-2 pl-3 ">
                     No countries found
                   </li></ul>
                   
@@ -140,7 +140,7 @@ export default function CountrySelector({
                       
                       <li
                         key={`${id}-${index}`}
-                        className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 flex items-center hover:bg-gray-50 transition"
+                        className="text-white  rounded-md cursor-default select-none relative py-2 pl-3  flex items-center hover:bg-background/80 transition"
                         id="listbox-option-0"
                         role="option"
                         onClick={() => {
@@ -155,11 +155,11 @@ export default function CountrySelector({
                           className={"inline mr-2 h-4 rounded-sm"}
                         />
 
-                        <span className="font-normal truncate">
+                        <span className="font-normal text-white hover:text-black truncate">
                           {country.name}
                         </span>
                         {country.isoCode === selectedValue.isoCode ? (
-                          <span className="text-blue-600 absolute inset-y-0 right-0 flex items-center pr-8">
+                          <span className="text-blue-600 absolute inset-y-0 left-0 flex items-center ">
                             <svg
                               className="h-5 w-5"
                               xmlns="http://www.w3.org/2000/svg"

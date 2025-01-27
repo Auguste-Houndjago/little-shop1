@@ -2,7 +2,7 @@
 
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UploadButton } from '@uploadthing/react';
 import { OurFileRouter } from '../api/uploadthing/core';
 import Image from 'next/image';
@@ -13,9 +13,20 @@ export default function Register() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState<string | null>(null);
   const supabase = createClient();
+
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,56 +62,71 @@ export default function Register() {
         throw new Error(data.error || 'Failed to register user');
       }
 
-      router.push('/'); 
+      router.push('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-br from-indigo-100 to-purple-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-2xl border border-gray-100">
-        <h1 className="text-3xl font-bold text-center text-indigo-600 mb-6">Complete Your Profile</h1>
+    <div className="flex min-h-screen items-center justify-center bg-[#121212] py-2">
+      <div className="w-full max-w-md border-2 border-transparent bg-[linear-gradient(#212121,#212121)_padding-box,linear-gradient(120deg,transparent_25%,#1cb0ff,#40ff99)_border-box] p-8 text-white rounded-2xl">
+        <h1 className="mb-8 text-center text-2xl font-bold text-white">Completer Votre Profile</h1>
         
         {error && (
-          <div className="p-4 text-sm text-red-700 bg-red-100 rounded-lg shadow-sm mb-4">
+          <div className="mb-6 rounded-lg bg-red-900/50 p-4 text-sm text-red-200">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300"
-              placeholder="Enter your full name"
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <div className="relative">
+  <input
+    type="text"
+    id="name"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    className="peer w-full rounded-md border border-gray-700 bg-transparent p-3 text-white outline-none transition-all focus:border-[#1cb0ff] placeholder-transparent"
+    required
+    placeholder="Votre Nom"
+  />
+  <label
+    htmlFor="name"
+    className="absolute left-2 top-3 text-gray-400 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-[#1cb0ff] peer-focus:text-sm"
+  >
+    Nom 
+  </label>
+</div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+
+          <div className="space-y-2">
+            <label className="block text-sm text-gray-400">
               Profile Picture
             </label>
-            <div className="flex items-center space-x-6">
-              {avatarUrl && (
-                <div className="relative w-24 h-24 border-4 border-indigo-200 rounded-full">
+            <div className="flex items-center gap-4">
+              {(previewUrl || avatarUrl) && (
+                <div className="relative h-20 w-[108px] rounded-full border-2 border-[#1cb0ff]">
                   <Image
-                    src={avatarUrl}
+                    src={previewUrl || avatarUrl}
                     alt="Profile preview"
                     className="rounded-full object-cover"
                     fill
                   />
                 </div>
               )}
-              <UploadButton<OurFileRouter, 'imageOne' >
+              <UploadButton<OurFileRouter, 'imageOne'>
                 endpoint="imageOne"
+                onBeforeUploadBegin={(files) => {
+                 
+                  if (files[0]) {
+                    
+                    if (previewUrl) {
+                      URL.revokeObjectURL(previewUrl);
+                    }
+                    setPreviewUrl(URL.createObjectURL(files[0]));
+                  }
+                  return files;
+                }}
                 onClientUploadComplete={(res) => {
                   if (res?.[0]?.url) {
                     setAvatarUrl(res[0].url);
@@ -110,55 +136,53 @@ export default function Register() {
                   setError(`Upload failed: ${error.message}`);
                 }}
                 appearance={{
-                  button: "bg-slate-800  hover:bg-slate-700 text-white py-2 px-4 rounded-full transition duration-300",
+                  button: "bg-white/10 text-gray-400 border border-gray-700 py-2 px-4 rounded-md hover:bg-[#212121] hover:border-[#1cb0ff] transition-all duration-200",
                   container: "w-full flex justify-start items-center"
                 }}
               />
             </div>
           </div>
 
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-              Phone Number
-            </label>
-            <PhoneInput
-              country={'tg'}
-              value={phone}
-              onChange={(phone) => setPhone('+' + phone)}
-              inputClass="!w-full !h-12 !px-4 !py-2 !border !border-gray-300 !rounded-lg !shadow-sm focus:!outline-none focus:!ring-2 focus:!ring-indigo-500 focus:!border-indigo-500"
-              containerClass="w-full"
-              buttonClass="!border !border-gray-300 !bg-gray-50 hover:!bg-gray-100 !rounded-l-lg"
-              searchClass="!border !border-gray-300 !bg-white"
-              dropdownClass="!border !border-gray-300 !bg-white"
-              enableSearch
-              preferredCountries={['tg', 'gh', 'ng', 'bj', 'ci', 'bf']}
-              enableAreaCodes={true}
-              autoFormat={true}
-              countryCodeEditable={false}
-              masks={{
-                tg: '.. .. .. ..', 
-                gh: '... ... ....', 
-                ng: '... ... ....', 
-                bj: '.. .. .. ..', 
-                ci: '.. .. .. ..', 
-                bf: '.. .. .. ..' 
-              }}
-              localization={{
-                tg: 'Togo',
-                gh: 'Ghana',
-                ng: 'Nigeria',
-                bj: 'Bénin',
-                ci: 'Côte d\'Ivoire',
-                bf: 'Burkina Faso'
-              }}
-            />
+          <div className="relative">
+          <PhoneInput
+  country={'tg'}
+  value={phone}
+  onChange={(phone) => setPhone('+' + phone)}
+  inputClass="!w-full !bg-transparent !border !p-3 !pl-12 !border-gray-700 !rounded-md !text-white !outline-none hover:!border-[#1cb0ff] focus:!border-[#1cb0ff] !transition-all"
+  containerClass="w-full"
+  buttonClass="!absolute !left-0 !top-0 !border !border-gray-700 !bg-transparent hover:!border-[#1cb0ff] !transition-all"
+  searchClass=" !bg-[#121212]  !text-white "
+  dropdownClass="!border !border-gray-700  !bg-[#112121] !text-black"
+  enableSearch
+  preferredCountries={['tg', 'gh', 'ng', 'bj', 'ci', 'bf']}
+  enableAreaCodes={true}
+  autoFormat={true}
+  countryCodeEditable={false}
+  masks={{
+    tg: '.. .. .. ..',
+    gh: '... ... ....',
+    ng: '... ... ....',
+    bj: '.. .. .. ..',
+    ci: '.. .. .. ..',
+    bf: '.. .. .. ..'
+  }}
+  localization={{
+    tg: 'Togo',
+    gh: 'Ghana',
+    ng: 'Nigeria',
+    bj: 'Bénin',
+    ci: 'Côte d\'Ivoire',
+    bf: 'Burkina Faso'
+  }}
+/>
+
           </div>
 
           <button
             type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+            className="mt-2 w-full rounded-md border border-gray-700 bg-white/10 p-3 text-gray-400 transition-all duration-200 hover:bg-[#212121] hover:border-[#1cb0ff] cursor-pointer"
           >
-           Continuer
+            Continuer
           </button>
         </form>
       </div>

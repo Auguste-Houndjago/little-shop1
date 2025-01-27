@@ -1,10 +1,11 @@
 import React from 'react'
-import SearchPage from './ui/SearchPage'
+import SearchsPage from './ui/SearchsPage'
+
 
 export default function page() {
   return (
     <div>
-      <SearchPage/>
+      <SearchsPage/>
     </div>
   )
 }

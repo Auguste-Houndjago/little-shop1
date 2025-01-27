@@ -8,8 +8,8 @@ import { ProductResultsGrid } from './ProductResultsGrid';
 import { fetchSearchFilters, SearchFilters, searchProducts } from '../_actions/search-actions';
 import { ProductWithRelations } from '../types';
 import { Category, Tag, VendorProfile } from '@prisma/client';
-import { SearchSidebar } from './SearchSideBar';
- // You'll need to create this type file
+
+
 
 export default function SearchPage() {
   const [searchFilters, setSearchFilters] = useState<{
@@ -44,7 +44,7 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState<ProductWithRelations[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Load initial filter data
+
   useEffect(() => {
     async function loadFilters() {
       try {
@@ -57,7 +57,7 @@ export default function SearchPage() {
     loadFilters();
   }, []);
 
-  // Perform search
+
   const performSearch = async () => {
     setIsLoading(true);
     try {
@@ -99,17 +99,6 @@ export default function SearchPage() {
         performSearch={performSearch}
         isLoading={isLoading}
       />
-
-{/* <SearchSidebar
-        searchFilters={searchFilters}
-        filters={filters}
-        updateFilter={updateFilter}
-        clearAllFilters={clearAllFilters}
-        performSearch={performSearch}
-        isLoading={isLoading}
-      /> */}
-
-
       <ProductResultsGrid searchResults={searchResults} />
     </div>
   );

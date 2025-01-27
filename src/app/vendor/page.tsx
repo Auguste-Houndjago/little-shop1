@@ -239,6 +239,9 @@ export default function VendorProfilePage() {
                       country={"tg"}
                       value={value}
                       onChange={(phone) => onChange("+" + phone)}
+                      containerClass="w-full"
+                       inputClass="!w-full !bg-transparent !border !p-3 !pl-12 !border-gray-700 !rounded-md !text-white !outline-none hover:!border-[#1cb0ff] focus:!border-[#1cb0ff] !transition-all"
+
                       enableSearch
                       preferredCountries={["tg", "gh", "ng", "bj", "ci", "bf"]}
                       enableAreaCodes={true}
@@ -281,7 +284,7 @@ export default function VendorProfilePage() {
                 <FormItem>
                   <FormLabel className="text-zinc-400">Pays</FormLabel>
                   <FormControl>
-                    <CountrySelector
+                    <CountrySelector 
                       id="country-selector"
                       open={isCountrySelectorOpen}
                       onToggle={() => setIsCountrySelectorOpen(!isCountrySelectorOpen)}

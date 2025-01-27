@@ -1,5 +1,5 @@
 import RevealWrapper from "@/components/animations/RevealWrapper";
-import Rideau from "@/components/animations/rideaux";
+
 
 
 const Home = () => {

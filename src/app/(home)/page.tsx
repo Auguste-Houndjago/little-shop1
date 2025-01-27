@@ -14,6 +14,8 @@ import ProductSlider from '@/components/products/ProductSlider';
 import RevealWrapper from '@/components/animations/RevealWrapper';
 import GalleryParallax from '@/components/3d/galery/GalleryParallax';
 import CollectionsSection from '@/components/home/CollectionsSection';
+import { FeaturedReveal } from '@/components/home/FeatursReveal';
+import { CategorySlider } from '@/components/home/CategorySlider';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -66,9 +68,13 @@ const Page = async () => {
 				</h1>
 			</div>
 
-			<div className="mt-16 space-y-8">
-				<HeadingTitle title='Nos Collections' />
-				<CollectionsSection />
+			<div className="mt-16 md-h-full h-40 space-y-8">
+			<HeadingTitle title='Nos Collections' />
+			<RevealWrapper delay={0}>
+			<CollectionsSection />
+			</RevealWrapper>
+
+		
 
 			</div>
 			{/* <div className='h-[400px]'>
@@ -79,7 +85,11 @@ const Page = async () => {
 		
 			</div> */}
 
+<div className=''>
+	<CategorySlider/>
+</div>
 
+<FeaturedReveal/>
 			<div className='flex flex-col gap-5 mt-16 mb-8'>
 				<HeadingTitle title='featured products' />
 

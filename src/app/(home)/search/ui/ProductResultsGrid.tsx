@@ -16,12 +16,12 @@ export function ProductResultsGrid({ searchResults }: ProductResultsGridProps) {
       {searchResults.length === 0 ? (
         <p>No results found. Try adjusting your search filters.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {searchResults.map((product) => (
             <Link 
-              href={`/products/${product.id}`} 
+              href={`/p/${product.id}`} 
               key={product.id} 
-              className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+              className="border-2 border-slate-100/80 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
             >
               {product.images && product.images.length > 0 ? (
                 <img 
