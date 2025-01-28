@@ -30,7 +30,7 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
       <CarouselContent>
         {products.map((product, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
+            <div className="p-1 ">
               <CardProduct product={product} />
             </div>
           </CarouselItem>

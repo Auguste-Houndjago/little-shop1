@@ -42,7 +42,7 @@ const items = [
 		actionUrl: '/sales'
 	},
 	{
-		img: '/background1.jpg',
+		img: '/images/hero/peach.jpg',
 		title: 'Nouveautés',
 		subtitle: 'Les dernières tendances de la saison',
 		actionLabel: 'Explorer',
@@ -101,7 +101,8 @@ const Page = async () => {
 					))}
 				</div>
 
-				<ProductSlider />
+					<ProductSlider />
+			
 			</div>
 		</div>
 	);

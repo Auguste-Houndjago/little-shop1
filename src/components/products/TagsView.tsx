@@ -99,12 +99,14 @@ export default function TagsView({ productId }: TagsViewProps) {
             >
               {tag.name}
               <span
-                className="absolute -top-3 left-0 -translate-x-1/2 mt-1 px-2 py-1 
-                text-black/50 text-xs rounded-md opacity-0 
-                group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center"
-              >
-                {Icon && <Icon size={16} />}
-              </span>
+  className="absolute -top-3 -left-2  
+             text-black/80 text-xs rounded-m opacity-0 
+             group-hover:opacity-90 transition-opacity duration-300 
+             pointer-events-none flex items-center justify-center "
+>
+  {Icon && <Icon className='drop-shadow-sm' size={16} />}
+</span>
+
             </Badge>
           );
         })}

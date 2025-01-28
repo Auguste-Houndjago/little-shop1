@@ -38,7 +38,7 @@ const Billboard = ({ items }: BillboardProps) => {
         <CarouselContent>
           {items.map((item, index) => (
             <CarouselItem key={index} className="relative group ">
-              <div className="relative aspect-[2.5/1] md:h-full h-[300px]  rounded-md w-full overflow-hidden">
+              <div className=" relative aspect-[2.5/1] md:h-full h-[300px]  rounded-md w-full overflow-hidden">
                 <Image
                   src={item.img}
                   alt={item.title}

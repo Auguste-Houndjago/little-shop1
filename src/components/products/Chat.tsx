@@ -149,7 +149,7 @@ const Chat = ({ productId }: { productId: string }) => {
   };
 
   return (
-    <div className="absolute z-50 flex flex-col max-w-[260px] w-full">
+    <div className="absolute z-20 flex flex-col max-w-[260px] w-full">
       <div className="relative flex bg-gradient-to-br from-gray-100/50 via-gray-200/40 to-gray-300/30 backdrop-blur-xl border border-white/20 rounded-2xl p-[1.5px] shadow-2xl overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-50"></div>
         

@@ -23,6 +23,17 @@ const config = {
   		boxShadow: {
   			smoke: '0 0 15px 15px rgba(0, 0, 0, 0.2)'
   		},
+
+			backgroundImage: {
+			  'pattern-custom': 'radial-gradient(#010108 2px, transparent 2px), radial-gradient(#010108 2px, transparent 2px)',
+			},
+			backgroundSize: {
+			  '32x32': '32px 32px',
+			},
+			backgroundPosition: {
+			  'top-left': '0 0, 16px 16px',
+			},
+		
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
