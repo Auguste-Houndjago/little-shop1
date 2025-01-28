@@ -20,7 +20,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
     <Link 
       href={`/category/${category.id}`} 
       className={cn(
-        "group block overflow-hidden rounded-full shadow-lg border-2 border-white/30",
+        "group block overflow-hidden rounded-md aspect-square shadow-lg border-2 border-white/30",
         "transform transition-all duration-300",
         "hover:scale-105 hover:shadow-xl",
         "bg-white dark:bg-gray-800"

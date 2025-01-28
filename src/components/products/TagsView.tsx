@@ -3,10 +3,27 @@
 import React, { useState, useEffect } from 'react';
 import { Tag } from '@prisma/client';
 import { Badge } from '@/components/ui/badge';
+import {
+  CheckCircle,
+  DollarSign,
+  Truck,
+  Wrench,
+  PackageOpen,
+  MessagesSquare,
+} from 'lucide-react';
 
 interface TagsViewProps {
   productId: string;
 }
+
+const categoryIcons = {
+  PRODUCT_QUALITY: CheckCircle,
+  SHIPPING_SERVICE: Truck,
+  CUSTOMER_SERVICE: MessagesSquare,
+  PRICE_VALUE: DollarSign,
+  AUTHENTICITY: PackageOpen,
+  CUSTOM: Wrench,
+};
 
 export default function TagsView({ productId }: TagsViewProps) {
   const [productTags, setProductTags] = useState<Tag[]>([]);
@@ -18,7 +35,7 @@ export default function TagsView({ productId }: TagsViewProps) {
       try {
         setIsLoading(true);
         const response = await fetch(`/api/tags?productId=${productId}`);
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch product tags');
         }
@@ -28,7 +45,9 @@ export default function TagsView({ productId }: TagsViewProps) {
         setError(null);
       } catch (err) {
         console.error('Error fetching product tags:', err);
-        setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unexpected error occurred'
+        );
         setProductTags([]);
       } finally {
         setIsLoading(false);
@@ -43,7 +62,7 @@ export default function TagsView({ productId }: TagsViewProps) {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center py-3.5">
-        <span className="text-sm text-gray-500">Loading tags...</span>
+        <span className="text-sm text-gray-500">...</span>
       </div>
     );
   }
@@ -66,28 +85,30 @@ export default function TagsView({ productId }: TagsViewProps) {
 
   return (
     <div>
-<div className="flex flex-wrap gap-1 py-3.5">
-  {productTags.map((tag) => (
-    <Badge 
-      key={tag.id} 
-      variant="secondary"
-      className="relative px-2 py-1 
-        text-[10px]
-        text-gray-700
-        flex items-center gap-1 cursor-pointer"
-    >
-      {tag.name} 
-      <span 
-        className="absolute top-full left-1/2 -translate-x-1/2 mt-1 px-2 py-1 
-         text-black/50 text-xs rounded-md opacity-0 
-        group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      >
-        {tag.category.toLowerCase().replace('_', ' ')}
-      </span>
-    </Badge>
-  ))}
-</div>
-
+      <div className="flex flex-wrap gap-1 py-3.5">
+        {productTags.map((tag) => { 
+          const Icon = categoryIcons[tag.category as keyof typeof categoryIcons];
+          return (
+            <Badge
+              key={tag.id}
+              variant="secondary"
+              className="relative px-2 py-1 
+                text-[10px]
+                text-gray-700
+                flex items-center gap-1 cursor-pointer group"
+            >
+              {tag.name}
+              <span
+                className="absolute -top-3 left-0 -translate-x-1/2 mt-1 px-2 py-1 
+                text-black/50 text-xs rounded-md opacity-0 
+                group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center"
+              >
+                {Icon && <Icon size={16} />}
+              </span>
+            </Badge>
+          );
+        })}
+      </div>
     </div>
   );
 }

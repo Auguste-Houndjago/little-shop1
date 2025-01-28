@@ -149,7 +149,7 @@ const Chat = ({ productId }: { productId: string }) => {
   };
 
   return (
-    <div className="flex flex-col max-w-[260px] w-full">
+    <div className="absolute z-50 flex flex-col max-w-[260px] w-full">
       <div className="relative flex bg-gradient-to-br from-gray-100/50 via-gray-200/40 to-gray-300/30 backdrop-blur-xl border border-white/20 rounded-2xl p-[1.5px] shadow-2xl overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-50"></div>
         
@@ -160,12 +160,12 @@ const Chat = ({ productId }: { productId: string }) => {
               <div key={review.id} className="bg-white/5 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex items-center space-x-2">
-                    <Avatar className="w-6 h-6">
+                    <Avatar className="w-6 h-6 border ">
                       <AvatarImage 
                         src={review.user.avatar_url || '/default-avatar.png'} 
                         alt={review.user.name || 'Utilisateur'} 
                       />
-                      <AvatarFallback>
+                      <AvatarFallback >
                         {review.user.name?.charAt(0) || review.user.email?.charAt(0) || 'U'}
                       </AvatarFallback>
                     </Avatar>
@@ -189,7 +189,7 @@ const Chat = ({ productId }: { productId: string }) => {
                 placeholder="Ajouter un commentaire✦˚" 
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="bg-transparent border-none w-full h-12 text-gray-800 text-xs p-2.5 resize-none outline-none placeholder-gray-500/70 focus:placeholder-gray-300 transition-colors duration-300"
+                className="bg-transparent border-none w-full h-12 text-gray-800 text-xs p-2.5 resize-none outline-none placeholder-stone-800/70 focus:placeholder-stone-500/70 transition-colors duration-300"
               />
             </div>
             

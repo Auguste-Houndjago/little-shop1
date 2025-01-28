@@ -68,15 +68,14 @@ const Page = async () => {
 				</h1>
 			</div>
 
-			<div className="mt-16 md-h-full h-40 space-y-8">
+			<div className="mt-16 space-y-8">
 			<HeadingTitle title='Nos Collections' />
 		
 			<CollectionsSection />
 
-
-		
-
 			</div>
+
+			
 			{/* <div className='h-[400px]'>
 			<RevealWrapper delay={0}>
 <GalleryParallax/>
@@ -85,11 +84,11 @@ const Page = async () => {
 		
 			</div> */}
 
-<div className=''>
+{/* <div className=''>
 	<CategorySlider/>
-</div>
+</div> */}
 
-<FeaturedReveal/>
+{/* <FeaturedReveal/> */}
 			<div className='flex flex-col gap-5 mt-16 mb-8'>
 				<HeadingTitle title='featured products' />
 
