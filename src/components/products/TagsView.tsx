@@ -85,32 +85,27 @@ export default function TagsView({ productId }: TagsViewProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-1 py-3.5">
-        {productTags.map((tag) => { 
-          const Icon = categoryIcons[tag.category as keyof typeof categoryIcons];
-          return (
-            <Badge
-              key={tag.id}
-              variant="secondary"
-              className="relative px-2 py-1 
-                text-[10px]
-                text-gray-700
-                flex items-center gap-1 cursor-pointer group"
-            >
-              {tag.name}
-              <span
-  className="absolute top-0 z-50 right-1/2 left-1/2  
-             text-black/80 text-xs rounded-m opacity-0 
-             group-hover:opacity-90 transition-opacity duration-300 
-             pointer-events-none flex items-center justify-center "
->
-  {Icon && <Icon className='drop-shadow-sm' size={10} />}
-</span>
+<div className="flex flex-wrap gap-1 py-3.5">
+  {productTags.map((tag) => { 
+    const Icon = categoryIcons[tag.category as keyof typeof categoryIcons];
+    return (
+      <Badge
+        key={tag.id}
+        variant="secondary"
+        className="relative px-2 py-1 
+          text-[10px]
+          text-gray-700
+          flex items-center gap-1 cursor-pointer group"
+      >
+        <span className="inline-flex items-center justify-center gap-1">
+          {tag.name}
+          {Icon && <Icon className="ml-1 drop-shadow-sm" size={10} />}
+        </span>
+      </Badge>
+    );
+  })}
+</div>
 
-            </Badge>
-          );
-        })}
-      </div>
     </div>
   );
 }
