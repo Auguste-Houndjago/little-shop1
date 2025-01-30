@@ -18,7 +18,7 @@ interface CategoryCardProps {
 export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link 
-      href={`/category/${category.id}`} 
+    href={`/${encodeURIComponent(category.id)}`}
       className={cn(
         // "group block overflow-hidden rounded-md aspect-square shadow-lg border-2 border-white/30",
 
