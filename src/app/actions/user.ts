@@ -1,7 +1,8 @@
+'use server'
+
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/lib/prisma'
 
-'use server'
 export async function getUserData() {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
