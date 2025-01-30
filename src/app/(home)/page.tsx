@@ -74,6 +74,7 @@ const Page = async () => {
 	<CategorySlider/>
 </div>
 
+
 			<div className='flex flex-col gap-5 mt-16 mb-8'>	
 				<HeadingTitle title='featured products' />
 

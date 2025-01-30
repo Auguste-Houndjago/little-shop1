@@ -16,40 +16,24 @@ const urbanist = Urbanist({ subsets: ['latin'] });
 
 const Layout = async ({
 	children,
-  }: Readonly<{
+}: Readonly<{
 	children: React.ReactNode;
-  }>) => {
-	try {
-	  const [{ user, isAdmin, avatarUrl }, lists] = await Promise.all([
-		getUserData(),
-		prisma.category.findMany({})
-	  ]);
-  
-	  return (
+}>) => {
+	const { user, isAdmin, avatarUrl } = await getUserData();
+	const lists = await prisma.category.findMany({}) || [];
+
+	return (
 		<div className={urbanist.className}>
-		  <Navbar
-			user={user}
-			isAdmin={isAdmin}
-			lists={lists || []}
-			userIcon={avatarUrl}
-		  />
-		  <main>{children}</main>
-		  <Footer />
+			<Navbar
+				user={user}
+				isAdmin={isAdmin}
+				lists={lists}
+				userIcon={avatarUrl}
+			/>
+			<main>{children}</main>
+			<Footer />
 		</div>
-	  );
-	} catch (error) {
-	 
-	  return (
-		<div className={urbanist.className}>
-		  <Navbar
-			user={null}
-			isAdmin={false}
-			lists={[]}
-			userIcon={null}
-		  />
-		  <main>{children}</main>
-		  <Footer />
-		</div>
-	  );
-	}
-  };
+	);
+};
+
+export default Layout;
