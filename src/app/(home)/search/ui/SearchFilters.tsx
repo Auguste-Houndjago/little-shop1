@@ -56,7 +56,7 @@ export function SearchFiltersComponent({
 
   return (
     <div className="space-y-4">
-      {/* Clear All Filters Button - Only show if there are active filters */}
+      {/* Clear All Filters  */}
       {hasActiveFilters && (
         <div className="mb-4">
           <Button 

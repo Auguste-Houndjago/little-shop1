@@ -153,14 +153,14 @@ const Chat = ({ productId }: { productId: string }) => {
       <div className="relative flex bg-gradient-to-br from-gray-100/50 via-gray-200/40 to-gray-300/30 backdrop-blur-xl border border-white/20 rounded-2xl p-[1.5px] shadow-2xl overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-50"></div>
         
-        <div className="flex flex-col bg-white/10 backdrop-blur-lg rounded-2xl w-full overflow-hidden relative border-[0.5px] border-white/20 shadow-inner">
+        <div className="flex flex-col bg-white/10 backdrop-blur-lg rounded-2xl w-full overflow-hidden relative border-[0.5px] border-white/20 shadow-inner ">
           {/* Liste des reviews */}
-          <div className="max-h-60 overflow-y-auto p-2.5 space-y-2">
+          <div className="max-h-60 overflow-y-auto p-2.5 space-y-2  scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 ">
             {reviews.map((review) => (
               <div key={review.id} className="bg-white/5 rounded-lg p-2">
                 <div className="flex justify-between items-start mb-2">
-                  <div className="flex items-center space-x-2">
-                    <Avatar className="w-6 h-6 border ">
+                  <div className="flex items-center space-x-2 ">
+                    <Avatar className="w-6 h-6 border cursor-pointer">
                       <AvatarImage 
                         src={review.user.avatar_url || '/default-avatar.png'} 
                         alt={review.user.name || 'Utilisateur'} 

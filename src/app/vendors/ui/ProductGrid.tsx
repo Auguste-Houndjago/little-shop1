@@ -44,29 +44,28 @@ export default function ProductGrid({ products }: ProductGridProps) {
         <Link href="/vendors/products/new">
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
-           
           </Button>
         </Link>
       </div>
 
       <motion.div 
-  variants={container}
-  initial="hidden"
-  animate="show"
-  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-4"
->
-  {products.map((product) => (
-    <motion.div key={product.id} variants={item}>
-      <VendorProduct
-        name={product.title}
-        price={product.price}
-        rating={product.averageRating}
-        imageUrl={product.images[0]?.url}
-      />
-    </motion.div>
-  ))}
-</motion.div>
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className=" flex flex-col flex-wrap gap-4 md:flex-row"
+      >
+        {products.map((product) => (
+          <motion.div key={product.id} variants={item}>
+            <VendorProduct
+              name={product.title}
+              price={product.price}
+              rating={product.averageRating}
+              imageUrl={product.images[0]?.url}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
 
     </div>
   )
-} 
+}

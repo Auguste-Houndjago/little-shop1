@@ -6,16 +6,14 @@ import Billboard from '@/components/home/Billboard';
 
 import type { Color, Image, Product, Size } from '@prisma/client';
 import { createClient } from '@/utils/supabase/server';
-import { fetchFeaturedProducts } from '@/lib/products';
+import { fetchAllProducts, fetchFeaturedProducts, fetchProducts, fetchUsualProducts } from '@/lib/products';
 import { fetchCategoriesWithProducts } from '@/lib/categories';
 
 import ProductSlider from '@/components/products/ProductSlider';
-
-import RevealWrapper from '@/components/animations/RevealWrapper';
-import GalleryParallax from '@/components/3d/galery/GalleryParallax';
-import CollectionsSection from '@/components/home/CollectionsSection';
-import { FeaturedReveal } from '@/components/home/FeatursReveal';
+import { CategoryCard } from '@/components/home/CategoryCard';
 import { CategorySlider } from '@/components/home/CategorySlider';
+
+
 
 export type ProductFeatured = {
 	images: Image[];
@@ -52,7 +50,10 @@ const items = [
 
 const Page = async () => {
 	const supabase = createClient();
-	const products = await fetchFeaturedProducts();
+	const products_feature = await fetchFeaturedProducts();
+	const products = await fetchAllProducts();
+	const products_usual = await fetchUsualProducts();
+	
 	const categories = await fetchCategoriesWithProducts();
 	const { data: { user } } = await supabase.auth.getUser();
 
@@ -68,12 +69,12 @@ const Page = async () => {
 				</h1>
 			</div>
 
-			<div className="mt-16 space-y-8">
+			{/* <div className="mt-16 space-y-8">
 			<HeadingTitle title='Nos Collections' />
 		
 			<CollectionsSection />
 
-			</div>
+			</div> */}
 
 			
 			{/* <div className='h-[400px]'>
@@ -84,16 +85,19 @@ const Page = async () => {
 		
 			</div> */}
 
-{/* <div className=''>
+<div className=''>
+
 	<CategorySlider/>
-</div> */}
+</div>
 
 {/* <FeaturedReveal/> */}
-			<div className='flex flex-col gap-5 mt-16 mb-8'>
+			<div className='flex flex-col gap-5 mt-16 mb-8'>	
 				<HeadingTitle title='featured products' />
 
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-					{products.slice(0, 4).map((product, productIndex) => (
+			
+
+				<div className='flex justify-center flex-wrap flex-col md:flex-row gap-5'>
+					{products_feature.slice(0, 4).map((product, productIndex) => (
 						<CardProduct
 							key={productIndex}
 							product={product}
@@ -102,7 +106,27 @@ const Page = async () => {
 				</div>
 
 					<ProductSlider />
-			
+		
+			</div>
+
+			<div className=" flex flex-col justify-center space-y-4 ">
+				<div className='flex justify-center items-center flex-wrap flex-col md:flex-row  gap-5 '>
+						{products.slice(0, 4).map((product, productIndex) => (
+							<CardProduct
+								key={productIndex}
+								product={product}
+							/>
+						))}
+					</div>
+				
+					<div className='flex justify-center flex-wrap flex-col md:flex-row  gap-5'>
+						{products_usual.slice(0, 4).map((product, productIndex) => (
+							<CardProduct
+								key={productIndex}
+								product={product}
+							/>
+						))}
+					</div>
 			</div>
 		</div>
 	);

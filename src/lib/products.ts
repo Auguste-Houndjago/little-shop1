@@ -33,6 +33,67 @@ export const fetchProducts = async () => {
   }
 };
 
+
+
+export const fetchAllProducts = async () => {
+  try {
+    const featuredProducts = await prisma.product.findMany({
+      where: {
+        isArchived: false,
+        images: {
+          some: {},
+        },
+      },
+      include: {
+        images: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        color: true,
+        size: true,
+      },
+    });
+
+    return featuredProducts;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des produits en vedette :", error);
+    return [];
+  }
+};
+
+
+export const fetchUsualProducts = async () => {
+  try {
+    const featuredProducts = await prisma.product.findMany({
+      where: {
+        isArchived: false,
+        isFeatured: false,
+        images: {
+          some: {},
+        },
+      },
+      include: {
+        images: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        color: true,
+        size: true,
+      },
+    });
+
+    return featuredProducts;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des produits en vedette :", error);
+    return [];
+  }
+};
+
+
 export const fetchFeaturedProducts = async () => {
   try {
     const featuredProducts = await prisma.product.findMany({
@@ -86,6 +147,26 @@ export async function uploadProductImage(file: File) {
       console.error('Error uploading image:', error);
       throw error;
     }
+}
+
+
+export async function fetchCategory() {
+  try {
+    const categories = await prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+        billboard: true,
+      },
+      orderBy: {
+        name: 'asc'
+      }
+    });
+    return categories;
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+    return [];
+  }
 }
 
 

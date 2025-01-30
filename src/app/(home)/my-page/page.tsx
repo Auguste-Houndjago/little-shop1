@@ -15,6 +15,8 @@ import { ProductCard } from "../../dashboard/products/Product-Card";
 import { OrderCard } from "../../dashboard/orders/order-card";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
+import { WishCard } from "@/components/user/WishCard";
+import SocialCard from "./Social";
 
 interface Order {
   id: string;
@@ -143,10 +145,12 @@ export default function MyPage() {
           Sign Out
         </Button>
       </div>
+      <SocialCard/>
 
       <Card>
         <CardTitle>
 
+ 
         </CardTitle>
 
       </Card>
@@ -282,7 +286,10 @@ export default function MyPage() {
             ) : wishlist.length > 0 ? (
               wishlist.map((product) => (
                 <motion.div key={product.id} variants={itemVariants}>
-                  <ProductCard product={product} />
+                <WishCard 
+  product={product} 
+  onRemoveFromWishlist={()=>{}} 
+/>
                 </motion.div>
               ))
             ) : (

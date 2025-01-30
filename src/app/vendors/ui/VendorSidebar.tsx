@@ -56,13 +56,15 @@ const routes = [
   {
     label: "Analytics",
     icon: BarChart,
-    href: "/vendors/analytics",
+    href: "#",
+    // href: "/vendors/analytics",
     color: "text-blue-700",
   },
   {
     label: "Archive",
     icon: Archive,
-    href: "/vendors/archive",
+    href: "#",
+    // href: "/vendors/archive",
     color: "text-gray-700",
   },
   {
@@ -90,9 +92,9 @@ export default function VendorSidebar() {
       className="relative h-full bg-white/30 backdrop-blur-lg border-r border-white/20 shadow-xl rounded-md overflow-hidden"
     >
       {/* Bouton de toggle */}
-      <button title="d"
+      <button title="sidebar-toggle"
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-6 p-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-white/30 shadow-md hover:bg-white/70 transition-colors z-10"
+        className="absolute -right-3 top-5 p-1.5 rounded-md bg-white/50 backdrop-blur-sm border border-white/30 shadow-md hover:bg-white/70 transition-colors z-10"
       >
         <motion.div
           animate={{ rotate: isCollapsed ? 180 : 0 }}

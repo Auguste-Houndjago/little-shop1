@@ -95,21 +95,19 @@ export default function SearchsPage() {
 
   return (
     <div className="min-h-screen">
-
-
       {/* Main Search Area */}
       <div className="container mx-auto px-4 py-8">
         <div className="flex gap-8">
           {/* Categories Sidebar */}
-          <div className="w-64 flex-shrink-0">
+          <div className="max-w-48 flex items-center flex-col border-4 flex-shrink-0">
             <h3 className="font-semibold mb-4">Categories</h3>
-            <div className="space-y-2">
-              <button className="text-purple-700 font-medium w-full text-left">All Products</button>
+            <div className="space-y-2 mx-auto border-4">
+              <button className="text-purple-700 font-medium w-full ">All Products</button>
               {searchFilters.categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => updateFilter("categoryId", category.id)}
-                  className="w-full text-left hover:text-purple-700"
+                  className="w-full text-center hover:text-purple-700"
                 >
                   {category.name}
                 </button>

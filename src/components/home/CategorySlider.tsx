@@ -1,33 +1,11 @@
-'use client'
-import React from 'react';
-
-import prisma from '@/lib/prisma';
-
-
 
 import { CategoryCard } from "./CategoryCard";
+import { fetchCategory } from '@/lib/products';
 
-async function fetchCategories() {
-  try {
-    const categories = await prisma.category.findMany({
-      select: {
-        id: true,
-        name: true,
-        billboard: true,
-      },
-      orderBy: {
-        name: 'asc'
-      }
-    });
-    return categories;
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-    return [];
-  }
-}
+
 
 export async function CategorySlider() {
-  const categories = await fetchCategories();
+  const categories = await fetchCategory();
 
   return (
     <div className="container mx-auto px-4 py-8">

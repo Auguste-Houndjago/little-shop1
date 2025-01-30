@@ -79,7 +79,7 @@ export function ProductModal({ product }: ProductModalProps) {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <div className="flex justify-between items-center mb-4">
-                      <span className="text-xl font-bold text-white">{product.price}€</span>
+                      <span className="text-xl font-bold text-white">{product.price} FCFA</span>
                     </div>
                     {product.description && <p className="text-white/80 text-sm">{product.description}</p>}
                   </div>

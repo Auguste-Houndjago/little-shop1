@@ -20,10 +20,11 @@ export function CategoryCard({ category }: CategoryCardProps) {
     <Link 
       href={`/category/${category.id}`} 
       className={cn(
-        "group block overflow-hidden rounded-md aspect-square shadow-lg border-2 border-white/30",
-        "transform transition-all duration-300",
+        // "group block overflow-hidden rounded-md aspect-square shadow-lg border-2 border-white/30",
+
         "hover:scale-105 hover:shadow-xl",
-        "bg-white dark:bg-gray-800"
+      
+        "group relative w-52 h-52 bg-gray-300 rounded-3xl overflow-hidden shadow-lg border-2 border-white transition-all duration-1000  ease-in-out"
       )}
     >
       <div className="relative w-full h-fit aspect-[6.5/5]  ">
@@ -32,7 +33,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
             src={category.billboard} 
             alt={category.name} 
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
+            className="object-contain p-2 transition-transform duration-300 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (

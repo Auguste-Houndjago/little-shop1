@@ -37,7 +37,7 @@ export function ProductCard({ product }: { product: ProductWithImages }) {
     }
   };
 
-  const price = Number(product.price.toString());
+  // const price = Number(product.price.toString());
 
   return (
     <motion.div
@@ -87,7 +87,7 @@ export function ProductCard({ product }: { product: ProductWithImages }) {
         </CardHeader>
         <CardContent>
           <CardTitle className="mb-2 line-clamp-2">{product.title}</CardTitle>
-          <p className="text-xl font-bold">${price}</p>
+          <p className="text-xl font-bold">{product.price} FCFA</p>
         </CardContent>
         <CardFooter>
           <Button className="w-full">

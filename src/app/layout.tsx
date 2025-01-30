@@ -5,7 +5,7 @@ import { Toaster } from 'sonner';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ThemeProvider } from '@/components/theme-provider';
-import PageTransition from '@/components/ux/PageTransition';
+
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -21,10 +21,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		<AuthProvider>
 
 
-		{/* <PageTransition> */}
-			{children}
 
-		{/* </PageTransition> */}
+			{children}
 
 
 				</AuthProvider>
