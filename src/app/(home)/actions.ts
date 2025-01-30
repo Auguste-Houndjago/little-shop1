@@ -3,9 +3,8 @@
 import { stripe } from "@/lib/stripe";
 import type { ProductStorage } from "@/components/home/CardProduct";
 import prisma from "@/lib/prisma";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
-
-
 
 interface CreateProductData {
   title: string;

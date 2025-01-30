@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 export const createClient = () => {
   // Only attempt to use cookies in a server context
@@ -33,16 +34,8 @@ export const createClient = () => {
     );
   }
 
-
-  return createServerClient(
+  return createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get() { return null; },
-        set() {},
-        remove() {},
-      }
-    }
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 };
