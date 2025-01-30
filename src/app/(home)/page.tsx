@@ -25,14 +25,14 @@ export type ProductFeatured = {
 
 const items = [
 	{
-		img: '/background1.jpg',
+		img: '/images/hero/peach.jpg',
 		title: 'Collection Exclusive',
 		subtitle: 'Découvrez notre nouvelle collection de vêtements tendance',
 		actionLabel: 'Découvrir',
 		actionUrl: '/products'
 	},
 	{
-		img: '/background1.jpg',
+		img: '/images/hero/peach.jpg',
 		title: 'Offres Spéciales',
 		subtitle: 'Jusqu\'à -50% sur une sélection d\'articles',
 		actionLabel: 'Voir les offres',
