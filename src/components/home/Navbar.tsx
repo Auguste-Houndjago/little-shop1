@@ -141,7 +141,7 @@ const Navbar = ({
   return (
     <NavbarParent isSticky>
       <nav className='container flex items-center '>
-        <div className='flex items-center lg:gap-4'>
+        <div className='flex items-center lg:gap-4 mr-4'>
       
          <Logo/>
           <ul className='hidden lg:flex items-center gap-4'>
@@ -165,10 +165,10 @@ const Navbar = ({
 
 
         </div>
-
+    
         <div className='flex items-center gap-x-2  md:gap-4 ml-auto'>
 
-         <SearchBar/>
+        <span className='flex ' ><SearchBar/></span>
           <Cart />
           <NavListMobile
             user={initialUser}

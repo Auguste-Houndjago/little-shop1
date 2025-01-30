@@ -49,7 +49,22 @@ export default function SearchsPage() {
       const [filters, setFilters] = useState<SearchFilters>({});
       const [searchResults, setSearchResults] = useState<ProductWithRelations[]>([]);
       const [isLoading, setIsLoading] = useState(false);
+      const [searchQuery, setSearchQuery] = useState('');
     
+      useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q') || '';
+        setSearchQuery(query);
+        
+        // Automatically perform search if query exists
+        if (query) {
+          setFilters(prev => ({
+            ...prev,
+            query: query
+          }));
+          performSearch();
+        }
+      }, []);
     
       useEffect(() => {
         async function loadFilters() {
@@ -62,7 +77,6 @@ export default function SearchsPage() {
         }
         loadFilters();
       }, []);
-    
     
       const performSearch = async () => {
         setIsLoading(true);
@@ -81,7 +95,6 @@ export default function SearchsPage() {
         }
       };
     
-     
       const updateFilter = (key: keyof SearchFilters, value: string | number | undefined) => {
         setFilters(prev => ({
           ...prev,
@@ -93,10 +106,35 @@ export default function SearchsPage() {
         setFilters({});
       };
 
+      const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setFilters(prev => ({
+          ...prev,
+          query: searchQuery
+        }));
+        performSearch();
+      };
+
   return (
     <div className="min-h-screen">
       {/* Main Search Area */}
       <div className="container mx-auto px-4 py-8">
+        <form onSubmit={handleSearchSubmit} className="mb-8">
+          <div className="flex items-center gap-2">
+            <Input 
+              type="text" 
+              placeholder="Rechercher des produits..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-grow"
+            />
+            <Button type="submit" variant="default">
+              <Search className="mr-2 h-4 w-4" /> Rechercher
+            </Button>
+          </div>
+        </form>
+
+        {/* Rest of the existing component remains the same */}
         <div className="flex gap-8">
           {/* Categories Sidebar */}
           <div className="max-w-48 flex items-center flex-col border-4 flex-shrink-0">
@@ -157,4 +195,3 @@ export default function SearchsPage() {
     </div>
   )
 }
-

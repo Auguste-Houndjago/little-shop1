@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-import { ShoppingBag } from 'lucide-react';
+import {  ShoppingCart } from 'lucide-react';
 
 import { cn, formatPrice } from '@/lib/utils';
 
@@ -126,10 +126,12 @@ const {user} = useAuth()
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button
+				variant={"secondary"}
 					size='sm'
-					className='rounded-full px-5'
+					className='rounded-xl px-4 h-10 bg-background/50 border-2'
 				>
-					<ShoppingBag className='w-5 h-5 mr-1.5' />
+					       <ShoppingCart className="w-5 h-5 mr-2" />
+			
 					<span className='font-bold text-xs'>{cart?.length || 0}</span>
 				</Button>
 			</SheetTrigger>
