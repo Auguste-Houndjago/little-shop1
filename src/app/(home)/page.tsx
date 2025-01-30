@@ -10,7 +10,6 @@ import { fetchAllProducts, fetchFeaturedProducts, fetchProducts, fetchUsualProdu
 import { fetchCategoriesWithProducts } from '@/lib/categories';
 
 import ProductSlider from '@/components/products/ProductSlider';
-import { CategoryCard } from '@/components/home/CategoryCard';
 import { CategorySlider } from '@/components/home/CategorySlider';
 
 
@@ -69,28 +68,12 @@ const Page = async () => {
 				</h1>
 			</div>
 
-			{/* <div className="mt-16 space-y-8">
-			<HeadingTitle title='Nos Collections' />
-		
-			<CollectionsSection />
-
-			</div> */}
-
-			
-			{/* <div className='h-[400px]'>
-			<RevealWrapper delay={0}>
-<GalleryParallax/>
-			</RevealWrapper>
-
-		
-			</div> */}
 
 <div className=''>
 
 	<CategorySlider/>
 </div>
 
-{/* <FeaturedReveal/> */}
 			<div className='flex flex-col gap-5 mt-16 mb-8'>	
 				<HeadingTitle title='featured products' />
 

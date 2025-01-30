@@ -3,11 +3,12 @@
 import { createClient } from "@/utils/supabase/server";
 import prisma from "./prisma";
 
-const supabase = createClient();
+
 
 
 
 export const fetchProducts = async () => {
+
   try {
     const products = await prisma.product.findMany({
       where: {
@@ -124,6 +125,7 @@ export const fetchFeaturedProducts = async () => {
 };
 
 export async function uploadProductImage(file: File) {
+  const supabase = createClient();
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${Math.random()}.${fileExt}`;
