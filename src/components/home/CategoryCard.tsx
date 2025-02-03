@@ -43,13 +43,13 @@ export function CategoryCard({ category }: CategoryCardProps) {
         )}
       </div>
       
-      <div className="p-4 text-center">
+      <div className="p-0 text-center">
         <h3 className={cn(
           "text-lg font-semibold",
-          "text-gray-800 dark:text-gray-200",
+          "text-gray-800 bg-sky-800 rounded-md dark:text-gray-200",
           "group-hover:text-primary transition-colors"
         )}>
-          {category.name}
+          {category.name} 
         </h3>
       </div>
     </Link>

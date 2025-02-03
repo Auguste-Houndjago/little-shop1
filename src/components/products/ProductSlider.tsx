@@ -12,7 +12,7 @@ interface ProductSliderProps {
 }
 
 export default async function ProductSlider({ itemsToShow = 3, autoplayInterval = 3000 }: ProductSliderProps) {
-  // Récupération des produits côté serveur
+
   const products: ProductFeatured[] = await fetchFeaturedProducts();
 
   if (products.length === 0) {
@@ -25,7 +25,7 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
         align: "start",
         loop: true,
       }}
-      className="w-full max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto"
+      className="w-full max-w-sm md:max-w-full mx-auto"
     >
       <CarouselContent>
         {products.map((product, index) => (

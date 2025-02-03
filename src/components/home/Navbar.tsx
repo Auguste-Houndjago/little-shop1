@@ -14,8 +14,8 @@ import { useAuth } from "@/contexts/AuthContext"
 import { signOut } from "@/app/actions/auth"
 import type { Category } from "@prisma/client"
 import Logo from "../Logo"
-import SearchBar from "../ux/search-bar"
 import Cart from "./Cart"
+import SearchBar from "../ux/SearchBar"
 
 
 const urbanist = Urbanist({ subsets: ["latin"] })
@@ -73,7 +73,7 @@ const Navbar = ({
             ))}
           </ul>
           <span className="max-w-24 md:max-w-full">
-          <SearchBar />
+         <SearchBar/>
           </span>
         </div>
 

@@ -1,4 +1,6 @@
 
+import { Card, CardContent } from "../ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import { CategoryCard } from "./CategoryCard";
 import { fetchCategory } from '@/lib/products';
 
@@ -18,3 +20,7 @@ export async function CategorySlider() {
     </div>
   );
 }
+
+
+
+

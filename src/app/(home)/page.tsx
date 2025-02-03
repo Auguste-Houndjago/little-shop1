@@ -14,6 +14,7 @@ import { CategorySlider } from '@/components/home/CategorySlider';
 
 
 
+
 export type ProductFeatured = {
 	images: Image[];
 	category: {
@@ -63,6 +64,7 @@ const Page = async () => {
 				<Billboard items={items} />
 			</div>
 
+
 			<div className='flex justify-center'>
 				<h1 className='text-2xl font-bold'>
 					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
@@ -90,7 +92,7 @@ const Page = async () => {
 					))}
 				</div>
 
-					{/* <ProductSlider /> */}
+					<ProductSlider />
 		
 			</div>
 
