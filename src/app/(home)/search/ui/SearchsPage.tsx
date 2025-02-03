@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from "react"
 import { toast } from "sonner"
-import Link from "next/link"
-import { Search, ShoppingCart, Heart } from "lucide-react"
+import { Search } from "lucide-react"
 
 import { SearchFiltersComponent } from "./SearchFilters"
-import { ProductResultsGrid } from "./ProductResultsGrid"
+
 import { fetchSearchFilters, SearchFilters, searchProducts } from "../_actions/search-actions"
 import { ProductWithRelations } from "../types"
 import { Category, Tag, VendorProfile } from "@prisma/client"
@@ -53,14 +52,14 @@ export default function SearchsPage() {
     
       useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-        const query = urlParams.get('q') || '';
+        const query = urlParams.get('productName') || '';
         setSearchQuery(query);
         
         // Automatically perform search if query exists
         if (query) {
           setFilters(prev => ({
             ...prev,
-            query: query
+            productName: query
           }));
           performSearch();
         }
@@ -110,7 +109,7 @@ export default function SearchsPage() {
         e.preventDefault();
         setFilters(prev => ({
           ...prev,
-          query: searchQuery
+          productName: searchQuery
         }));
         performSearch();
       };

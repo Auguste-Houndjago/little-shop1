@@ -12,11 +12,11 @@ export default function SearchBar() {
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Trim and validate search query
+  
     const trimmedQuery = searchQuery.trim();
     if (trimmedQuery) {
-      // Redirect to search page with query
-      router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+
+      router.push(`/search?productName=${encodeURIComponent(trimmedQuery)}`);
     }
   };
 
@@ -25,13 +25,13 @@ export default function SearchBar() {
       <form onSubmit={handleSearch} className="search-container border-2 border-gray-300 group">
         <div className="relative flex items-center">
           <Search className="absolute text-black pointer-events-none transition-all duration-300 ease-in-out 
-            left-1/2 -translate-x-1/2 group-focus-within:left-4 group-focus-within:translate-x-0 w-5 h-5" />
+            left-1/2 -translate-x-1/2 group-focus-within:left-4 group-focus-within:translate-x-0 w-4 h-4 md:w-5 md:h-5" />
           <Input
             type="search"
             placeholder="Rechercher des produits"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-transparent border-0 text-black font-bold 
+            className="w-full pl-8 md:pl-12 md:pr-4 md:py-3 bg-transparent border-0 text-black font-bold 
               placeholder-gray-300 focus-visible:ring-0 focus-visible:ring-offset-0 
               opacity-0 group-focus-within:opacity-100 transition-opacity duration-500"
           />

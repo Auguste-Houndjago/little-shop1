@@ -154,7 +154,7 @@
   .blurx {
 	animation: blurAnimation 1s both;
 	animation-timeline:view();
-	/* -webkit-animation-timeline: view(); */
+	-webkit-animation-timeline: view();
   }
 
 

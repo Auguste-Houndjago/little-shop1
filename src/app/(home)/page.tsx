@@ -57,7 +57,8 @@ const Page = async () => {
 	const { data: { user } } = await supabase.auth.getUser();
 
 	return (
-		<div className='max-w-7xl mx-auto px-6 2xl:px-0'>
+		<div
+		 className='max-w-7xl mx-auto px-4 2xl:px-0'>
 			<div className='mt-4'>
 				<Billboard items={items} />
 			</div>
@@ -89,7 +90,7 @@ const Page = async () => {
 					))}
 				</div>
 
-					<ProductSlider />
+					{/* <ProductSlider /> */}
 		
 			</div>
 

@@ -81,7 +81,6 @@ model VendorProfile {
   @@map("vendor_profiles")
 }
 
-
 model Product {
   id            String   @id @default(uuid()) @db.Uuid
   title         String   @db.VarChar(100)
@@ -105,7 +104,6 @@ model Product {
   size          Size     @relation(fields: [sizeId], references: [id])
   sizeId        String   @db.Uuid
   tags          Tag[]    @relation("ProductTags")
-  tagCertifications TagCertification[]  
 
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
@@ -116,7 +114,6 @@ model Product {
   @@index([categoryId])
   @@map("products")
 }
-
 
 model Color {
   id        String    @id @default(uuid()) @db.Uuid
@@ -251,20 +248,16 @@ model TagCertification {
   id        String   @id @default(uuid()) @db.Uuid
   userId    String   @db.Uuid
   tagId     String   @db.Uuid
-  productId String   @db.Uuid  // Ajout du lien vers un produit
   createdAt DateTime @default(now())
   
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, tagId, productId]) // Empêche un utilisateur de certifier plusieurs fois un même tag sur un produit
+  @@unique([userId, tagId]) // Empêche un utilisateur de certifier plusieurs fois un même tag
   @@index([userId])
   @@index([tagId])
-  @@index([productId])
   @@map("tag_certifications")
 }
-
 
 model Notification {
   id          String           @id @default(uuid()) @db.Uuid

@@ -128,7 +128,7 @@ const {user} = useAuth()
 				<Button
 				variant={"secondary"}
 					size='sm'
-					className='rounded-xl px-4 h-10 bg-background/50 border-2'
+					className='rounded-xl w-12 px-2 h-10 bg-background/50 border-2'
 				>
 					       <ShoppingCart className="w-5 h-5 mr-2" />
 			
