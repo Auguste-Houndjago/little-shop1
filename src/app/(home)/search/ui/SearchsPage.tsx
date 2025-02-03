@@ -15,7 +15,7 @@ import { ProductResults } from "./ProductResults"
 
 
 import VendorList from "@/app/vendors/ui/VendorList"
-import { useSearchParams } from "next/navigation"
+
 
 export default function SearchsPage() {
     const [searchFilters, setSearchFilters] = useState<{
@@ -50,22 +50,21 @@ export default function SearchsPage() {
       const [searchResults, setSearchResults] = useState<ProductWithRelations[]>([]);
       const [isLoading, setIsLoading] = useState(false);
       const [searchQuery, setSearchQuery] = useState('');
-      const searchParams = useSearchParams();
-
+    
       useEffect(() => {
-
-        const query = searchParams.get("productName") || "";
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q') || '';
         setSearchQuery(query);
         
-     
+        // Automatically perform search if query exists
         if (query) {
-          setFilters((prev) => ({
+          setFilters(prev => ({
             ...prev,
-            productName: query,
+            query: query
           }));
           performSearch();
         }
-      }, [searchParams]);
+      }, []);
 
       
     
