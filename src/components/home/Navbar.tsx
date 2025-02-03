@@ -51,7 +51,7 @@ const Navbar = ({
   return (
     <nav
 
-    className="sticky py-4 top-0 z-50 border-b-0 container mx-auto flex h-16 items-center justify-between backdrop-blur-sm px-4 md:px-20 bg-background/50"
+    className="sticky py-4 top-0 z-50 border-b-0 container mx-auto flex h-16 items-center justify-between backdrop-blur-sm px-4 w-full md:px-20 bg-background/50"
     
     >
 
