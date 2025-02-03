@@ -24,10 +24,12 @@ export function CategoryCard({ category }: CategoryCardProps) {
 
         "hover:scale-105 hover:shadow-xl",
       
-        "group relative w-52 h-52 bg-gray-300 rounded-3xl overflow-hidden shadow-lg border-2 border-white transition-all duration-1000  ease-in-out"
+        "group relative w-40 h-40 md:w-52 md:h-52 bg-gray-[#F1F1F1] rounded-3xl overflow-hidden shadow-lg border-2 border-white transition-all duration-1000  ease-in-out"
       )}
     >
+          
       <div className="relative w-full h-fit aspect-[6.5/5]  ">
+      <div className="absolute inset-0 bg-gradient-to-r from-[#4159d07a] via-[#c850c082] to-[#ffcd70a0]"></div>
         {category.billboard ? (
           <Image 
             src={category.billboard} 
@@ -43,10 +45,10 @@ export function CategoryCard({ category }: CategoryCardProps) {
         )}
       </div>
       
-      <div className="p-0 text-center">
+      <div className="p-0 z-50 text-center">
         <h3 className={cn(
           "text-lg font-semibold",
-          "text-gray-800 bg-sky-800 rounded-md dark:text-gray-200",
+          "text-gray-800  rounded-md dark:text-gray-200",
           "group-hover:text-primary transition-colors"
         )}>
           {category.name} 

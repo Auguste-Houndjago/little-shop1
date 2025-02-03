@@ -13,8 +13,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ProductResults } from "./ProductResults"
 
-import Image from "next/image"
+
 import VendorList from "@/app/vendors/ui/VendorList"
+import { useSearchParams } from "next/navigation"
 
 export default function SearchsPage() {
     const [searchFilters, setSearchFilters] = useState<{
@@ -49,21 +50,24 @@ export default function SearchsPage() {
       const [searchResults, setSearchResults] = useState<ProductWithRelations[]>([]);
       const [isLoading, setIsLoading] = useState(false);
       const [searchQuery, setSearchQuery] = useState('');
-    
+      const searchParams = useSearchParams();
+
       useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const query = urlParams.get('productName') || '';
+
+        const query = searchParams.get("productName") || "";
         setSearchQuery(query);
         
-        // Automatically perform search if query exists
+     
         if (query) {
-          setFilters(prev => ({
+          setFilters((prev) => ({
             ...prev,
-            productName: query
+            productName: query,
           }));
           performSearch();
         }
-      }, []);
+      }, [searchParams]);
+
+      
     
       useEffect(() => {
         async function loadFilters() {
@@ -135,22 +139,7 @@ export default function SearchsPage() {
 
         {/* Rest of the existing component remains the same */}
         <div className="flex gap-8">
-          {/* Categories Sidebar */}
-          <div className="max-w-48 flex items-center flex-col border-4 flex-shrink-0">
-            <h3 className="font-semibold mb-4">Categories</h3>
-            <div className="space-y-2 mx-auto border-4">
-              <button className="text-purple-700 font-medium w-full ">All Products</button>
-              {searchFilters.categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => updateFilter("categoryId", category.id)}
-                  className="w-full text-center hover:text-purple-700"
-                >
-                  {category.name}
-                </button>
-              ))}
-            </div>
-          </div>
+
 
           {/* Main Content */}
           <div className="flex-1">
@@ -176,6 +165,8 @@ export default function SearchsPage() {
               <div className="flex gap-4 mb-6">
                 <VendorList/>
               </div>
+
+
 
               <SearchFiltersComponent
                 searchFilters={searchFilters}

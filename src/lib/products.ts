@@ -7,6 +7,8 @@ import prisma from "./prisma";
 
 
 
+
+
 export const fetchProducts = async () => {
 
   try {
@@ -242,7 +244,7 @@ interface ProductAttributes {
 
 export const fetchProductAttributes = async (): Promise<ProductAttributes> => {
   try {
-    // Exécuter toutes les requêtes en parallèle
+ 
     const [categories, sizes, colors] = await Promise.all([
       prisma.category.findMany({
         select: {
@@ -278,5 +280,79 @@ export const fetchProductAttributes = async (): Promise<ProductAttributes> => {
       sizes: [],
       colors: [],
     };
+  }
+};
+
+export const fetchProductsWithReviews = async () => {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        isArchived: false,
+        images: {
+          some: {},
+        },
+      },
+      include: {
+        images: true,
+        reviews: {
+          select: {
+            rating: true,
+          },
+        },
+        category: {
+          select: { name: true },
+        },
+        user: {
+          select: { id: true, name: true },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc', 
+      },
+    });
+    return products;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des produits avec leurs reviews:", error);
+    return [];
+  }
+};
+
+
+
+export const fetchProductsByCategory = async (categoryId?: string) => {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        isArchived: false,
+        categoryId: categoryId ? categoryId : undefined,
+        images: {
+          some: {},
+        },
+      },
+      include: {
+        images: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        reviews: {
+          select: {
+            rating: true,
+          },
+        },
+        color: true,
+        size: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return products;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des produits par catégorie:", error);
+    return [];
   }
 };

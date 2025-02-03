@@ -1,27 +1,39 @@
-import GalleryScroll from "@/components/3d/galery/GalleryScroll";
-import ImageTransitionGallery from "@/components/3d/galery/ImageTransitionGallery";
-import Parallax from "@/components/3d/Parallax";
 
+"use client"
+
+import {Select, SelectItem} from "@heroui/react";
 
 
 export default function App() {
 
-  const IMAGE_URLS = [
-    '/images/hero/hero2.jpg',
-    '/images/hero/hero1.jpg',
-    '/images/hero/hero2.jpg',
-    '/images/hero/hero3.jpg',
-    '/images/hero/hero1.jpg',
- 
-  ]
-  return (
-    <div className="h-screen">
-      {/* <div className="p-8">
-      <Parallax/>
-      </div> */}
-{/* image slider perfect */}
+  const animals = [
+    {key: "cat", label: "Cat"},
+    {key: "dog", label: "Dog"},
+    {key: "elephant", label: "Elephant"},
+    {key: "lion", label: "Lion"},
+    {key: "tiger", label: "Tiger"},
+    {key: "giraffe", label: "Giraffe"},
+    {key: "dolphin", label: "Dolphin"},
+    {key: "penguin", label: "Penguin"},
+    {key: "zebra", label: "Zebra"},
+    {key: "shark", label: "Shark"},
+    {key: "whale", label: "Whale"},
+    {key: "otter", label: "Otter"},
+    {key: "crocodile", label: "Crocodile"},
+  ];
   
-
+  return (
+    <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+      <Select className="max-w-xs" label="Select an animal">
+        {animals.map((animal) => (
+          <SelectItem key={animal.key}>{animal.label}</SelectItem>
+        ))}
+      </Select>
+      <Select className="max-w-xs" label="Favorite Animal" placeholder="Select an animal">
+        {animals.map((animal) => (
+          <SelectItem key={animal.key}>{animal.label}</SelectItem>
+        ))}
+      </Select>
     </div>
   );
 }

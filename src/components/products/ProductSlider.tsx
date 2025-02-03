@@ -1,9 +1,10 @@
-import React from "react";
+
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { fetchFeaturedProducts } from "@/lib/products";
 import { ProductFeatured } from "@/app/(home)/page";
 import CardProduct from "../home/CardProduct";
+import ProductHero, { HeroProduct } from "../home/ProductHero";
 
 
 interface ProductSliderProps {
@@ -25,19 +26,22 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
         align: "start",
         loop: true,
       }}
-      className="w-full max-w-sm md:max-w-full mx-auto"
+      className="w-full z-50  max-w-md md:max-w-full mx-0"
     >
-      <CarouselContent>
+      <CarouselContent className="mx-0">
         {products.map((product, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="basis-[54%]  lg:basis-1/5">
             <div className="p-1 ">
-              <CardProduct product={product} />
+              <HeroProduct product={product} />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
+      <span className="hidden md:block">
       <CarouselPrevious />
       <CarouselNext />
+      </span>
+ 
     </Carousel>
   );
 }

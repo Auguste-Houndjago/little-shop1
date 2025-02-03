@@ -1,3 +1,4 @@
+import {heroui} from '@heroui/theme';
 
 import type { Config } from "tailwindcss"
 
@@ -7,8 +8,8 @@ const config = {
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}"
-
+    "./src/**/*.{ts,tsx}",
+    "./node_modules/@heroui/theme/dist/components/(select|slider|form|listbox|divider|popover|button|ripple|spinner|scroll-shadow).js"
   ],
   prefix: "",
   theme: {
@@ -227,7 +228,7 @@ const config = {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),heroui()],
 } satisfies Config
 
 export default config
