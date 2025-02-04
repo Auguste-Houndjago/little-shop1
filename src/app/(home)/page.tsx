@@ -125,7 +125,7 @@ const Page = async () => {
 			<ProductSlider />
 
 			
-			<div className=" flex flex-col justify-center space-y-4 mt-16 ">
+			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
 
 <span>
 	<VendorList/>
