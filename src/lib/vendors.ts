@@ -30,16 +30,15 @@ export async function fetchVendorStats(vendorId: string) {
       },
     });
 
-    // Calculer les statistiques des commandes
+    
     const completedOrders = orders.filter(order => order.isPaid).length;
     const pendingOrders = orders.length - completedOrders;
 
-    // Calculer le nombre de produits vendus
     const soldProducts = orders.reduce((acc, order) => {
       return acc + order.orderItems.reduce((sum, item) => sum + item.total, 0);
     }, 0);
 
-    // Récupérer la moyenne des notes
+   
     const ratings = await prisma.review.aggregate({
       where: {
         product: {

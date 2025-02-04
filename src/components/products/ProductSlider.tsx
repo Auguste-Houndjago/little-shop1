@@ -3,7 +3,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { fetchFeaturedProducts } from "@/lib/products";
 import { ProductFeatured } from "@/app/(home)/page";
-import CardProduct from "../home/CardProduct";
 import ProductHero, { HeroProduct } from "../home/ProductHero";
 
 
