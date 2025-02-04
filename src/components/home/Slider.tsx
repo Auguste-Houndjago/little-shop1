@@ -54,8 +54,8 @@ const Slider = () => {
             key={slide.id}
           >
 
-            <div className="bg-red-500/50 h-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-2 2xl:gap-12 text-center">
-              <h2 className="text-base  lg:text-3xl 2xl:text-5xl">
+            <div className="bg-red-500/50 h-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-2 2xl:gap-8 text-center">
+              <h2 className="text-base  lg:text-2xl 2xl:text-3xl">
                 {slide.description}
               </h2>
               <h1 className="text-xl lg:text-6xl 2xl:text-8xl font-semibold">
