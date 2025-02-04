@@ -2,49 +2,42 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import VendorProfile from '@/app/vendors/ui/VendorProfile';
-import CardProduct from './CardProduct';
-import { Button } from '@/components/ui/button';
 
-interface VendorProductProps {
-  vendor: {
-    id: string;
-    businessName: string;
-    businessLogo?: string | null;
-    description?: string | null;
-    products: Array<{
-      id: string;
-      title: string;
-      price: number;
-      images: Array<{ 
-        id: string;
-        url: string; 
-        productId: string;
-        createdAt: Date;
-        updatedAt: Date;
-      }>;
-      isFeatured: boolean;
-      category: { name: string };
-      color: { 
-        id: string; 
-        name: string; 
-        color: string; 
-        createdAt: Date; 
-        updatedAt: Date; 
-      };
-      size: { 
-        id: string; 
-        name: string; 
-        value: string; 
-        createdAt: Date; 
-        updatedAt: Date; 
-      };
-    }>;
+import { Button } from '@/components/ui/button';
+import CardProduct from './VendorCardProduct';
+import type { ProductFeatured } from '@/app/(home)/page';
+
+interface Product extends ProductFeatured {
+  color: { 
+    id: string; 
+    name: string; 
+    color: string; 
+    createdAt: Date; 
+    updatedAt: Date; 
+  };
+  size: { 
+    id: string; 
+    name: string; 
+    value: string; 
+    createdAt: Date; 
+    updatedAt: Date; 
   };
 }
 
+interface Vendor {
+  id: string;
+  businessName: string;
+  businessLogo?: string | null;
+  description?: string | null;
+  products: Product[];
+}
+
+interface VendorProductProps {
+  vendor: Vendor;
+}
+
 const MiniCardProduct: React.FC<VendorProductProps> = ({ vendor }) => {
-  // Get the last two products for the vendor
-  const lastTwoProducts = vendor.products.slice(-2);
+  // const lastTwoProducts = vendor.products.slice(-2);
 
   return (
     <Card className="w-full max-w-sm bg-background/80 hover:shadow-lg transition-shadow duration-300 rounded-xl overflow-hidden">
@@ -68,8 +61,8 @@ const MiniCardProduct: React.FC<VendorProductProps> = ({ vendor }) => {
 
         {/* Vendor Products */}
         <div className="grid grid-cols-2 gap-2 p-4">
-          {lastTwoProducts.map((product) => (
-            <CardProduct 
+          {vendor.products.slice(-2).map((product) => (
+            <CardProduct
               key={product.id} 
               product={product} 
             />
@@ -80,7 +73,7 @@ const MiniCardProduct: React.FC<VendorProductProps> = ({ vendor }) => {
       <CardFooter className="p-4 pt-0">
         <Link href={`/vendor/${vendor.id}`} className="w-full">
           <Button variant="outline" className="w-full">
-            Voir plus de produits
+            Voir plus..
           </Button>
         </Link>
       </CardFooter>
