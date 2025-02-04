@@ -24,7 +24,7 @@ interface Product extends ProductFeatured {
   };
 }
 
-interface Vendor {
+export interface Vendor {
   id: string;
   businessName: string;
   businessLogo?: string | null;
@@ -37,12 +37,10 @@ interface VendorProductProps {
 }
 
 const MiniCardProduct: React.FC<VendorProductProps> = ({ vendor }) => {
-  // const lastTwoProducts = vendor.products.slice(-2);
-
   return (
     <Card className="w-full max-w-sm bg-background/80 hover:shadow-lg transition-shadow duration-300 rounded-xl overflow-hidden">
       <CardContent className="p-0">
-        {/* Vendor Header */}
+
         <div className="flex flex-col items-center p-4 bg-muted/30">
           <VendorProfile 
             businessLogo={vendor.businessLogo || null} 
@@ -60,8 +58,8 @@ const MiniCardProduct: React.FC<VendorProductProps> = ({ vendor }) => {
         </div>
 
         {/* Vendor Products */}
-        <div className="grid grid-cols-2 gap-2 p-4">
-          {vendor.products.slice(-2).map((product) => (
+        <div className="flex flex-col md:flex-row md:flex-wrap">
+          {vendor.products.map((product) => (
             <CardProduct
               key={product.id} 
               product={product} 

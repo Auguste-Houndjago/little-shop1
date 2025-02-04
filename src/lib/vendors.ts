@@ -148,3 +148,47 @@ export async function fetchVendorsWithProducts() {
     return [];
   }
 }
+
+export async function fetchVendors(): Promise<any[]> {
+  try {
+    const vendors = await prisma.vendorProfile.findMany({
+      include: {
+        user: {
+          include: {
+            products: {
+              include: {
+                images: true,
+                category: true,
+                color: true,
+                size: true,
+              },
+              take: 2, 
+              orderBy: {
+                createdAt: 'desc'
+              }
+            }
+          }
+        }
+      },
+      take: 6 
+    });
+
+
+    return vendors.map(vendor => ({
+      id: vendor.id,
+      businessName: vendor.businessName || '',
+      businessLogo: vendor.businessLogo,
+      description: vendor.description,
+      products: vendor.user.products.map(product => ({
+        ...product,
+        category: { name: product.category.name },
+        images: product.images,
+        color: product.color,
+        size: product.size
+      }))
+    }));
+  } catch (error) {
+    console.error('Error fetching vendors:', error);
+    return [];
+  }
+}

@@ -16,6 +16,7 @@ import ProductHero from '@/components/home/ProductHero';
 import HeadingTitle from '@/components/home/HeadingTitle';
 import CategoryList from './CategoryList';
 import VendorList from '../vendors/ui/VendorList';
+import VendorsSection from '@/components/home/VendorsSection';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -131,6 +132,9 @@ const Page = async () => {
 	<VendorList/>
 </span>
 
+<VendorsSection/>
+
+
 				<div className='flex justify-center items-center mt-2 flex-wrap flex-col md:flex-row gap-y-16 gap-5 '>
 						{products.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
@@ -140,14 +144,14 @@ const Page = async () => {
 						))}
 					</div>
 				
-					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-16  gap-y-8 gap-5'>
+					{/* <div className='flex justify-center flex-wrap flex-col md:flex-row mt-16  gap-y-8 gap-5'>
 						{products_usual.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}
 								product={product}
 							/>
 						))}
-					</div>
+					</div> */}
 			</div>
 		</div>
 	);
