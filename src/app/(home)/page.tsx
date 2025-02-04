@@ -126,12 +126,12 @@ const Page = async () => {
 
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
-
+			<HeadingTitle title='Explorez nos boutiques...' />
 <span>
 	<VendorList/>
 </span>
 
-				<div className='flex justify-center items-center mt-2 flex-wrap flex-col md:flex-row gap-y-8 gap-5 '>
+				<div className='flex justify-center items-center mt-2 flex-wrap flex-col md:flex-row gap-y-16 gap-5 '>
 						{products.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}

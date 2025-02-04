@@ -125,15 +125,22 @@ const {user} = useAuth()
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button
-				variant={"secondary"}
-					size='sm'
-					className='rounded-xl w-12 px-2 h-10 bg-background/50 border-2'
-				>
-					       <ShoppingCart className="w-5 h-5 mr-2" />
-			
-					<span className='font-bold text-xs'>{cart?.length || 0}</span>
-				</Button>
+			<Button
+			variant="secondary"
+			size="sm"
+			className="relative rounded-xl w-12 px-2 h-10 bg-background/50 border-2"
+		  >
+
+			<ShoppingCart className="w-5 h-5" />
+		  
+
+			{cart?.length > 0 && (
+			  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+				{cart.length}
+			  </span>
+			)}
+		  </Button>
+		  
 			</SheetTrigger>
 			<SheetContent
 				side='right'
