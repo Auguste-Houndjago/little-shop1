@@ -1,9 +1,10 @@
 
 import Image from 'next/image';
 
-import { Button } from '@/components/ui/button';
-import { MapPin, Link as LinkIcon, Calendar, Phone, Package, ShoppingCart, Star } from 'lucide-react';
+
+import { MapPin, Link as LinkIcon, Package, ShoppingCart, Star } from 'lucide-react';
 import { fetchVendors, fetchVendorStats, fetchVendorProducts } from '@/lib/vendors';
+import { redirect } from 'next/navigation';
 
 export default async function VendorShopPage({ 
   params 
@@ -14,7 +15,7 @@ export default async function VendorShopPage({
   const vendor = vendors.find(v => v.id === params.vendorId);
 
   if (!vendor) {
-    return ("/");
+    redirect('/');
   }
 
   const [stats, products] = await Promise.all([
