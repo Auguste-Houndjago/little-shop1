@@ -145,7 +145,6 @@ export default function MyPage() {
           Sign Out
         </Button>
       </div>
-      <SocialCard/>
 
       <Card>
         <CardTitle>
