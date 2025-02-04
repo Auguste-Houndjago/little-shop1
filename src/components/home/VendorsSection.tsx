@@ -19,15 +19,14 @@ const VendorsSectionContent = async () => {
     }
 
     return (
-<div className="flex flex-col gap-y-6">
-  {vendors.map((vendor) => (
-    <MiniCardProduct 
-      key={vendor.id} 
-      vendor={vendor} 
-    />
-  ))}
-</div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {vendors.map((vendor) => (
+          <MiniCardProduct 
+            key={vendor.id} 
+            vendor={vendor} 
+          />
+        ))}
+      </div>
     );
   } catch (error) {
     console.error('Failed to fetch vendors:', error);

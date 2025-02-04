@@ -48,14 +48,18 @@ export default function VendorList() {
 
   return (
     <div className="flex gap-4 items-center">
-    {vendorProfiles.map((vendor) => (
-        <Link href={""}>
-      <Avatar className='shadow-sm hover:border-2 hover-border-blue-100/60 shadow-blue-300' key={vendor.id}>
-        <AvatarImage src={vendor.businessLogo || "/default-logo.png"} alt={vendor.businessName || "Vendor"} />
-        <AvatarFallback>{vendor.businessName?.charAt(0).toUpperCase() || "V"}</AvatarFallback>
-      </Avatar>
-      </Link>
-    ))}
-  </div>
+      {vendorProfiles.map((vendor) => (
+        <Link 
+          href={`/shop/${vendor.id}`} 
+          key={vendor.id} 
+          className="hover:opacity-80 transition-opacity"
+        >
+          <Avatar className='shadow-sm hover:border-2 hover-border-blue-100/60 shadow-blue-300'>
+            <AvatarImage src={vendor.businessLogo || "/default-logo.png"} alt={vendor.businessName || "Vendor"} />
+            <AvatarFallback>{vendor.businessName?.charAt(0).toUpperCase() || "V"}</AvatarFallback>
+          </Avatar>
+        </Link>
+      ))}
+    </div>
   )
 }

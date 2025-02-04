@@ -162,23 +162,36 @@ export async function fetchVendors(): Promise<any[]> {
                 color: true,
                 size: true,
               },
-              take: 2, 
+              where: {
+                isArchived: false  
+              },
               orderBy: {
                 createdAt: 'desc'
               }
             }
           }
-        }
+        },
+        address: true  
       },
-      take: 6 
+      where: {
+        user: {
+          products: {
+            some: {
+              isArchived: false  
+            }
+          }
+        }
+      }
     });
-
 
     return vendors.map(vendor => ({
       id: vendor.id,
       businessName: vendor.businessName || '',
       businessLogo: vendor.businessLogo,
       description: vendor.description,
+      whatsappNumber: vendor.whatsappNumber,
+      address: vendor.address,
+      createdAt: vendor.createdAt,
       products: vendor.user.products.map(product => ({
         ...product,
         category: { name: product.category.name },
@@ -189,6 +202,34 @@ export async function fetchVendors(): Promise<any[]> {
     }));
   } catch (error) {
     console.error('Error fetching vendors:', error);
+    return [];
+  }
+}
+
+export async function fetchVendorProducts(vendorId: string) {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        userId: vendorId,
+        isArchived: false
+      },
+      include: {
+        images: {
+          take: 1  // Only get the first image
+        },
+        category: true,
+        color: true,
+        size: true
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      take: 6  // Limit to 6 products
+    });
+
+    return products;
+  } catch (error) {
+    console.error('Error fetching vendor products:', error);
     return [];
   }
 }
