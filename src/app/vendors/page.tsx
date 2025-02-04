@@ -17,18 +17,18 @@ const Page = async () => {
     redirect('/login');
   }
 
-  // Check if the user is a vendor by checking if they have any products
-  const isVendor = await prisma.product.count({
+
+  const isVendor = await prisma.vendorProfile.findUnique({
     where: {
       userId: user.id,
     }
-  }) > 0;
+  }) ;
 
   if (!isVendor) {
     redirect('/vendor');
   }
   
-  // Fetch vendor stats
+
   const activeListings = await prisma.product.count({
     where: {
       userId: user.id,
