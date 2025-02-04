@@ -20,7 +20,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 	const vendorData = await getVendorData(user.id);
 
 	if (!vendorData) {
-		return redirect("/");
+		return redirect("/vendor");
 	}
 
 	return (
