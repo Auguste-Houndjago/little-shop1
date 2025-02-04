@@ -60,8 +60,8 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
     <Card 
       isFooterBlurred 
       className={`
-         bg-blue-400 border-2  black:border-black w-[200px] h-[200px]
-        ${product.isFeatured ? ' border-primary' : 'border-primary'}
+         bg-pink-300 border-2  dark:border-black w-[200px] h-[200px]
+        ${product.isFeatured ? ' border-primary/60' : 'border-primary/40'}
 
 
       `} 

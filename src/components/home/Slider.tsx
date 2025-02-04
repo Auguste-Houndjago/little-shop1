@@ -9,7 +9,7 @@ const slides = [
     id: 1,
     title: "Summer Sale Collections",
     description: "Sale! Up to 50% off!",
-    img: "/background1.jpg",
+    img: "/images/accessoir1.jpg",
     url: "/",
     bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
   },
@@ -17,7 +17,7 @@ const slides = [
     id: 2,
     title: "Winter Sale Collections",
     description: "Sale! Up to 50% off!",
-    img: "/background1.jpg",
+    img: "/images/accessoir3.jpeg",
     url: "/",
     bg: "bg-gradient-to-r from-pink-50 to-blue-50",
   },
@@ -25,7 +25,7 @@ const slides = [
     id: 3,
     title: "Spring Sale Collections",
     description: "Sale! Up to 50% off!",
-    img: "/background1.jpg",
+    img: "/images/hat.jpeg",
     url: "/",
     bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
   },
@@ -54,8 +54,8 @@ const Slider = () => {
             key={slide.id}
           >
 
-            <div className="h-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-2 2xl:gap-12 text-center">
-              <h2 className="text-base lg:text-3xl 2xl:text-5xl">
+            <div className="bg-red-500/50 h-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-2 2xl:gap-12 text-center">
+              <h2 className="text-base  lg:text-3xl 2xl:text-5xl">
                 {slide.description}
               </h2>
               <h1 className="text-xl lg:text-6xl 2xl:text-8xl font-semibold">

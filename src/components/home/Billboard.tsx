@@ -33,7 +33,7 @@ const Billboard = ({ items }: BillboardProps) => {
           align: "start",
           loop: true,
         }}
-        className="relative w-full "
+        className="relative w-full mx-0 px-0"
       >
         <CarouselContent>
           {items.map((item, index) => (

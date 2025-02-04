@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const CategoryList = async () => {
   const animals = [
-    {key: "cat", label: "Cat", name:"Cat"},
-    {key: "dog", label: "Dog", name:"Dog"},
+    {key: "1", href: "#", name:"chaussures" , img: "/images/shoes4.jpg"},
+    {key: "2", href: "#", name:"accessoires d'enfants", img: "/images/fashion1.jpg"},
 
   ];
 
@@ -14,14 +14,14 @@ const CategoryList = async () => {
       <div className="flex gap-4 md:gap-8">
         {animals.map((item:any) => (
           <Link
-            href={`/list?cat=${item.label}`}
+            href={`/list?cat=${item.href}`}
             className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"
             key={item._id}
           >
             <div className="relative bg-slate-100 w-full h-96">
               <Image
-                src={"/background1.jpg"}
-                alt=""
+                src={item.img}
+                alt={item.name}
                 fill
                 sizes="20vw"
                 className="object-cover"

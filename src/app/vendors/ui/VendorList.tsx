@@ -1,7 +1,6 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { AvatarCircles } from '@/components/ui/avatar-circles'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 
@@ -51,7 +50,7 @@ export default function VendorList() {
     <div className="flex gap-4 items-center">
     {vendorProfiles.map((vendor) => (
         <Link href={""}>
-      <Avatar className='shadow-sm shadow-blue-300' key={vendor.id}>
+      <Avatar className='shadow-sm hover:border-2 hover-border-blue-100/60 shadow-blue-300' key={vendor.id}>
         <AvatarImage src={vendor.businessLogo || "/default-logo.png"} alt={vendor.businessName || "Vendor"} />
         <AvatarFallback>{vendor.businessName?.charAt(0).toUpperCase() || "V"}</AvatarFallback>
       </Avatar>

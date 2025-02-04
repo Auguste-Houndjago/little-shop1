@@ -26,7 +26,7 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
         align: "start",
         loop: true,
       }}
-      className="w-full z-50  max-w-md md:max-w-full mx-0"
+      className="w-full   max-w-md md:max-w-full mx-0"
     >
       <CarouselContent className="mx-0">
         {products.map((product, index) => (

@@ -52,9 +52,9 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
   return (
 
 
-    <Card className='group p-1 w-[300px] md:max-w-[350px] hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
+    <Card className='group p-1  w-[300px] md:max-w-[350px] hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
       <CardHeader className="p-0 rounded-md">
-        <div className={ `relative  ${product.isFeatured? 'bg-sky-200' : 'bg-orange-200'}` }>
+        <div className={ `relative  ${product.isFeatured? 'bg-pink-200' : 'bg-orange-200'}`}>
           <Image
             src={ product.images?.[0].url}
             alt={product.title}

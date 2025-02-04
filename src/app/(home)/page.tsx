@@ -15,6 +15,7 @@ import Slider from '@/components/home/Slider';
 import ProductHero from '@/components/home/ProductHero';
 import HeadingTitle from '@/components/home/HeadingTitle';
 import CategoryList from './CategoryList';
+import VendorList from '../vendors/ui/VendorList';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -34,16 +35,23 @@ const items = [
 		actionUrl: '/products'
 	},
 	{
-		img: '/images/hero/peach.jpg',
+		img: '/images/hero/beauty.jpg',
 		title: 'Offres Spéciales',
 		subtitle: 'Jusqu\'à -50% sur une sélection d\'articles',
 		actionLabel: 'Voir les offres',
 		actionUrl: '/sales'
 	},
 	{
-		img: '/images/hero/peach.jpg',
+		img: '/images/hero/parfum.jpg',
 		title: 'Nouveautés',
 		subtitle: 'Les dernières tendances de la saison',
+		actionLabel: 'Explorer',
+		actionUrl: '/new'
+	},
+	{
+		img: '/images/hero/accessoirs.jpg',
+		title: 'Nouveautés',
+		subtitle: 'des accessoires de mode',
 		actionLabel: 'Explorer',
 		actionUrl: '/new'
 	}
@@ -62,7 +70,7 @@ const Page = async () => {
 	return (
 		<div
 		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0'>
-			<div className='mt-4'>
+			<div className='mt-0'>
 				<Billboard items={items} />
 			</div>
 
@@ -117,8 +125,13 @@ const Page = async () => {
 			<ProductSlider />
 
 			
-			<div className=" flex flex-col justify-center space-y-4 ">
-				<div className='flex justify-center items-center flex-wrap flex-col md:flex-row  gap-5 '>
+			<div className=" flex flex-col justify-center space-y-4 mt-16 ">
+
+<span>
+	<VendorList/>
+</span>
+
+				<div className='flex justify-center items-center mt-2 flex-wrap flex-col md:flex-row gap-y-8 gap-5 '>
 						{products.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}
@@ -127,7 +140,7 @@ const Page = async () => {
 						))}
 					</div>
 				
-					<div className='flex justify-center flex-wrap flex-col md:flex-row  gap-5'>
+					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-16  gap-y-8 gap-5'>
 						{products_usual.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}
