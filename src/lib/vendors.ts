@@ -68,4 +68,83 @@ export async function fetchVendorStats(vendorId: string) {
       pendingOrders: 0,
     };
   }
-} 
+}
+
+export async function fetchVendorsWithProducts() {
+  try {
+    const vendorsWithProducts = await prisma.vendorProfile.findMany({
+      select: {
+        id: true,
+        businessName: true,
+        businessLogo: true,
+        description: true,
+        user: {
+          select: {
+            products: {
+              take: 2,
+              orderBy: { createdAt: 'desc' },
+              select: {
+                id: true,
+                title: true,
+                price: true,
+                isFeatured: true,
+                images: {
+                  select: {
+                    id: true,
+                    url: true,
+                    productId: true,
+                    createdAt: true,
+                    updatedAt: true
+                  },
+                  take: 1
+                },
+                category: {
+                  select: {
+                    name: true
+                  }
+                },
+                color: {
+                  select: {
+                    id: true,
+                    name: true,
+                    color: true,
+                    createdAt: true,
+                    updatedAt: true
+                  }
+                },
+                size: {
+                  select: {
+                    id: true,
+                    name: true,
+                    value: true,
+                    createdAt: true,
+                    updatedAt: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      where: {
+        user: {
+          products: {
+            some: {} // Ensure the vendor has at least one product
+          }
+        }
+      }
+    });
+
+    // Transform the data to match the component's expected structure
+    return vendorsWithProducts.map(vendor => ({
+      id: vendor.id,
+      businessName: vendor.businessName || 'Unnamed Vendor',
+      businessLogo: vendor.businessLogo,
+      description: vendor.description,
+      products: vendor.user.products
+    }));
+  } catch (error) {
+    console.error('Failed to fetch vendors with products:', error);
+    return [];
+  }
+}
