@@ -14,9 +14,7 @@ export default async function VendorShopPage({
   const vendors = await fetchVendors();
   const vendor = vendors.find(v => v.id === params.vendorId);
 
-  if (!vendor) {
-    notFound();
-  }
+ 
 
   const [stats, products] = await Promise.all([
     fetchVendorStats(vendor.id),

@@ -112,19 +112,13 @@ const Navbar = ({
                     Profile
                   </Link>
                 </DropdownMenuItem>
-                {initialUser?.roles.includes('VENDOR') ? (
+            
                   <DropdownMenuItem>
                     <Link href="/vendors" className="w-full flex items-center">
                       Ma boutique
                     </Link>
                   </DropdownMenuItem>
-                ) : (
-                  <DropdownMenuItem>
-                    <Link href="/vendor" className="w-full flex items-center">
-                      Devenir vendeur
-                    </Link>
-                  </DropdownMenuItem>
-                )}
+         
                 <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

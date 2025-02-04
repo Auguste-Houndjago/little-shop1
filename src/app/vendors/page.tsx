@@ -18,6 +18,7 @@ const Page = async () => {
     return null;
   }
 
+  
   // Fetch vendor stats
   const activeListings = await prisma.product.count({
     where: {
