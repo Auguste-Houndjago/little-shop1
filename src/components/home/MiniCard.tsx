@@ -144,18 +144,3 @@ const MiniCardProduct = ({ product }: { product: ProductFeatured }) => {
 
 export default MiniCardProduct;
 
-interface VendorProductProps {
-  vendor: {
-    id: string;
-    businessName: string;
-    businessLogo?: string | null;
-    description?: string | null;
-    products: Array<{
-      id: string;
-      title: string;
-      price: number;
-      images: Array<{ url: string }>;
-      isFeatured: boolean;
-    }>;
-  };
-}
