@@ -14,7 +14,14 @@ export default async function VendorShopPage({
   const vendors = await fetchVendors();
   const vendor = vendors.find(v => v.id === params.vendorId);
 
- 
+  console.log('All vendors:', vendors);
+  console.log('Vendor ID from params:', params.vendorId);
+  console.log('Matching vendor:', vendor);
+
+  if (!vendor) {
+    console.error(`No vendor found with ID: ${params.vendorId}`);
+    return notFound();
+  }
 
   const [stats, products] = await Promise.all([
     fetchVendorStats(vendor.id),

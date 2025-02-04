@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { TagCategory } from "@prisma/client";
 
-// Récupérer les données du vendeur
+
 export async function getVendorData(userId: string) {
   try {
     const vendor = await prisma.user.findUnique({

@@ -2,7 +2,7 @@ import prisma from "./prisma";
 
 export async function fetchVendorStats(vendorId: string) {
   try {
-    // Récupérer les produits actifs
+   
     const activeProducts = await prisma.product.count({
       where: {
         userId: vendorId,
