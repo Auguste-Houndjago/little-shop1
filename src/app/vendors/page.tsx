@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { DollarSign, PackageSearch, Weight } from 'lucide-react';
@@ -9,26 +9,19 @@ import { getVendorProducts } from './vendor';
 import VendorProduct from './ui/VendorProduct';
 import { createClient } from '@/utils/supabase/client';
 
+
+
 const Page = async () => {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user?.id) {
-    redirect('/login');
+    return null;
   }
 
-
-  const isVendor = await prisma.vendorProfile.findUnique({
-    where: {
-      userId: user.id,
-    }
-  }) ;
-
-  if (!isVendor) {
-    redirect('/vendor');
-  }
   
 
+  // Fetch vendor stats
   const activeListings = await prisma.product.count({
     where: {
       userId: user.id,
