@@ -17,7 +17,6 @@
       description: string
       whatsappNumber: string
       isVerified: boolean
-      banner:string
       address: {
         country: string | null
         region: string | null
@@ -34,7 +33,7 @@
         <div 
           className="absolute inset-0 w-full h-1/2 opacity-50"
           style={{
-            backgroundImage:vendor.banner||vendor.businessLogo 
+            backgroundImage:vendor.businessLogo || "/images/cover.webp"
           }}
         />
 
