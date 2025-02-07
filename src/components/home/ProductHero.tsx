@@ -60,8 +60,8 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
     <Card 
       isFooterBlurred 
       className={`
-         bg-pink-300 border-2  dark:border-black w-[200px] h-[200px]
-        ${product.isFeatured ? ' border-primary/60' : 'border-primary/40'}
+          border-2  dark:border-black w-[200px] h-[200px]
+        ${product.isFeatured ? 'bg-indigo-200/70 border-primary/60' : 'bg-orange-200/70  border-primary/40'}
 
 
       `} 
@@ -84,13 +84,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
         src={imageUrl}
         width={200}
         height={200}
-       
-
       />
-
-      <pre className='z-50 '> {imageUrl} </pre>
-
-
       <CardFooter 
         className="
           justify-between 
@@ -105,7 +99,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
           bottom-1 
           w-[calc(100%_-_12px)] 
           shadow-small 
-          ml-1 
+          ml-[6px] 
           z-10
         "
       >

@@ -160,37 +160,23 @@ export async function fetchVendors(): Promise<any[]> {
                 category: true,
                 color: true,
                 size: true,
-              },
-              where: {
-                isArchived: false  
-              },
+              },            
               orderBy: {
                 createdAt: 'desc'
               }
             }
           }
-        },
-        address: true  
-      },
-      where: {
-        user: {
-          products: {
-            some: {
-              isArchived: false  
-            }
-          }
         }
-      }
+      },
+      take: 6 
     });
+
 
     return vendors.map(vendor => ({
       id: vendor.id,
       businessName: vendor.businessName || '',
       businessLogo: vendor.businessLogo,
       description: vendor.description,
-      whatsappNumber: vendor.whatsappNumber,
-      address: vendor.address,
-      createdAt: vendor.createdAt,
       products: vendor.user.products.map(product => ({
         ...product,
         category: { name: product.category.name },
@@ -230,5 +216,58 @@ export async function fetchVendorProducts(vendorId: string) {
   } catch (error) {
     console.error('Error fetching vendor products:', error);
     return [];
+  }
+}
+
+
+export async function fetchVendorById(vendorId: string): Promise<any | null> {
+  try {
+    const vendor = await prisma.vendorProfile.findUnique({
+      where: { id: vendorId },
+      include: {
+
+        address:true,
+        user: {
+          include: {
+            products: {
+              include: {
+                images: true,
+                category: true,
+                color: true,
+                size: true,
+              },
+              orderBy: {
+                createdAt: 'desc'
+              }
+            }
+          }
+        }
+      }
+    });
+
+    if (!vendor) return null;
+
+    return {
+      id: vendor.id,
+      businessName: vendor.businessName || '',
+      businessLogo: vendor.businessLogo,
+      description: vendor.description,
+      banner: vendor.banner,
+      city:vendor.address?.city,
+      country:vendor.address?.country,
+      region:vendor.address?.region,
+      createdAt:vendor.createdAt,
+      postalCode:vendor.address?.postalCode,
+      products: vendor.user.products.map(product => ({
+        ...product,
+        category: { name: product.category.name },
+        images: product.images,
+        color: product.color,
+        size: product.size
+      }))
+    };
+  } catch (error) {
+    console.error('Error fetching vendor:', error);
+    return null;
   }
 }

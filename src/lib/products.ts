@@ -189,6 +189,43 @@ export const fetchCategories = async () => {
   }
 };
 
+export const fetchColors = async ()=>{
+  try{
+const colors = await prisma.color.findMany({
+  select:{
+    id:true , 
+    name:true,
+  },
+ 
+})
+
+return colors;
+  }
+  catch (error){
+console.error("Erreur : recuperation des couleurs : ", error );
+return[];
+  }
+
+}
+
+export const fetchSizes = async ()=>{
+  try{
+const sizes = await prisma.size.findMany({
+  select:{
+    id:true,
+    name:true,
+  },
+});
+
+return sizes;
+  }
+  catch(error){
+console.error("erreur dans la recuperation des sizes : " , error)
+  };
+  return[];
+}
+
+
 export const fetchSellers = async () => {
   try {
     const sellers = await prisma.vendorProfile.findMany({
@@ -204,6 +241,8 @@ export const fetchSellers = async () => {
     return [];
   }
 };
+
+
 
 export const fetchLocations = async () => {
   try {

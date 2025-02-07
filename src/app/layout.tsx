@@ -10,7 +10,7 @@ import {HeroUIProvider} from "@heroui/react";
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang='en'>
-			<body className='bg-[#e8e8e8] dark:bg-[#18181c]'>
+			<body className='bg-[#e8e8e8]  dark:bg-[#18181c]'>
 			<ThemeProvider
             attribute="class"
             defaultTheme="system"

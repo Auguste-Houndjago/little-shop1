@@ -16,6 +16,8 @@ import type { Category } from "@prisma/client"
 import Logo from "../Logo"
 import Cart from "./Cart"
 import SearchBar from "../ux/SearchBar"
+import SignUpModal from "../ux/SignUpModal"
+import SignInModal from "../ux/SignInModal"
 
 
 const urbanist = Urbanist({ subsets: ["latin"] })
@@ -75,6 +77,8 @@ const Navbar = ({
           <span className="max-w-24 md:max-w-full">
          <SearchBar/>
           </span>
+          <SignUpModal/>
+          <SignInModal/>
         </div>
 
         <div className="flex items-center gap-4">

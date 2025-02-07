@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import HLogo from '@/components/ux/HomeLogo';
 import SLogo from '@/components/ux/SLogo';
 
 export default async function Login({

@@ -35,7 +35,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 						vendor={vendorData.vendor}
 						unreadNotifications={vendorData.unreadNotifications}
 					/>
-					<div className="p-8">
+					<div className=" md:p-8">
 						{children}
 					</div>
 				</div>

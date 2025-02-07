@@ -24,7 +24,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
 
         "hover:scale-105 hover:shadow-xl",
       
-        "group relative w-40 h-40 md:w-52 md:h-52 bg-gray-[#F1F1F1] rounded-3xl overflow-hidden shadow-lg border-2 dark:border-white border-primary-200 transition-all duration-1000  ease-in-out"
+        "group relative w-40 h-40 md:w-52 md:h-52 bg-gray-[#F1F1F1] rounded-3xl overflow-hidden shadow-lg border-2 dark:border-white border-gray-700 transition-all duration-1000  ease-in-out"
       )}
     >
           

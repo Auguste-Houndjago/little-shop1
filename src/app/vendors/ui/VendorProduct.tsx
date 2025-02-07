@@ -39,9 +39,9 @@ export default function VendorProduct({
         </div>
 
         
-        <div className="absolute bottom-0 left-0 right-0 rounded-3xl m-1 space-y-1 p-2 backdrop-blur-sm bg-white/10">
-  <h3 className="font-medium text-white">{name}</h3>
-  <p className="text-lg font-semibold text-white">${price.toFixed(2)}</p>
+        <div className="absolute bottom-0 left-0 right-0 rounded-3xl m-1 space-y-1 p-1 backdrop-blur-sm bg-white/10">
+  <h3 className="font-medium px-2 text-white truncate">{name}</h3>
+  <p className="text-lg text-center font-semibold text-white">{price.toFixed(1)} FRCFA</p>
 </div>
       </CardContent>
     </Card>

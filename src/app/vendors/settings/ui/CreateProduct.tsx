@@ -30,6 +30,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import CategoryAdd from "./CategoryAdd";
+import SizeAdd from "./SizeAdd";
+import ColorAdd from "./ColorAdd";
+
 const productSchema = z.object({
   title: z.string().min(3, "Le titre doit contenir au moins 3 caractères"),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères"),
@@ -44,21 +48,13 @@ const productSchema = z.object({
   color: z.string().min(1, "Veuillez sélectionner une couleur"),
 });
 
-interface ProductAttributes {
-  categories: { id: string; name: string; }[];
-  sizes: { id: string; name: string; value: string; }[];
-  colors: { id: string; name: string; color: string; }[];
-}
+
 
 export default function CreateProduct() {
   const [images, setImages] = useState<File[]>([]);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
-  const [attributes, setAttributes] = useState<ProductAttributes>({
-    categories: [],
-    sizes: [],
-    colors: [],
-  });
+
   const router = useRouter();
   const supabase = createClient();
 
@@ -75,18 +71,7 @@ export default function CreateProduct() {
     },
   });
 
-  useEffect(() => {
-    const loadAttributes = async () => {
-      try {
-        const data = await fetchProductAttributes();
-        setAttributes(data);
-      } catch (error) {
-        console.error("Erreur lors du chargement des attributs:", error);
-      }
-    };
 
-    loadAttributes();
-  }, []);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -95,7 +80,7 @@ export default function CreateProduct() {
       return;
     }
 
-    // Créer des URLs temporaires pour la prévisualisation
+  
     const newImageUrls = files.map((file) => URL.createObjectURL(file));
     setImageUrls([...imageUrls, ...newImageUrls]);
     setImages([...images, ...files]);
@@ -174,8 +159,8 @@ export default function CreateProduct() {
 
   return (
     <div className="max-w-2xl mx-auto p-6 rounded-xl backdrop-blur-md 
-      bg-white/30 border border-white/20 shadow-xl">
-      <h2 className="text-2xl font-semibold mb-6">Créer un nouveau produit</h2>
+      bg-white/30 border mb-2 border-white/20 shadow-xl">
+      <h2 className="text-2xl font-semibold text-center">Créer un nouveau produit</h2>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -276,81 +261,42 @@ export default function CreateProduct() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Catégorie</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="bg-white/50">
-                        <SelectValue placeholder="Sélectionner" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {attributes.categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="grid md:grid-cols-3 gap-2 md:gap-4">
+          <FormField
+  control={form.control}
+  name="category"
+  render={({ field }) => (
+    <CategoryAdd 
 
-            <FormField
-              control={form.control}
-              name="size"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Taille</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="bg-white/50">
-                        <SelectValue placeholder="Sélectionner" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {attributes.sizes.map((size) => (
-                        <SelectItem key={size.id} value={size.id}>
-                          {size.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      field={field} 
+    />
+  )}
+/>
 
-            <FormField
-              control={form.control}
-              name="color"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Couleur</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="bg-white/50">
-                        <SelectValue placeholder="Sélectionner" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {attributes.colors.map((color) => (
-                        <SelectItem key={color.id} value={color.id}>
-                          {color.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      
+
+
+<FormField
+  control={form.control}
+  name="size"
+  render={({ field }) => (
+    <SizeAdd
+
+      field={field} 
+    />
+  )}
+/>
+
+<FormField
+  control={form.control}
+  name="color"
+  render={({ field }) => (
+    <ColorAdd 
+
+      field={field} 
+    />
+  )}
+/>
           </div>
 
           <Button

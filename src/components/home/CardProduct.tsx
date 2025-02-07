@@ -52,7 +52,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
   return (
 
 
-    <Card className='group p-1 w-[150px]  md:w-[300px] md:max-w-[350px] hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
+    <Card className='group p-1 w-[250px]  md:w-[300px] md:max-w-[350px] hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
       <CardHeader className="p-0 rounded-md">
         <div className={ `relative  ${product.isFeatured? 'bg-sky-200' : 'bg-orange-200'}` }>
           <Image
@@ -107,22 +107,24 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
         </CardDescription>
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
-        <CardTitle className="text-xl font-bold text-primary">{formatPrice(product.price)}</CardTitle>
+        <CardTitle className="text-lg md:text-xl font-bold text-primary ">{formatPrice(product.price)}</CardTitle>
 
 
 
         <Button
           size="sm"
           variant="secondary"
-          className=" "
+          className=" ml-2 "
           onClick={() => addItemToStorage(product, startTransition, setTriggerUseEffect)}
           disabled={isPending}
+          
         >
-          <ShoppingCart className="w-4 h-4 mr-2" />
-          {isPending ? 'Adding...' : 'Add to Cart'}
+          <ShoppingCart className="w-4 h-4 " />
+          <span className='ml-2 truncate ' >   {isPending ? 'Adding...' : 'Add to Cart'}</span>
+       
         </Button>
         
-        <div className="relative ">
+        <div className="relative  ">
         <Button
           variant="secondary"
           size="icon"

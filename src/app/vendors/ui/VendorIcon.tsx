@@ -22,7 +22,7 @@
         className="text-center "
       >
         <div className="relative  inline-block">
-          <div className="relative p-3 bg-white rounded-full shadow-md">
+          <div className="relative  rounded-full shadow-md">
             <Image
               src={businessLogo || "/placeholder.svg"}
               alt={businessName}

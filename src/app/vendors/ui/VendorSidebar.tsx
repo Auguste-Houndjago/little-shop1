@@ -9,6 +9,7 @@ import {
   LayoutDashboard, Package, ShoppingCart, MessageSquare,
   Bell, Settings, Star, Users, BarChart, Archive, ChevronLeft, Badge
 } from "lucide-react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const routes = [
   {
@@ -83,12 +84,17 @@ const routes = [
 
 export default function VendorSidebar() {
   const pathname = usePathname();
+  const isSmallScreen = useMediaQuery("(max-width: 640px)", false); 
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ width: "16rem" }}
-      animate={{ width: isCollapsed ? "5rem" : "16rem" }}
+      animate={{
+       
+        width:  isCollapsed ? "5rem" : (isSmallScreen ? "10rem" : "16rem")  ,
+  
+      }}
       className="relative h-full bg-white/30 backdrop-blur-lg border-r border-white/20 shadow-xl rounded-md overflow-hidden"
     >
       {/* Bouton de toggle */}

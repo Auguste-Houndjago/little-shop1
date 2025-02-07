@@ -17,6 +17,7 @@ import HeadingTitle from '@/components/home/HeadingTitle';
 import CategoryList from './CategoryList';
 import VendorList from '../vendors/ui/VendorList';
 import VendorsSection from '@/components/home/VendorsSection';
+import Banner from '@/components/home/ProductHero copy';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -81,7 +82,7 @@ const Page = async () => {
 					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
 				</h1>
 			</div>
-
+<Banner/>
 
 <div className=''>
 
