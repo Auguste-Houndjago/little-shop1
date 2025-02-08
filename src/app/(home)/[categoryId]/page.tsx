@@ -244,7 +244,7 @@ const Page = async ({
 						</Sheet>
 					</div>
 
-					<div className='col-span-full xl:col-span-4 flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5'>
+					<div className='col-span-full xl:col-span-4 flex-1 grid grid-cols-1 mt-8 sm:grid-cols-2 md:grid-cols-3 gap-5'>
 						{category.products.map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}
