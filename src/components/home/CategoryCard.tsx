@@ -29,7 +29,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
     >
           
       <div className="relative w-full h-fit aspect-[6.5/5]  ">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#576dda7a] via-[#c850c082] to-[#ffcd70a0]"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#576dda3b] via-[#77537582] to-[#ffcd7032]"></div>
         {category.billboard ? (
           <Image 
             src={category.billboard} 
