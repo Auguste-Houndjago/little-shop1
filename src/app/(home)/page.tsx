@@ -91,7 +91,7 @@ const Page = async () => {
 
 	<CategorySlider/>
 </div>
-<CategorySliders categories={categories}/>
+
 
 <CategoryList/>
 <div className='flex flex-col gap-5 mt-16 mb-8'>	
@@ -101,7 +101,7 @@ const Page = async () => {
 
 			
 
-				<Suspense fallback={<div>Loading products...</div>}>
+				<Suspense fallback={<div>...</div>}>
 					<ProductHero products={products_feature} />
 				</Suspense>
 
@@ -119,7 +119,7 @@ const Page = async () => {
 
 			
 
-				<Suspense fallback={<div>Loading products...</div>}>
+				<Suspense fallback={<div>...</div>}>
 					<ProductHero products={products} />
 				</Suspense>
 
@@ -132,11 +132,12 @@ const Page = async () => {
 
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
+
 			<HeadingTitle title='Explorez nos boutiques...' />
 <span>
 	<VendorList/>
 </span>
-
+<CategorySliders categories={categories}/>
 <VendorsSection/>
 
 
