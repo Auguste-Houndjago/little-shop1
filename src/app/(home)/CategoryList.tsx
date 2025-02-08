@@ -18,8 +18,8 @@ const CategoryList = async () => {
       <div className="flex gap-4 md:gap-8">
         {animals.map((item:any) => (
           <Link
-            href={`/list?cat=${item.href}`}
-            className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"
+            href={`#`}
+            className="flex-shrink-0 w-full rounded-sm border-1 sm:w-1/2 lg:w-1/4 xl:w-1/6"
             key={item._id}
           >
             <div className="relative bg-slate-100 w-full h-96">
