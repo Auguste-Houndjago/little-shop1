@@ -62,7 +62,7 @@ export function ColorAdd({ field }: ColorAddProps) {
           </FormControl>
           <SelectContent>
             {colors.map((color) => (
-              <SelectItem key={color.id} value={color.id} className="flex  space-x-2">
+              <SelectItem key={color.id} value={color.id} className="flex items-center space-x-2">
                 <div 
                   className="w-5 h-5 rounded-full border" 
                   style={{ backgroundColor: color.color }}

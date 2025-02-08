@@ -1,6 +1,6 @@
 "use client"
 
-import { Bell, MapPin, ShoppingBag, PhoneIcon as WhatsApp } from "lucide-react"
+import { Bell, MapPin, ShoppingBag,CornerDownLeft,  PhoneIcon as WhatsApp } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import VendorIcon from "./VendorIcon"
@@ -103,6 +103,7 @@ export default function VendorHeader({ vendor, unreadNotifications }: VendorHead
               </Link>
             </Button>
           </div>
+          <div className="absolute top-1"> <Link href={"/"}> <CornerDownLeft className="w-4 h-4"/>  </Link> </div>
         </div>
       </div>
     </div>

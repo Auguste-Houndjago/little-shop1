@@ -77,8 +77,6 @@ const Navbar = ({
           <span className="max-w-24 md:max-w-full">
          <SearchBar/>
           </span>
-          <SignUpModal/>
-          <SignInModal/>
         </div>
 
         <div className="flex items-center gap-4">
@@ -151,10 +149,7 @@ const Navbar = ({
               </SheetHeader>
               {!isAuthenticated && (
                 <SheetFooter>
-                  <Link href="/login" className="text-zinc-900 tracking-wide">
-                    Login
-                    <ArrowRightIcon className="ml-1.5 h-5 w-5" />
-                  </Link>
+ <SignInModal/>
                 </SheetFooter>
               )}
             </SheetContent>
