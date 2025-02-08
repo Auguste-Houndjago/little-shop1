@@ -2,8 +2,17 @@ import { Category } from "@prisma/client";
 
 export type GetTotalCategory = number | undefined;
 
+export type SaveCategoryParams = {
+  name: string;
+  title: string;
+  url?: string;
+  image?: File;
+}
+
 export type SaveCategory = {
   success: boolean;
+  data?: any;
+  error?: string;
 }
 
 export type IsNameExist = boolean | undefined;

@@ -18,6 +18,8 @@ import CategoryList from './CategoryList';
 import VendorList from '../vendors/ui/VendorList';
 import VendorsSection from '@/components/home/VendorsSection';
 import Banner from '@/components/home/ProductHero copy';
+import { CategorySliders } from '@/components/home/CategorySliders';
+import { CategorySliderx } from '@/components/home/CategorySlider copy';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -77,17 +79,19 @@ const Page = async () => {
 			</div>
 
 
-			<div className='flex justify-center'>
+			<div className='flex mt-8 justify-center bg-background/50 border-2 rounded-lg items-center dark:border-black w-full  h-24
+    border-primary/40'>
 				<h1 className='text-3xl font-bold'>
 					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
 				</h1>
 			</div>
-<Banner/>
+{/* <Banner/> */}
 
 <div className=''>
 
 	<CategorySlider/>
 </div>
+<CategorySliders categories={categories}/>
 
 <CategoryList/>
 <div className='flex flex-col gap-5 mt-16 mb-8'>	

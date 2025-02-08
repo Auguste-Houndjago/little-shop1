@@ -31,7 +31,6 @@ export function CategoryAdd({ field }: CategoryAddProps) {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
 
-  // Fetch categories on component mount
   useEffect(() => {
     const loadCategories = async () => {
       const fetchedCategories = await fetchCategories();
@@ -41,7 +40,7 @@ export function CategoryAdd({ field }: CategoryAddProps) {
   }, []);
 
   const handleCategoryCreated = async (newCategoryName: string) => {
-    // Refetch categories to ensure latest data
+  
     const updatedCategories = await fetchCategories();
     setCategories(updatedCategories);
     setIsCreationModalOpen(false);

@@ -44,15 +44,7 @@
           </div>
         </div>
 
-        <h2 className="mt-2 text-xl sm:text-2xl font-bold">{businessName}</h2>
-        {address && (
-          <p className="mt-1 flex items-center justify-center text-sm sm:text-base text-muted-foreground">
-            <MapPin className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
-            {[address.city, address.region, address.country]
-              .filter(Boolean)
-              .join(", ")}
-          </p>
-        )}
+     
       </div>
     );
   } 

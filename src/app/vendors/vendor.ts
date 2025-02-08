@@ -32,6 +32,7 @@ export async function getVendorData(userId: string) {
         businessName: vendor.vendorProfile.businessName || 'Ma Boutique',
         businessLogo: vendor.vendorProfile.businessLogo || '/placeholder.png',
         description: vendor.vendorProfile.description || 'Description de la boutique',
+        banner:vendor.vendorProfile.banner,
         whatsappNumber: vendor.vendorProfile.whatsappNumber,
         isVerified: vendor.vendorProfile.isVerified,
         address: vendor.vendorProfile.address ? {

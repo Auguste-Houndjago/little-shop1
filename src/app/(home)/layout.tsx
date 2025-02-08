@@ -33,6 +33,8 @@ const Layout = async ({
 			/>
 			<main>{children}</main>
 			<Footer />
+
+			
 		</div>
 	);
 };

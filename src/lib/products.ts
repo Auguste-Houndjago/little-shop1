@@ -26,6 +26,7 @@ export const fetchProducts = async () => {
         },
         user:{
           select: { id: true , name:true },
+         
         }
       },
     });
@@ -195,6 +196,7 @@ const colors = await prisma.color.findMany({
   select:{
     id:true , 
     name:true,
+    color:true,
   },
  
 })

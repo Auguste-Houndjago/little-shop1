@@ -17,16 +17,6 @@ import prisma from '@/lib/prisma';
 
 export const saveColor = async ({ name, color }: { name: string, color: string }): Promise<SaveColor> => {
   try {
-    const supabase =  createClient();
-
-    const {
-      data: { user },
-      } = await supabase.auth.getUser();
-    
-
-    if (!user || user.email !== process.env.ADMIN_EMAIL) {
-      throw new Error('You do not have access to this area');
-    }
 
     await prisma.color.create({
       data: {

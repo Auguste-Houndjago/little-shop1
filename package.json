@@ -52,6 +52,7 @@
 		"@types/matter-js": "^0.19.8",
 		"@uploadthing/react": "^6.5.4",
 		"aos": "^3.0.0-beta.6",
+		"browser-image-compression": "^2.0.2",
 		"chart.js": "^4.4.7",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",

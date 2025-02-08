@@ -75,16 +75,6 @@ export const saveCategory = async ({
   title: string;
 }): Promise<SaveCategory> => {
   try {
-    const supabase = createClient();
-
-    const {
-      data: { user },
-      } = await supabase.auth.getUser();
-    
-
-    if (!user || user.email !== process.env.ADMIN_EMAIL) {
-      throw new Error('You do not have access to this area');
-    }
 
     await prisma.category.create({
       data: {

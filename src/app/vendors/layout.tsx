@@ -14,7 +14,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 	} = await supabase.auth.getUser();
 
 	if (!user?.id) {
-		return redirect("/auth");
+		return redirect("/login");
 	}
 
 	const vendorData = await getVendorData(user.id);
@@ -26,10 +26,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 	return (
 		<VendorProvider>
 			<div className="flex h-screen ">
-				{/* Sidebar */}
+
 				<VendorSidebar />
-				
-				{/* Main Content */}
+
 				<div className="flex-1 m-2 rounded-md overflow-auto">
 					<VendorHeader 
 						vendor={vendorData.vendor}

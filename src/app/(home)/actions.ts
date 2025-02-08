@@ -28,6 +28,7 @@ async function getUserFromSupabase() {
   const appUser = await prisma.user.findUnique({
     where: { id: user.id },
     select: { id: true, roles: true }
+  
   });
 
   if (!appUser) {

@@ -28,7 +28,7 @@ interface ColorAddProps {
 }
 
 export function ColorAdd({ field }: ColorAddProps) {
-  const [colors, setColors] = useState<{ id: string; name: string }[]>([]);
+  const [colors, setColors] = useState<{ id: string; name: string; color: string }[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
 
  
@@ -48,7 +48,7 @@ export function ColorAdd({ field }: ColorAddProps) {
   };
 
   return (
-    <FormItem className="  md:w-full">
+    <FormItem className="md:w-full">
       <FormLabel>Couleur</FormLabel>
       <div className="flex items-center space-x-2">
         <Select 
@@ -62,8 +62,12 @@ export function ColorAdd({ field }: ColorAddProps) {
           </FormControl>
           <SelectContent>
             {colors.map((color) => (
-              <SelectItem key={color.id} value={color.id}>
-                {color.name}
+              <SelectItem key={color.id} value={color.id} className="flex  space-x-2">
+                <div 
+                  className="w-5 h-5 rounded-full border" 
+                  style={{ backgroundColor: color.color }}
+                />
+                <span>{color.name}</span>
               </SelectItem>
             ))}
           </SelectContent>

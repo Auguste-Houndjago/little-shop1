@@ -20,16 +20,16 @@ export function CategoryCard({ category }: CategoryCardProps) {
     <Link 
     href={`/${encodeURIComponent(category.id)}`}
       className={cn(
-        // "group block overflow-hidden rounded-md aspect-square shadow-lg border-2 border-white/30",
+        // "group block overflow-hidden rounded-md aspect-square shadow-lg border-2 border-white/http://localhost:3000/12005ed7-9434-4035-877b-23b91f3c633f30",
 
         "hover:scale-105 hover:shadow-xl",
       
-        "group relative w-40 h-40 md:w-52 md:h-52 bg-gray-[#F1F1F1] rounded-3xl overflow-hidden shadow-lg border-2 dark:border-white border-gray-700 transition-all duration-1000  ease-in-out"
+        "group relative w-40 h-40 md:w-52 md:h-52 bg-secondary  hover:bg-secondary/80 rounded-3xl overflow-hidden shadow-lg border-2 dark:border-white border-gray-700 transition-all duration-1000  ease-in-out"
       )}
     >
           
       <div className="relative w-full h-fit aspect-[6.5/5]  ">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#4159d07a] via-[#c850c082] to-[#ffcd70a0]"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#576dda7a] via-[#c850c082] to-[#ffcd70a0]"></div>
         {category.billboard ? (
           <Image 
             src={category.billboard} 
