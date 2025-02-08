@@ -6,7 +6,6 @@ import Navbar from '@/components/home/Navbar';
 import Footer from '@/components/home/Footer';
 import prisma from '@/lib/prisma';
 import { getUserData } from '../actions/user';
-import { Navigation } from '@/components/home/Nav';
 
 export const metadata: Metadata = {
 	title: 'Smart - shop',

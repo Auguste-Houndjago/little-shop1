@@ -16,7 +16,7 @@ import ProductHero from '@/components/home/ProductHero';
 import HeadingTitle from '@/components/home/HeadingTitle';
 import CategoryList from './CategoryList';
 import VendorList from '../vendors/ui/VendorList';
-import VendorsSection from '@/components/home/VendorsSection';
+
 import Banner from '@/components/home/ProductHero copy';
 import { CategorySliders } from '@/components/home/CategorySliders';
 import { CategorySliderx } from '@/components/home/CategorySlider copy';
@@ -79,7 +79,7 @@ const Page = async () => {
 			</div>
 
 
-			<div className='flex mt-8 justify-center bg-background/50 border-2 rounded-lg items-center dark:border-black w-full  h-24
+			<div className='flex mt-8 justify-center bg-background/50 border-2 rounded-lg items-center dark:border-black w-full  h-16
     border-primary/40'>
 				<h1 className='text-3xl font-bold'>
 					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
@@ -138,7 +138,7 @@ const Page = async () => {
 	<VendorList/>
 </span>
 <CategorySliders categories={categories}/>
-<VendorsSection/>
+{/* <VendorsSection/> */}
 
 
 				<div className='flex justify-center items-center mt-2 flex-wrap flex-col md:flex-row gap-y-16 gap-5 '>

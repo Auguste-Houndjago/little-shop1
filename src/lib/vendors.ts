@@ -69,79 +69,40 @@ export async function fetchVendorStats(vendorId: string) {
   }
 }
 
+
+
 export async function fetchVendorsWithProducts() {
   try {
     const vendorsWithProducts = await prisma.vendorProfile.findMany({
-      select: {
-        id: true,
-        businessName: true,
-        businessLogo: true,
-        description: true,
-        user: {
-          select: {
-            products: {
-              take: 2,
-              orderBy: { createdAt: 'desc' },
-              select: {
-                id: true,
-                title: true,
-                price: true,
-                isFeatured: true,
-                images: {
-                  select: {
-                    id: true,
-                    url: true,
-                    productId: true,
-                    createdAt: true,
-                    updatedAt: true
-                  },
-                  take: 1
-                },
-                category: {
-                  select: {
-                    name: true
-                  }
-                },
-                color: {
-                  select: {
-                    id: true,
-                    name: true,
-                    color: true,
-                    createdAt: true,
-                    updatedAt: true
-                  }
-                },
-                size: {
-                  select: {
-                    id: true,
-                    name: true,
-                    value: true,
-                    createdAt: true,
-                    updatedAt: true
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      where: {
-        user: {
-          products: {
-            some: {} // Ensure the vendor has at least one product
-          }
-        }
-      }
+
+include:{
+  user:{
+    select:{
+      products:true ,
+    }
+  }
+  
+},
+
+where:{
+  user:{
+    products:{}
+  }
+}
+
+
     });
 
-    // Transform the data to match the component's expected structure
-    return vendorsWithProducts.map(vendor => ({
-      id: vendor.id,
-      businessName: vendor.businessName || 'Unnamed Vendor',
+ 
+    return vendorsWithProducts.map(vendor =>({
+      id:vendor.id,
+      businessName: vendor.businessName || ' Shop',
       businessLogo: vendor.businessLogo,
       description: vendor.description,
-      products: vendor.user.products
-    }));
+      products: vendor.user.products,
+    
+    }))
+return 
   } catch (error) {
     console.error('Failed to fetch vendors with products:', error);
     return [];
@@ -168,7 +129,7 @@ export async function fetchVendors(): Promise<any[]> {
           }
         }
       },
-      take: 6 
+
     });
 
 

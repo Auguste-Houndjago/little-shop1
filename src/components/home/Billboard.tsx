@@ -74,7 +74,7 @@ const Billboard = ({ items }: BillboardProps) => {
           ))}
         </CarouselContent>
         <div className="absolute w-full top-1/2 flex -translate-y-1/2 justify-between ">
-          <CarouselPrevious className="relative left-1 md:h-12 w-12 rounded-full border-2 opacity-50 hover:opacity-100 transition-opacity" />
+          <CarouselPrevious className="relative left-1 h-6 w-6  md:h-12 md:w-12 rounded-full border-2 opacity-50 hover:opacity-100 transition-opacity" />
           <CarouselNext className="relative right-1 md:h-12 w-12 rounded-full border-2 opacity-50 hover:opacity-100 transition-opacity" />
         </div>
 

@@ -4,8 +4,12 @@ import Link from "next/link";
 
 const CategoryList = async () => {
   const animals = [
-    {key: "1", href: "#", name:"chaussures" , img: "/images/shoes4.jpg"},
+    {key: "1", href: "#", name:"chaussures special" , img: "/images/shoes4.jpg"},
     {key: "2", href: "#", name:"accessoires d'enfants", img: "/images/fashion1.jpg"},
+    {key: "3", href: "#", name:"parfum chic", img: "/images/parfum.jpg"},
+    {key: "4", href: "#", name:"accesoir de modes", img: "/images/accesoir6.jpg"},
+    {key: "5", href: "#", name:"accessoires de voyage", img: "/images/accesoir4.jpeg"},
+
 
   ];
 

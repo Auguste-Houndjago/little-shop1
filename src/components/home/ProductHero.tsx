@@ -6,6 +6,7 @@ import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import { toast } from 'sonner';
 import { createClient } from '@/utils/supabase/client';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ProductHeroProps {
   products?: {
@@ -22,7 +23,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
   const [isLiked, setIsLiked] = useState(false);
   const supabase = createClient();
 
-  // Calculate average rating
+ 
   const averageRating = product.reviews && product.reviews.length > 0
     ? product.reviews.reduce((sum, review) => sum + (review.rating || 0), 0) / product.reviews.length
     : 0;
@@ -57,21 +58,17 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
   };
 
   return (
+    <Link href={`/p/${product.id}`}  >
     <Card 
       isFooterBlurred 
       className={`
           border-2  dark:border-black w-[200px] h-[200px]
         ${product.isFeatured ? 'bg-indigo-200/70 border-primary/60' : 'bg-orange-200/70  border-primary/40'}
-
-
       `} 
       radius="lg"
-    
     >
-                  <div className="flex absolute top-1 left-2 items-center">
-            
+                  <div className="flex absolute top-1 left-2 items-center">    
                 <FaStar   className='text-yellow-400'
-                 
                 />
          
               <span className="text-xs text-white/60 ml-1">
@@ -111,7 +108,6 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
             <p className="text-tiny text-white/80 mr-2">
            {product.price.toFixed(2)} Fcfa
             </p>
-
           </div>
         </div>
         <Button
@@ -129,8 +125,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
         </Button>
       </CardFooter>
     </Card>
-
-
+ </Link>
   )
 };
 
