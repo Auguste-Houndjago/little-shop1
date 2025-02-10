@@ -155,6 +155,48 @@ export async function getVendorStats(vendorId: string) {
 }
 
 
+export async function getUsersCertifiedTag(tagId: string, productId: string) {
+  if (!tagId || !productId) {
+    console.error("Tag ID and Product ID are required");
+    return [];
+  }
+
+  try {
+    const users = await prisma.tagCertification.findMany({
+      where: {
+        tagId,
+        productId,
+      },
+      select: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            avatar_url: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    // Extraction des utilisateurs uniques (éviter les doublons)
+    const UsersCertifiers = Array.from(
+      new Map(users.map((u) => [u.user.id, u.user])).values()
+    );
+
+    return UsersCertifiers;
+  } catch (error) {
+    console.error("Error fetching users who certified the tag:", error);
+    return [];
+  }
+}
+
+
+
+
+
 export async function getTagCertifications(tagId: string, productId: string) {
   // Validate input parameters
   if (!tagId || !productId) {

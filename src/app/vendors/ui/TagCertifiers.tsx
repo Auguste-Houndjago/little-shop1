@@ -22,7 +22,7 @@ export const TagCertifiers: React.FC<TagCertifiersProps> = async ({ tagId, produ
       <div className="flex items-center space-x-2 mb-2">
 
         <span className="text-sm text-gray-600">
-          for this tag on this product
+          for on this product
         </span>
       </div>
       

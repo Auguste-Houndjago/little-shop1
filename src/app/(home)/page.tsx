@@ -21,6 +21,7 @@ import VendorList from '../vendors/ui/VendorList';
 import { CategorySliders } from '@/components/home/CategorySliders';
 import { CategorySliderx } from '@/components/home/CategorySlider copy';
 import { TagCertifiers } from '../vendors/ui/TagCertifiers';
+import { TagUsersCertifiers } from '../vendors/ui/UsersCertifiers';
 
 export type ProductFeatured = {
 	images: Image[];
@@ -89,7 +90,13 @@ const Page = async () => {
 
 <div>
 <TagCertifiers tagId={"92484db2-b188-4e53-83b3-e0df57a4fcfe"} productId={"0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6"} />	
+
 </div>
+
+{/* <div>
+<TagUsersCertifiers tagId={"92484db2-b188-4e53-83b3-e0df57a4fcfe"} productId={"0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6"} />	
+
+</div> */}
 
 
 <div className=''>
