@@ -31,7 +31,7 @@
               className="h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 rounded-full border-4 border-background ] shadow-[0px_0px_10px_rgba(0,0,0,0.3)]"
             />
             {isVerified && (
-              <Badge className="absolute -right-2 -top-2 h-8 w-8 rounded-full">
+              <span className="absolute bg-gray-200/50 -right-2 -top-2  rounded-full">
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
@@ -39,7 +39,7 @@
                     clipRule="evenodd"
                   />
                 </svg>
-              </Badge>
+              </span>
             )}
           </div>
         </div>
