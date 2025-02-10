@@ -77,7 +77,7 @@ export async function signOut(request?: NextRequest) {
   }
 }
 
-// Exemple d'utilisation dans un composant form
+
 export async function updateProfile(formData: FormData) {
   const supabase = createClient()
 

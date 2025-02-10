@@ -3,6 +3,8 @@ const nextConfig = {
   images: {
     domains: [
       'hahxjbtuwtssinoeazoh.supabase.co', 
+      'lh3.googleusercontent.com',
+      'utfs.io',
     ],
     remotePatterns: [
       {

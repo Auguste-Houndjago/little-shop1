@@ -16,7 +16,6 @@ import type { Category } from "@prisma/client"
 import Logo from "../Logo"
 import Cart from "./Cart"
 import SearchBar from "../ux/SearchBar"
-import SignUpModal from "../ux/SignUpModal"
 import SignInModal from "../ux/SignInModal"
 
 

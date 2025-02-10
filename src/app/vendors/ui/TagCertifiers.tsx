@@ -38,10 +38,11 @@ export const TagCertifiers: React.FC<TagCertifiersProps> = async ({ tagId, produ
                 alt={certification.user.name || 'User'} 
                 width={24} 
                 height={24} 
-                className="rounded-full"
+                className="rounded-full "
               />
             )}
-            <span className="text-xs">{certification.user.name}</span>
+            
+            <span className=" transition-all duration-300 overflow-hidden text-xs truncate">{certification.user.name}</span>
           </div>
         ))}
       </div>
@@ -51,3 +52,10 @@ export const TagCertifiers: React.FC<TagCertifiersProps> = async ({ tagId, produ
     </div>
   );
 };
+
+
+/* ussage 
+
+<TagCertifiers tagId={tag.id} productId={product.id} />
+
+*/
