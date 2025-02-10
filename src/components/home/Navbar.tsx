@@ -4,7 +4,7 @@ import React from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Urbanist } from "next/font/google"
-import { ArrowRightIcon, Menu, Loader2, LogIn } from "lucide-react"
+import {  Menu, Loader2, LogIn, Store,  LayoutDashboard, UserCog, LogOut } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet"
@@ -105,23 +105,23 @@ const Navbar = ({
                 {initialIsAdmin && (
                   <DropdownMenuItem>
                     <Link href="/dashboard" className="w-full flex items-center">
-                      Dashboard
+                    <LayoutDashboard className="text-sm w-4 h-4 mr-2" />  Dashboard
                     </Link>
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuItem>
                   <Link href="/my-page" className="w-full flex items-center">
-                    Profile
+                  <UserCog className="text-sm w-4 h-4 mr-2" />  Profile
                   </Link>
                 </DropdownMenuItem>
             
                   <DropdownMenuItem>
                     <Link href="/vendors" className="w-full flex items-center">
-                      Ma boutique
+                    <Store className="text-sm w-4 h-4 mr-2" /> Ma boutique
                     </Link>
                   </DropdownMenuItem>
          
-                <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut}> <LogOut className="text-sm w-4 h-4 mr-2" /> Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}

@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import ProductTagManager from '../components/ProductTagManager'
+import { TagCertifiers } from '../ui/TagCertifiers'
+import { AllTagsCertification } from '../ui/AllTagsCertification'
 
 interface Product {
   id: string
@@ -44,32 +46,44 @@ export default function TagManagerPage() {
             className="bg-white rounded-lg  shadow-md overflow-hidden p-2"
           >
             {/* Image du produit */}
-            <div className="aspect-square relative overflow-hidden w-48 bg-gray-100">
-              {product.images?.[0]?.url ? (
-                <img
-                  src={product.images[0].url}
-                  alt={product.title}
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full text-gray-400">
-                  Pas d'image
+            <div className='flex '>
+              <div className="aspect-square relative overflow-hidden w-1/2  bg-gray-100">
+                {product.images?.[0]?.url ? (
+                  <img
+                    src={product.images[0].url}
+                    alt={product.title}
+                    className="object-cover w-full h-full"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-400">
+                    Pas d'image
+                  </div>
+                )}
                 </div>
-              )}
+                <div className='bg-slate-200 w-1/2 flex justify-center'>
+               
+                </div>
             </div>
 
             {/* Informations du produit */}
             <div className="p-4">
+            <AllTagsCertification 
+  productId={product.id} 
+  tags={product.tags} 
+/>
               <h3 className="font-semibold mb-2">{product.title}</h3>
               
               {/* Tags existants */}
               <div className="mb-4 min-h-[2rem] flex flex-wrap gap-2">
+                
                 {product.tags?.map((tag) => (
                   <span 
                     key={tag.id}
-                    className="px-2 py-1 bg-gray-100 rounded-full text-sm"
+                    className="px-2 py-1  cursor-pointer  bg-gray-100 rounded-full text-sm"
                   >
-                    {tag.name}
+                    {tag.name} 
+
+  
                   </span>
                 ))}
               </div>

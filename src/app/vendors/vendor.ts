@@ -155,6 +155,42 @@ export async function getVendorStats(vendorId: string) {
 }
 
 
+export async function getTagCertifications(tagId: string, productId: string) {
+  // Validate input parameters
+  if (!tagId || !productId) {
+    console.error("Tag ID and Product ID are required");
+    return [];
+  }
+
+  try {
+    const tagCertifications = await prisma.tagCertification.findMany({
+      where: {
+        tagId,
+        productId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            avatar_url: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return tagCertifications;
+
+  } catch (error) {
+    console.error("Error fetching tag certifications:", error);
+
+    return [];
+  }
+}
+
 
 
 // Ajouter un tag à un produit

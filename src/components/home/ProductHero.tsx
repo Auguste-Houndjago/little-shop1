@@ -63,7 +63,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
       isFooterBlurred 
       className={`
           border-2  dark:border-black w-[200px] h-[200px]
-        ${product.isFeatured ? 'bg-indigo-200/70 border-primary/60' : 'bg-orange-200/70  border-primary/40'}
+        ${product.isFeatured ? 'bg-[#ffcd7032] border-primary/60' : 'bg-orange-200/70  border-primary/40'}
       `} 
       radius="lg"
     >
@@ -77,7 +77,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
             </div>
       <Image
         alt={product.title}
-        className="object-cover "
+        className="object-cover p-4 "
         src={imageUrl}
         width={200}
         height={200}
@@ -131,7 +131,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
 
 export default function ProductHero({ products }: ProductHeroProps) {
   return (
-    <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+    <div className="gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 p-4">
       {products && products.map((product) => (
         <HeroProduct key={product.id} product={product} />
       ))}

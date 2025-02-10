@@ -1,5 +1,3 @@
-
-
 import prisma from "@/lib/prisma";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 

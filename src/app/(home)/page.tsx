@@ -17,7 +17,7 @@ import HeadingTitle from '@/components/home/HeadingTitle';
 import CategoryList from './CategoryList';
 import VendorList from '../vendors/ui/VendorList';
 
-import Banner from '@/components/home/ProductHero copy';
+
 import { CategorySliders } from '@/components/home/CategorySliders';
 import { CategorySliderx } from '@/components/home/CategorySlider copy';
 
@@ -85,7 +85,7 @@ const Page = async () => {
 					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
 				</h1>
 			</div>
-{/* <Banner/> */}
+
 
 <div className=''>
 
@@ -97,7 +97,7 @@ const Page = async () => {
 <div className='flex flex-col gap-5 mt-16 mb-8'>	
 
 	
-				<HeadingTitle title='featured products' />
+				<HeadingTitle title='Produits en vedettes' />
 
 			
 
@@ -127,8 +127,10 @@ const Page = async () => {
 		
 			</div>
 
-
-			<ProductSlider />
+<div className='px-12'>
+	
+				<ProductSlider />
+</div>
 
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
@@ -141,7 +143,7 @@ const Page = async () => {
 {/* <VendorsSection/> */}
 
 
-				<div className='flex justify-center items-center mt-2 flex-wrap flex-col md:flex-row gap-y-16 gap-5 '>
+				<div className='flex justify-center items-center my-4 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 '>
 						{products.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}

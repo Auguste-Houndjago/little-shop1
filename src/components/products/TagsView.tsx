@@ -10,7 +10,6 @@ import {
   Wrench,
   PackageOpen,
   MessagesSquare,
-  ShieldCheck,
 } from 'lucide-react';
 import { toast } from 'sonner';
 

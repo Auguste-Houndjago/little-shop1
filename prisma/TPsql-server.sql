@@ -101,7 +101,7 @@ INSERT INTO CATEGORIE (CodeCateg, NomCateg) VALUES
 
 -- Création de la fonction de partition
 CREATE PARTITION FUNCTION PF_CodeCateg (CHAR(2))
-AS RANGE RIGHT FOR VALUES ('EL');
+AS RANGE RIGHT FOR VALUES ('EK');
 
 -- Création du schéma de partition
 CREATE PARTITION SCHEME PS_CodeCateg
@@ -149,8 +149,6 @@ JOIN
 CREATE LOGIN Root 
 WITH PASSWORD = 'root',
 DEFAULT_DATABASE = bdGesStock,
-CHECK_EXPIRATION = OFF,
-CHECK_POLICY = OFF;
 
 
 -- 2. Création de la connexion Jacques

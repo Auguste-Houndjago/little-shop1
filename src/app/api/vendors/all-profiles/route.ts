@@ -8,7 +8,8 @@ export async function GET() {
       select: {
         id: true,
         businessName: true,
-        businessLogo: true
+        businessLogo: true,
+isVerified:true,
       }
     })
 

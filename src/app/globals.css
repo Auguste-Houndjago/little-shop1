@@ -112,6 +112,7 @@
 
 
 
+
 .card-rotate-hover {
 	transform: rotate(35deg);
 	transform-origin: bottom;
@@ -153,8 +154,8 @@
 
   .blurx {
 	animation: blurAnimation 1s both;
-	animation-timeline:view();
-	-webkit-animation-timeline: view();
+	/* animation-timeline:view();
+	-webkit-animation-timeline: view(); */
   }
 
 

@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Upload, X, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
-import { fetchProductAttributes } from "@/lib/products";
+
 
 import {
   Form,
@@ -22,13 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 
 import CategoryAdd from "./CategoryAdd";
 import SizeAdd from "./SizeAdd";

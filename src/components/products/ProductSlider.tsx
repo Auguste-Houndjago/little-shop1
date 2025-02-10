@@ -25,7 +25,7 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
         align: "start",
         loop: true,
       }}
-      className="w-full   max-w-md md:max-w-full mx-0"
+      className="w-full  max-w-md md:max-w-full mx-0"
       
     >
       <CarouselContent className="mx-0">
@@ -37,7 +37,7 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
           </CarouselItem>
         ))}
       </CarouselContent>
-      <span className="hidden md:block">
+      <span className="hidden lg:block">
       <CarouselPrevious />
       <CarouselNext />
       </span>
