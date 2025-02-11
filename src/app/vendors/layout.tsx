@@ -6,6 +6,7 @@ import { VendorProvider } from '@/providers/VendorProvider';
 import VendorSidebar from './ui/VendorSidebar';
 import { getVendorData } from './vendor';
 
+
 const Layout = async ({ children }: { children: React.ReactNode }) => {
 	const supabase = createClient();
 
@@ -28,7 +29,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 			<div className="flex h-screen ">
 
 				<VendorSidebar />
-
+				
 				<div className="flex-1 m-2 rounded-md overflow-auto">
 					<VendorHeader 
 						vendor={vendorData.vendor}

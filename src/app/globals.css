@@ -11,18 +11,19 @@
 		--card-foreground: 240 10% 3.9%;
 		--popover: 0 0% 100%;
 		--popover-foreground: 240 10% 3.9%;
-		--primary: 240 5.9% 10%;
-		--color-primary-50: 255, 255, 255;
-		--color-primary-100: 249, 249, 249;
-		--color-primary-200: 243, 243, 243;
-		--color-primary-300: 232, 232, 232;
-		/* Color principal #E8E8E8 */
-		--color-primary-400: 209, 209, 209;
-		--color-primary-500: 185, 185, 185;
-		--color-primary-600: 162, 162, 162;
-		--color-primary-700: 139, 139, 139;
-		--color-primary-800: 115, 115, 115;
-		--color-primary-900: 92, 92, 92;
+		--primary: #E8E8E8;
+		--primary-foreground: #0A0A0A;
+		--color-primary-50: #FFFFFF;
+		--color-primary-100: #F9F9F9;
+		--color-primary-200: #F3F3F3;
+		--color-primary-300: #E8E8E8;
+		--color-primary-400: #D1D1D1;
+		--color-primary-500: #B9B9B9;
+		--color-primary-600: #A2A2A2;
+		--color-primary-700: #8B8B8B;
+		--color-primary-800: #737373;
+		--color-primary-900: #5C5C5C;
+		
 
 		--primary-foreground: 0 0% 98%;
 		--secondary: 240 4.8% 95.9%;

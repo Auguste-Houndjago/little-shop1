@@ -62,7 +62,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
     <Card 
       isFooterBlurred 
       className={`
-          border-2  dark:border-black w-[200px] h-[200px]
+          border-2  dark:border-black w-[180px] h-[180px]  md:w-[200px] md:h-[200px]
         ${product.isFeatured ? 'bg-[#ffcd7032] border-primary/60' : 'bg-orange-200/70  border-primary/40'}
       `} 
       radius="lg"

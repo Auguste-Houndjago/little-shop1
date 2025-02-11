@@ -8,16 +8,16 @@ const SLogo = () => {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
-        // Démarre l'animation après un court délai
+     
         const timer = setTimeout(() => {
             setIsVisible(true)
-        }, 100)
+        }, 150)
 
-        // Animation séquentielle des paths
+     
         if (isVisible && currentPath < 7) {
             const pathTimer = setTimeout(() => {
                 setCurrentPath(prev => prev + 1)
-            }, 300)
+            }, 800)
             return () => clearTimeout(pathTimer)
         }
 
@@ -32,9 +32,9 @@ const SLogo = () => {
             <button 
                 type='button' 
                 title='smart' 
-                className="w-[45px] h-[45px] flex items-center justify-center  bg-[#e8e8e8] border-2 border-white/20 relative rounded-[10px] cursor-pointer transition-all duration-300 group"
+                className="w-[45px] h-[45px] flex items-center justify-center  bg-[#322c2c] border-2 border-white/20 relative rounded-[10px] cursor-pointer transition-all duration-300 group"
             >
-                <span className="w-full h-full flex items-center justify-center bg-transparent backdrop-blur-[0px] rounded-[10px] transition-all duration-300 border border-[rgba(156,156,156,0.466)] group-hover:bg-[rgba(156,156,156,0.466)] group-hover:backdrop-blur-sm">
+                <span className="w-full h-full flex items-center justify-center bg-transparent backdrop-blur-[0px] rounded-[10px] transition-all duration-300 border border-[rgba(156,156,156,0.466)]    group-hover:backdrop-blur-sm">
                     <svg 
                         width="24" 
                         height="24" 

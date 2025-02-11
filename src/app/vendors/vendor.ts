@@ -49,6 +49,60 @@ export async function getVendorData(userId: string) {
   }
 }
 
+
+export async function getVendorPageData(userId: string) {
+  try {
+    // Fetch vendor stats
+    const activeListings = await prisma.product.count({
+      where: {
+        userId: userId,
+        isArchived: false,
+        images: {
+          some: {},
+        },
+      },
+    });
+
+    // Get all orders containing products from this vendor
+    const orderItems = await prisma.orderItem.findMany({
+      where: {
+        product: {
+          userId: userId,
+        },
+        order: {
+          isPaid: true,
+        },
+      },
+      include: {
+        order: true,
+      },
+    });
+
+    // Calculate total sales (number of orders)
+    const sales = new Set(orderItems.map(item => item.orderId)).size;
+
+    // Calculate total revenue from all order items
+    const totalRevenue = orderItems.reduce((total, item) => total + item.amount, 0);
+
+    // Fetch vendor products
+    const products = await getVendorProducts(userId);
+
+    return {
+      activeListings,
+      sales,
+      totalRevenue,
+      products,
+    };
+  } catch (error) {
+    console.error("Error fetching vendor page data:", error);
+    return null;
+  }
+}
+
+
+
+
+
 // Récupérer les produits du vendeur
 export async function getVendorProducts(vendorId: string) {
   try {
@@ -198,7 +252,7 @@ export async function getUsersCertifiedTag(tagId: string, productId: string) {
 
 
 export async function getTagCertifications(tagId: string, productId: string) {
-  // Validate input parameters
+
   if (!tagId || !productId) {
     console.error("Tag ID and Product ID are required");
     return [];

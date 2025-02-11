@@ -69,8 +69,8 @@ export default async function Login({
              <SLogo/>
          </CardTitle>
           
-          <CardDescription className='bg-transparent border-2 rounded-md p-4 flex align-middle justify-center'>
-          <h1 className="text-2xl font-bold text-black "> Smart - Shop</h1>
+          <CardDescription className='bg-transparent border-2 rounded-md p-4 text-2xl font-bold text-black flex align-middle justify-center'>
+         Smart - Shop
           </CardDescription>
 
 

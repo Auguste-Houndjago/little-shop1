@@ -7,7 +7,7 @@ import { formatPrice } from '@/lib/utils';
 import prisma from '@/lib/prisma';
 import { getVendorProducts } from './vendor';
 import VendorProduct from './ui/VendorProduct';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/server';
 
 
 
@@ -56,11 +56,12 @@ const Page = async () => {
   // Fetch vendor products
   const products = await getVendorProducts(user.id);
 
+
   return (
     <div className="space-y-6">
       {/* Stats Overview */}
 
-	  <p>ma life</p>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -94,9 +95,9 @@ const Page = async () => {
 			</div>
 
       {/* Products Grid */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Your Products</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="p-0 m-0">
+        <h2 className="text-xl font-semibold mb-4">Vos Produits</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-4 ">
           {products.map((product) => (
             <VendorProduct
               key={product.id}

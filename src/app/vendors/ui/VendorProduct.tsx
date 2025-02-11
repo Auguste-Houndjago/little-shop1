@@ -17,16 +17,16 @@ export default function VendorProduct({
   imageUrl = "https://images.thenorthface.com/is/image/TheNorthFace/NF0A4R2W_70M_hero",
 }: VendorProductProps) {
   return (
-    <Card className="relative w-48 h-48 shadow-lg border-2 border-white/20 bg-gray-500 group overflow-hidden rounded-3xl ">
+    <Card className="relative scale-80 sm:scale-100 w-48 h-48 shadow-lg border-2 border-white/50 bg-gray-500 group overflow-hidden rounded-3xl ">
       <Image
         src={imageUrl || "/placeholder.svg"}
         alt={name}
         fill
-        className="object-contain transition-transform group-hover:scale-110"
+        className="object-contain p-4 transition-transform group-hover:scale-110"
       />
 
       {/* arriere plant sombre  */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent" />
 
       <CardContent className="relative h-full p-4 flex flex-col justify-between">
         {/* Top Section */}

@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import ProductTagManager from '../components/ProductTagManager'
 import { TagCertifiers } from '../ui/TagCertifiers'
 import { AllTagsCertification } from '../ui/AllTagsCertification'
+import { TagUsersCertifiers } from '../ui/UsersCertifiers'
 
 interface Product {
   id: string
@@ -67,10 +68,9 @@ export default function TagManagerPage() {
 
             {/* Informations du produit */}
             <div className="p-4">
-            <AllTagsCertification 
-  productId={product.id} 
-  tags={product.tags} 
-/>
+            <TagCertifiers tagId={"92484db2-b188-4e53-83b3-e0df57a4fcfe"} productId={"0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6"} />	
+
+
               <h3 className="font-semibold mb-2">{product.title}</h3>
               
               {/* Tags existants */}
@@ -83,7 +83,9 @@ export default function TagManagerPage() {
                   >
                     {tag.name} 
 
-  
+    <p> produit id  : {product.id} </p>
+    <p>tagid : {tag.id}</p>
+  <TagCertifiers tagId={"ba0632b4-60d9-40d3-b377-c636cadb6b45"} productId={"5b4e835f-c77f-400a-bda6-29d200e50052"} />
                   </span>
                 ))}
               </div>

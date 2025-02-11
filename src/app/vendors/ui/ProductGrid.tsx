@@ -52,7 +52,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
         variants={container}
         initial="hidden"
         animate="show"
-        className=" flex flex-col flex-wrap gap-4 md:flex-row"
+        className=" flex flex-col flex-wrap gap-4 sm:flex-row"
       >
         {products.map((product) => (
           <motion.div key={product.id} variants={item}>

@@ -13,9 +13,9 @@ export const TagCertifiers: React.FC<TagCertifiersProps> = async ({ tagId, produ
   const tagCertifications = await getTagCertifications(tagId, productId);
 
   // If no certifications, return null
-  if (tagCertifications.length === 0) {
-    return null;
-  }
+  // if (tagCertifications.length === 0) {
+  //   return null;
+  // }
 
   return (
     <div className="tag-certifiers">

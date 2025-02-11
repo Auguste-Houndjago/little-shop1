@@ -81,7 +81,7 @@ export default async function Signup({
         <CardHeader>
           <CardTitle>Inscription</CardTitle>
           <CardDescription>
-            Remplissez le formulaire ci-dessous pour vous inscrire
+        <p> Remplissez le formulaire ci-dessous pour vous inscrire</p>   
           </CardDescription>
         </CardHeader>
         <CardContent>
