@@ -13,16 +13,16 @@ export const TagCertifiers: React.FC<TagCertifiersProps> = async ({ tagId, produ
   const tagCertifications = await getTagCertifications(tagId, productId);
 
   // If no certifications, return null
-  // if (tagCertifications.length === 0) {
-  //   return null;
-  // }
+  if (tagCertifications.length === 0) {
+    return null;
+  }
 
   return (
     <div className="tag-certifiers">
       <div className="flex items-center space-x-2 mb-2">
 
         <span className="text-sm text-gray-600">
-          for on this product
+          Certification on this product
         </span>
       </div>
       
