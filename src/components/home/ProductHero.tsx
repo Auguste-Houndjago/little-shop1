@@ -132,7 +132,7 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
 export default function ProductHero({ products }: ProductHeroProps) {
   return (
     <div className="gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 p-4">
-      {products && products.map((product) => (
+      {products && products.slice(0, 6).map((product) => (
         <HeroProduct key={product.id} product={product} />
       ))}
     </div>

@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 
-import CardProduct from '@/components/home/CardProduct';
+
 
 import Billboard from '@/components/home/Billboard';
 
@@ -12,16 +12,15 @@ import { fetchCategoriesWithProducts } from '@/lib/categories';
 import ProductSlider from '@/components/products/ProductSlider';
 import { CategorySlider } from '@/components/home/CategorySlider';
 import Slider from '@/components/home/Slider';
-import ProductHero from '@/components/home/ProductHero';
 import HeadingTitle from '@/components/home/HeadingTitle';
 import CategoryList from './CategoryList';
 import VendorList from '../vendors/ui/VendorList';
 
 
 import { CategorySliders } from '@/components/home/CategorySliders';
-import { CategorySliderx } from '@/components/home/CategorySlider copy';
 import { TagCertifiers } from '../vendors/ui/TagCertifiers';
-import { TagUsersCertifiers } from '../vendors/ui/UsersCertifiers';
+import dynamic from 'next/dynamic';
+
 
 export type ProductFeatured = {
 	images: Image[];
@@ -64,15 +63,29 @@ const items = [
 ]
 
 const Page = async () => {
+
+	const [
+		products_feature, 
+		products, 
+		products_usual, 
+		products_with_reviews, 
+		categories
+	  ] = await Promise.all([
+		fetchFeaturedProducts(),
+		fetchAllProducts(),
+		fetchUsualProducts(),
+		fetchProductsWithReviews(),
+		fetchCategoriesWithProducts()
+	  ]);
+	  
+
+
 	const supabase = createClient();
-	const products_feature = await fetchFeaturedProducts();
-	const products = await fetchAllProducts();
-	const products_usual = await fetchUsualProducts();
-	const products_with_reviews = await fetchProductsWithReviews();
-	
-	const categories = await fetchCategoriesWithProducts();
 	const { data: { user } } = await supabase.auth.getUser();
 
+
+	const CardProduct = dynamic(() => import('@/components/home/CardProduct'), { ssr: false });
+	const ProductHero = dynamic(() => import('@/components/home/ProductHero'), { ssr: false });
 	return (
 		<div
 		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0'>
@@ -126,14 +139,10 @@ const Page = async () => {
 	
 				<HeadingTitle title='Nos divers produits...' />
 
-			
-
 				<Suspense fallback={<div>...</div>}>
 					<ProductHero products={products} />
 				</Suspense>
-
-					
-		
+	
 			</div>
 
 <div className='px-12'>
@@ -149,7 +158,7 @@ const Page = async () => {
 	<VendorList/>
 </span>
 <CategorySliders categories={categories}/>
-{/* <VendorsSection/> */}
+
 
 
 				<div className='flex justify-center items-center my-4 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 '>
