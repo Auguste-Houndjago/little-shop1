@@ -61,7 +61,7 @@ export const TagCertifiersVendor: React.FC<TagCertifiersProps> = ({
      
           <div className="flex -space-x-1.5">
             {tagCertifications.slice(0, 4).map((certification, index) => (
-              <Avatar className="w-6 h-6 border cursor-pointer ring-1 ring-background" key={certification.user.id} >
+              <Avatar className="w-5 h-5 border cursor-pointer ring-1 ring-background" key={certification.user.id} >
               <AvatarImage 
                 src={certification.user.avatar_url|| '/default-avatar.png'} 
                 alt={certification.user.name || 'User'} 
