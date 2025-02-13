@@ -115,7 +115,7 @@ const Page = async () => {
 </div>
 
 
-<CategoryList/>
+{/* <CategoryList/> */}
 <div className='flex flex-col gap-5 mt-16 mb-8'>	
 
 	
@@ -130,9 +130,9 @@ const Page = async () => {
 					
 		
 			</div>
-<div className='relative'>
+{/* <div className='relative'>
 <Slider/>
-</div>
+</div> */}
 
 <div className='flex flex-col gap-5 mt-16 mb-8'>	
 
@@ -145,6 +145,7 @@ const Page = async () => {
 	
 			</div>
 
+			<HeadingTitle  title='CARROUSSEL...' />
 <div className='px-12'>
 	
 				<ProductSlider />
@@ -161,7 +162,7 @@ const Page = async () => {
 
 
 
-				<div className='flex justify-center items-center my-4 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 '>
+				<div className='flex justify-center items-center my-4 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 lg:gap-x-8 '>
 						{products.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}

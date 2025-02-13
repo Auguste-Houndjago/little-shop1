@@ -103,7 +103,7 @@ export const fetchFeaturedProducts = async () => {
     const featuredProducts = await prisma.product.findMany({
       where: {
         isArchived: false,
-        isFeatured: true,
+        isFeatured: false,
         images: {
           some: {},
         },
