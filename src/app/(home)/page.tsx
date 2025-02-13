@@ -158,6 +158,8 @@ const Page = async () => {
 <span>
 	<VendorList/>
 </span>
+
+<h1 className="text-center text-xl" >Categorie lsite 2</h1>
 <CategorySliders categories={categories}/>
 
 
