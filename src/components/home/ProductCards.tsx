@@ -12,6 +12,7 @@ import { addItemToStorage, formatPrice } from "@/lib/utils";
 import { ProductModal } from "@/components/products/ProductModal";
 import useTriggerUseEffect from "@/hooks/useTriggerUseEffect";
 import { ProductFeatured } from '../../app/(home)/page';
+import { AllTagsCertifications } from "@/app/vendors/ui/AllTagsCertifications";
 
 
 
@@ -24,6 +25,7 @@ export const ProductCards = ({ product }: { product: ProductFeatured }) => {
   return (
     <Card className="group p-1 hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]">
       <CardHeader className="p-0 relative">
+        <AllTagsCertifications productId={product.id} />
         <Image
           src={product.images[0]?.url || "/placeholder.svg"}
           alt={product.title}
@@ -72,6 +74,7 @@ export const ProductCards = ({ product }: { product: ProductFeatured }) => {
           <Link href={`/p/${product.id}`} className="hover:underline">
             <CardTitle className="text-lg font-semibold line-clamp-1">{product.title}</CardTitle>
           </Link>
+     
           <Badge variant="secondary" className="capitalize">
             {product.category.name}
           </Badge>

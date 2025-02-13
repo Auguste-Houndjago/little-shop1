@@ -102,7 +102,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
+//simplifier 
+  const signinx = async (email: string , password: string )=>{
+    const signinn = await supabase.auth.signInWithPassword({
+      email,
+       password
+    })
+return signinn
 
+  }
 
 
   const signIn = async (email: string, password: string) => {
@@ -127,17 +135,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signInWithGoogle = async () => {
-    setState((prev) => ({ ...prev, isLoading: true }));
+
     try {
       const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
       if (error) throw error;
     
     } catch (err: any) {
-      setState((prev) => ({
-        ...prev,
-        error: err.message || 'Google sign-in failed',
-        isLoading: false,
-      }));
+  
+      console.log(err, "erreur signin google ")
+
+      
     }
   };
 

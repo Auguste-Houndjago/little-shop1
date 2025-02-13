@@ -1,3 +1,4 @@
+"use server"
 import React from 'react';
 import { getTagCertifications, getProductTags } from '../vendor';
 import { TagCertifiers } from './TagCertifiers';
@@ -6,14 +7,14 @@ interface AllTagsCertificationProps {
   productId: string;
 }
 
-export const AllTagsCertification: React.FC<AllTagsCertificationProps> = async ({ 
+export const AllTagsCertifications: React.FC<AllTagsCertificationProps> = async ({ 
   productId 
 }) => {
-
+ 
   const tags = await getProductTags(productId);
 
   if (!tags || tags.length === 0) {
-    return <div>ma grosse bite</div>;
+    return <div>ma bitee</div> ;
   }
 
   return (
@@ -34,7 +35,7 @@ export const AllTagsCertification: React.FC<AllTagsCertificationProps> = async (
           );
         }
         
-        return null;
+        return <div>ma petite</div>;
       })}
     </div>
   );

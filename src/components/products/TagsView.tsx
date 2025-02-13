@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
+
 interface TagsViewProps {
   productId: string;
 }
@@ -93,11 +94,11 @@ export default function TagsView({ productId }: TagsViewProps) {
         )
       );
 
-   
+
       const isCertified = updatedTag.certifications && updatedTag.certifications.length > 0;
       toast.success(
         isCertified 
-          ? 'Tag certified successfully!' 
+          ? 'Tag certified successfully !' 
           : 'Tag certification removed.'
       );
     } catch (err) {
@@ -135,9 +136,10 @@ export default function TagsView({ productId }: TagsViewProps) {
       <div className="flex flex-wrap gap-1 py-3.5">
         {productTags.map((tag) => { 
           const Icon = categoryIcons[tag.category as keyof typeof categoryIcons];
-          const isCertified = tag.certifications && tag.certifications.length > 0;
+       
 
           return (
+
             <Badge
               key={tag.id}
               variant={"secondary"}

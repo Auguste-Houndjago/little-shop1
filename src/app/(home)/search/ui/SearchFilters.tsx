@@ -79,7 +79,7 @@
               performSearch();
             }}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-20">
               <SelectValue placeholder="Sort Products" />
             </SelectTrigger>
             <SelectContent>

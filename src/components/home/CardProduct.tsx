@@ -101,6 +101,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
           <Badge variant="secondary" className="capitalize">
             {product.category.name}
           </Badge>
+     
         </div>
         <CardDescription className="text-sm text-muted-foreground line-clamp-2">
           {product.description}
