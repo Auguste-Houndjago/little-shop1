@@ -13,7 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 			<body className='
 			
 		
-			bg-[#e8e8e8]
+			bg-[#e8e8e8] 
 	
 			dark:bg-[#18181c]'>
 			<ThemeProvider

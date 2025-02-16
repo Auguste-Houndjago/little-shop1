@@ -36,15 +36,28 @@ const config = {
 			},
 		
   		colors: {
+			
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+
+			  tech: {
+				background: "#e8e8e8", // gris clair pour le fond
+				card: "#FFFFFF99", // blanc translucide pour l'effet de flou
+				hover: "#E5E7EB", // gris moyen pour l'effet hover
+				icon: "#1E293B", // bleu gris foncé pour les icônes
+				secondary: "#6B7280", // gris neutre pour les extras
+				border: "#c7c7c7",
+			  },
+
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
+
+			
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'

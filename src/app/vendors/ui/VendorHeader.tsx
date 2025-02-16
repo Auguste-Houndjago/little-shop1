@@ -41,17 +41,18 @@ export default function VendorHeader({ vendor, unreadNotifications }: VendorHead
 
       <div className="relative z-10 pb-2 md:pb-4">
         <div className="mx-auto flex flex-col max-w-3xl">
-          <div className="relative md:absolute py-2 md:left-16 md:mt-10">
+          <div className="relative md:absolute pt-2 md:left-16 md:mt-10">
             <VendorIcon
               businessName={vendor.businessName}
               businessLogo={vendor.businessLogo}
               isVerified={vendor.isVerified}
-              address={vendor.address}
+        
+              onLogoUpdate={()=>{}}
             />
           </div>
 
-          <div className="">
-            <h2 className="mt-2 text-xl text-center sm:text-2xl font-bold">
+          <div className="md:mt-2">
+            <h2 className=" text-xl text-center sm:text-2xl font-bold">
               {vendor.businessName}
             </h2>
             {vendor.address && (

@@ -52,10 +52,10 @@ export const TagCertifiersVendor: React.FC<TagCertifiersProps> = ({
     <div className="tag-certifiers">
     <Popover placement="bottom" showArrow>
       <PopoverTrigger>
-      <InfoIcon className='w-4 h-4'/>
+      <InfoIcon className=' w-4 h-4'/>
       </PopoverTrigger>
 
-      <PopoverContent className="bg-white/50 px-1 ">
+      <PopoverContent className="bg-background px-1 ">
       <p className="font-semibold">{tagName} </p>
       <div className="flex items-center rounded-full border border-border bg-background p-1 shadow shadow-black/5 cursor-pointer">
      

@@ -5,10 +5,6 @@ import prisma from "./prisma";
 
 
 
-
-
-
-
 export const fetchProducts = async () => {
 
   try {

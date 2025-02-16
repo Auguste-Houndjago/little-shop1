@@ -58,12 +58,12 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
   };
 
   return (
-    <Link href={`/p/${product.id}`}  >
+    <Link href={`/p/${product.id}`} className='p-0 m-2 w-fit' >
     <Card 
       isFooterBlurred 
       className={`
-          border-2  dark:border-black w-[180px] h-[180px]  md:w-[200px] md:h-[200px]
-        ${product.isFeatured ? 'bg-[#ffcd7032] border-primary/60' : 'bg-orange-200/70  border-primary/40'}
+          border-2  dark:border-tech-hover/70  w-[180px] h-[180px]  md:w-[200px] md:h-[200px] border-[#E5E7EB]
+        ${product.isFeatured ? 'bg-[#ffcd7032] ' : 'bg-gray-200/70 '}
       `} 
       radius="lg"
     >
@@ -101,11 +101,11 @@ export const HeroProduct = ({ product }: { product: NonNullable<ProductHeroProps
         "
       >
         <div className="flex flex-col">
-          <p className="text-small font-bold text-white truncate max-w-[150px]">
+          <p className="text-small font-bold dark:text-white text-[#111827] truncate max-w-[150px]">
             {product.title}
           </p>
           <div className="flex items-center">
-            <p className="text-tiny text-white/80 mr-2">
+            <p className="text-tiny dark:text-white/80  mr-2">
            {product.price.toFixed(2)} Fcfa
             </p>
           </div>

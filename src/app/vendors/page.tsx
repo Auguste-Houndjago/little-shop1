@@ -62,20 +62,20 @@ const Page = async () => {
       {/* Stats Overview */}
 
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 my-2 gap-2 md:gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm hidden md:inline font-medium">Total Revenue</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatPrice(totalRevenue)}</div>
-          </CardContent>
+          </CardContent> 
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Products</CardTitle>
+            <CardTitle className="text-sm hidden md:inline  font-medium">Products</CardTitle>
             <PackageSearch className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -85,7 +85,7 @@ const Page = async () => {
 
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Total Sales</CardTitle>
+						<CardTitle className="text-sm hidden md:inline  font-medium">Total Sales</CardTitle>
 						<Weight className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -97,7 +97,7 @@ const Page = async () => {
       {/* Products Grid */}
       <div className="p-0 m-0">
         <h2 className="text-xl font-semibold mb-4">Vos Produits</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-4 ">
+        <div className="flex justify-center flex-wrap md:gap-6 gap-4 ">
           {products.map((product) => (
             <VendorProduct
               key={product.id}

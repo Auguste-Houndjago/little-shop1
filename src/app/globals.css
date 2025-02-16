@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "aos/dist/aos.css";
 
 @layer base {
@@ -93,6 +94,7 @@
 		--color-5: 90 100% 63%;
 	}
 }
+
 
 @layer base {
 	* {

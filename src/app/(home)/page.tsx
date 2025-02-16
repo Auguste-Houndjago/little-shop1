@@ -21,6 +21,7 @@ import { CategorySliders } from '@/components/home/CategorySliders';
 import { TagCertifiers } from '../vendors/ui/TagCertifiers';
 import dynamic from 'next/dynamic';
 import { AllTagsCertification } from '../vendors/ui/AllTagsCertification';
+import TechCards from '../vendors/ui/TechCards';
 
 
 export type ProductFeatured = {
@@ -89,7 +90,7 @@ const Page = async () => {
 	const ProductHero = dynamic(() => import('@/components/home/ProductHero'), { ssr: false });
 	return (
 		<div
-		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0'>
+		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0 '>
 			<div className='mt-0'>
 				<Billboard items={items} />
 			</div>
@@ -102,6 +103,8 @@ const Page = async () => {
 				</h1>
 			</div>
 
+<TechCards/>
+{/* color bg : #FAFAFA */}
 <div>
 <AllTagsCertification productId='0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6'  />
 </div>
@@ -116,7 +119,7 @@ const Page = async () => {
 
 
 {/* <CategoryList/> */}
-<div className='flex flex-col gap-5 mt-16 mb-8'>	
+<div className='flex justify-center flex-col gap-5 mt-16 mb-8'>	
 
 	
 				<HeadingTitle title='Produits en vedettes' />
@@ -181,6 +184,8 @@ const Page = async () => {
 							/>
 						))}
 					</div> */}
+
+					
 			</div>
 		</div>
 	);

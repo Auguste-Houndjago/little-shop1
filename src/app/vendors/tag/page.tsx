@@ -47,25 +47,25 @@ export default function TagManagerPage() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Gestion des tags</h1>
+      <h1 className="text-2xl  font-bold mb-6">Gestion des tags</h1>
      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1   md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) =>
 
      (
           
           <div 
             key={product.id} 
-            className="bg-white rounded-lg  shadow-md overflow-hidden p-2"
+            className="bg-tech-card border-1 rounded-lg  shadow-md overflow-hidden p-2"
           >
             {/* Image du produit */}
-            <div className='flex '>
-              <div className="aspect-square relative overflow-hidden w-1/2  bg-gray-100">
+            <div className='flex border-[#F3F3F3] '>
+              <div className="aspect-square border-slate-200 relative overflow-hidden w-1/2 ">
                 {product.images?.[0]?.url ? (
                   <img
                     src={product.images[0].url}
                     alt={product.title}
-                    className="object-cover w-full h-full"
+                    className="object-contain w-full  h-full"
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-400">
@@ -79,46 +79,34 @@ export default function TagManagerPage() {
             </div>
 
             {/* Informations du produit */}
-            <div className="p-4">
-        
-
+            <div className="p-4 bg-slate-100">
 
               <h3 className="font-semibold mb-2">{product.title}</h3>
               
               {/* Tags existants */}
               <div className="mb-4 min-h-[2rem] flex flex-wrap gap-2">
-           
-                {product.tags?.map((tag) => 
-              {  
 
-                const Icon = getTagCategoryIcon(tag.category);
-               return (
-                  <span 
-                    key={tag.id}
-                    className="px-2 py-1  cursor-pointer   rounded-full text-sm"
-                  >
-                 
-                 {/* {Icon && <Icon className="ml-1 drop-shadow-sm bg-gray-100"  size={10} />} */}
-                  {tag.name}
-                   
-                    <span className='mt-2'>
-                      {product.tags && product.tags.length > 0 && (
-                        <TagCertifiersVendor 
-                          tagId={tag.id} 
-                          productId={product.id} 
-                          tagName={tag.name}
-                        />
-                      )}
-                    </span>
-                  </span>
-                )
-                
-              }
-                )}
-              </div>
+
+<div  className="flex flex-wrap items-center gap-2">
+{product.tags?.map((tag) => {
+  const Icon = getTagCategoryIcon(tag.category);
+  return (
+    <span key={tag.id} className="px-3 py-1 bg-[#E9EBEF] hover:bg-gray-300 transition-background cursor-pointer text-gray-600 rounded-full text-sm flex items-center gap-1">
+      {Icon && <Icon className="w-4 h-4" />}
+      {tag.name}
+      <TagCertifiersVendor tagId={tag.id} productId={product.id} tagName={tag.name} />
+    </span>
+  );
+})}
+</div>
+
+</div>
+
+
+
 
               {/* Gestionnaire de tags */}
-              <div className="border-t pt-4">
+              <div className="border-t pt-4 ">
                 {selectedProduct === product.id ? (
                   <>
                     <ProductTagManager productId={product.id} />
@@ -132,9 +120,10 @@ export default function TagManagerPage() {
                 ) : (
                   <button
                     onClick={() => setSelectedProduct(product.id)}
-                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                    className="w-full px-4 py-2 bg-gray-200/70  text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
                   >
                     Gérer les tags
+
                   </button>
                 )}
               </div>

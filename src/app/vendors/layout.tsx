@@ -26,7 +26,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<VendorProvider>
-			<div className="flex h-screen ">
+			<div className="flex h-screen bg-[#F9F9F9]  ">
 
 				<VendorSidebar />
 				
