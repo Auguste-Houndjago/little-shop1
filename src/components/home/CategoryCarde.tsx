@@ -17,7 +17,7 @@ export function CategoryCarde({ category, isOffset = false }: CategoryCardProps)
       href={`/${encodeURIComponent(category.id)}`}
       className={cn(
         "group relative",
-        "w-40",
+        "w-32 md:w-40",
         "flex flex-col",
         "transition-all duration-300 p-2 hover:scale-[1.08] rounded-sm ease-in-out border-2 bg-secondary text-secondary-foreground hover:bg-secondary/80",
         isOffset ? "mt-16" : "mt-0"
@@ -30,7 +30,7 @@ export function CategoryCarde({ category, isOffset = false }: CategoryCardProps)
         </span>
       )}
 
-      <div className="relative w-full h-[200px] overflow-hidden">
+      <div className="relative w-full h-[130px] md:h-[200px] overflow-hidden">
         {category.billboard ? (
           <Image 
             src={category.billboard} 

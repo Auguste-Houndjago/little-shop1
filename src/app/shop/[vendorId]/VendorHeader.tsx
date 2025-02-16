@@ -13,7 +13,7 @@ export function VendorHeader({ vendor }:{vendor:Vendor}) {
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      <div className="relative h-48 w-full bg-gray-200 rounded-t-xl">
+      <div className="relative h-24 md:h-48 w-full bg-gray-200 rounded-t-xl">
         {vendor.businessLogo && (
           <Image
             src={vendor.businessLogo || vendor.banner! || coverbg}
@@ -27,7 +27,7 @@ export function VendorHeader({ vendor }:{vendor:Vendor}) {
 
    
 
-<div className="px-4 pb-4 relative">
+<div className="px-4 pb-2 relative">
           <div className="-mt-16 flex items-end">
           <div className="relative">
   <div className="w-32 h-32 rounded-full border-4 border-white dark:border-gray-900 overflow-hidden">

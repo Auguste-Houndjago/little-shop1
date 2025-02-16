@@ -52,7 +52,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
   return (
 
 
-    <Card className='group p-1 w-[250px]  md:w-[270px] md:max-w-[300px] hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
+    <Card className='group p-1 w-[230px]  md:w-[270px] md:max-w-[300px] hover:border-blue-700 transition-colors duration-1000 hover:shadow-[0_2px_15px_rgba(0,0,0,0.5)]'>
       <CardHeader className="p-0 rounded-md">
         <div className={ `relative  ${product.isFeatured? 'bg-sky-200' : 'bg-orange-200'}` }>
           <Image
@@ -60,7 +60,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
             alt={product.title}
             width={300}
             height={260}
-            className="w-full  rounded-md h-[260px] object-contain bg-blend-saturation transition-transform duration-500 ease-in-out group-hover:scale-95"
+            className="w-full  rounded-md h-[200px] md:h-[260px] object-contain bg-blend-saturation transition-transform duration-500 ease-in-out group-hover:scale-95"
             priority
           />
 
@@ -108,7 +108,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
         </CardDescription>
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
-        <CardTitle className="text-lg md:text-xl font-bold text-primary ">{formatPrice(product.price)}</CardTitle>
+        <CardTitle className="text-lg md:text-xl font-bold text-primary truncate ">{formatPrice(product.price)}</CardTitle>
 
 
 
@@ -121,7 +121,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
           
         >
           <ShoppingCart className="w-4 h-4 " />
-          <span className='ml-2 truncate ' >   {isPending ? 'Adding...' : 'Add to Cart'}</span>
+          <span className='ml-2 truncate hidden md:inline' >   {isPending ? 'Adding...' : 'Add to Cart'}</span>
        
         </Button>
         
@@ -139,7 +139,7 @@ const CardProduct = ({ product }: { product: ProductFeatured }) => {
 
       </CardFooter>
       {showChat && (
-        <div className="mt-4 p-4">
+        <div className='-mt-2'>
           <Chat productId={product.id} />
         </div>
       )}

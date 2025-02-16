@@ -84,7 +84,7 @@ export const ProductCards = ({ product }: { product: ProductFeatured }) => {
         </CardDescription>
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
-        <CardTitle className="text-xl font-bold text-primary">{formatPrice(product.price)}</CardTitle>
+        <CardTitle className="text-xl font-bold text-primary truncate">{formatPrice(product.price)}</CardTitle>
         <Button
           size="sm"
           variant="secondary"
@@ -92,7 +92,7 @@ export const ProductCards = ({ product }: { product: ProductFeatured }) => {
           disabled={isPending}
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
-          {isPending ? "Adding..." : "Add to Cart"}
+          <span className="hidden md:inline">{isPending ? "Adding..." : "Add to Cart"}</span>
         </Button>
       </CardFooter>
     </Card>
