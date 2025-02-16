@@ -18,7 +18,7 @@ export default function VendorProduct({
   imageUrl = "https://images.thenorthface.com/is/image/TheNorthFace/NF0A4R2W_70M_hero",
 }: VendorProductProps) {
   return (
-    <Card className="relative scale-90 sm:scale-100 w-48 h-48 shadow-lg border-2 border-[#F3F3F3] shadow-gray-400 bg-[#f4f2f2] group overflow-hidden rounded-3xl ">
+    <Card className="relative scale-90 sm:scale-100 w-48 h-48 drop-shadow-xl border-2 border-[#F3F3F3] shadow-gray-500 bg-[#f4f2f2] group overflow-hidden rounded-3xl ">
       <Image
         src={imageUrl || "/placeholder.svg"}
         alt={name}
@@ -34,15 +34,15 @@ export default function VendorProduct({
         <div className="flex justify-between items-start">
           <div className="flex items-center space-x-1 rounded-lg ">
             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-sm font-medium text-white">{rating}</span>
+            <span className="text-sm font-medium ">{rating}</span>
           </div>
           
         </div>
 
         
         <div className="absolute bottom-0 left-0 right-0 text-[#111827] rounded-3xl m-1 bg-tech-secondary/10 space-y-1  backdrop-blur-sm ">
-  <h3 className="font-medium px-2  truncate">{name}</h3>
-  <p className="text-lg text-center font-semibold ">{price.toFixed(1)} FRCFA</p>
+  <h3 className="font-medium pl-3 truncate">{name}</h3>
+  <p className="text-lg text-center font-semibold ">{price.toFixed(1)} FR CFA</p>
 </div>
       </CardContent>
     </Card>

@@ -123,7 +123,7 @@ const Page = async () => {
 
 	
 				<HeadingTitle title='Produits en vedettes' />
-
+{/* <div className='bg-white w-full'>h</div> */}
 			
 
 				<Suspense fallback={<div>...</div>}>
@@ -149,10 +149,10 @@ const Page = async () => {
 			</div>
 
 			<HeadingTitle  title='CARROUSSEL...' />
-<div className='px-12'>
-	
+
+
 				<ProductSlider />
-</div>
+
 
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">

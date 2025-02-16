@@ -25,10 +25,10 @@ export default async function ProductSlider({ itemsToShow = 3, autoplayInterval 
         align: "start",
         loop: true,
       }}
-      className="w-full  max-w-md md:max-w-full mx-0"
+      className="w-full  md:max-w-full mx-0 "
       
     >
-      <CarouselContent className="mx-0">
+      <CarouselContent className="mx-0 px-0">
         {products.map((product, index) => (
           <CarouselItem key={index} className="basis-[54%]  lg:basis-1/5">
             <div className="p-1 ">

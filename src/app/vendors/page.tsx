@@ -97,7 +97,7 @@ const Page = async () => {
       {/* Products Grid */}
       <div className="p-0 m-0">
         <h2 className="text-xl font-semibold mb-4">Vos Produits</h2>
-        <div className="flex justify-center flex-wrap md:gap-6 gap-4 ">
+        <div className="flex justify-center flex-wrap md:gap-6 gap-0 ">
           {products.map((product) => (
             <VendorProduct
               key={product.id}
