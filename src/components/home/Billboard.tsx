@@ -44,7 +44,7 @@ const Billboard = ({ items }: BillboardProps) => {
                   alt={item.title}
                   fill
         
-                  className=" opacity-0  object-cover animate-gentle-zoom transform transition-transform transition-700 scale-100 group-hover:scale-105"
+                  className="  object-cover animate-gentle-zoom transform transition-transform transition-700 scale-100 group-hover:scale-105"
                   priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
