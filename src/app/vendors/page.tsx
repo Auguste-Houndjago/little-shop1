@@ -69,7 +69,7 @@ const Page = async () => {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-sm md:text-2xl font-bold">{formatPrice(totalRevenue)}</div>
+            <div className="text-base md:text-2xl font-bold">{formatPrice(totalRevenue)}</div>
           </CardContent> 
         </Card>
         
@@ -79,7 +79,7 @@ const Page = async () => {
             <PackageSearch className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{activeListings}</div>
+            <div className="text-base md:text-2xl font-bold">{activeListings}</div>
           </CardContent>
         </Card>
 
@@ -89,7 +89,7 @@ const Page = async () => {
 						<Weight className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-bold">{sales}</div>
+						<div className="text-base md:text-2xl font-bold">{sales}</div>
 					</CardContent>
 				</Card>
 			</div>
