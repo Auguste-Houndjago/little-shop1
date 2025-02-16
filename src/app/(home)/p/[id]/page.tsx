@@ -68,7 +68,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 				<div className='flex flex-col gap-5'>
 					<HeadingTitle title='related items' />
 
-					<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+					<div className='flex justify-center space-y-4 flex-wrap sm:gap-4 flex-row'>
 						{relatedProducts.map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}

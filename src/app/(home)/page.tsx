@@ -103,7 +103,7 @@ const Page = async () => {
 				</h1>
 			</div>
 
-<TechCards/>
+{/* <TechCards/> */}
 {/* color bg : #FAFAFA */}
 <div>
 <AllTagsCertification productId='0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6'  />
