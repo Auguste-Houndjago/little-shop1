@@ -91,6 +91,8 @@ const Page = async () => {
 	return (
 		<div
 		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0 '>
+
+
 			<div className='mt-0'>
 				<Billboard items={items} />
 			</div>
@@ -105,9 +107,9 @@ const Page = async () => {
 
 {/* <TechCards/> */}
 {/* color bg : #FAFAFA */}
-<div>
+{/* <div>
 <AllTagsCertification productId='0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6'  />
-</div>
+</div> */}
 
 
 

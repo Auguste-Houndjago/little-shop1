@@ -6,6 +6,7 @@ import Navbar from '@/components/home/Navbar';
 import Footer from '@/components/home/Footer';
 import prisma from '@/lib/prisma';
 import { getUserData } from '../actions/user';
+import Overlay from './ui/Overlay';
 
 export const metadata: Metadata = {
 	title: 'Smart - shop',
@@ -24,6 +25,7 @@ const Layout = async ({
 
 	return (
 		<div className={urbanist.className}>
+		<Overlay/>
 			<Navbar
 				user={user}
 				isAdmin={isAdmin}

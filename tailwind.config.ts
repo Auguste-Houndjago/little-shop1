@@ -42,8 +42,8 @@ const config = {
   			ring: 'hsl(var(--ring))',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
-
-			  tech: {
+		
+			  tech: {	
 				background: "#e8e8e8", // gris clair pour le fond
 				card: "#FFFFFF99", // blanc translucide pour l'effet de flou
 				hover: "#E5E7EB", // gris moyen pour l'effet hover

@@ -13,7 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 			<body className='
 			
 		
-			bg-[#e8e8e8] 
+			bg-tech-background 
 	
 			dark:bg-[#18181c]'>
 			<ThemeProvider
@@ -25,8 +25,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
 		<AuthProvider>
 
-
+																								      {/* bg-[linear-gradient(90deg,#eeb486_50%,#073776_50%,#204b85_100%)] */}
 		<HeroUIProvider>
+		
 			{children}
 
 			</HeroUIProvider>
