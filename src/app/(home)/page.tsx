@@ -107,7 +107,7 @@ const Page = async () => {
 
 			<HeadingTitle title='Explorez nos boutiques...' />
 
-	<VendorList/>
+	<div className={"flex justify-center"}><VendorList/></div>
 
 
 <h1 className="text-center text-xl" >Categorie lsite 2</h1>
