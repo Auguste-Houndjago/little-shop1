@@ -162,3 +162,12 @@
   }
 
 
+.title-blend {
+  mix-blend-mode: difference !important;
+  color: white;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 4vw, 3.75rem);
+  font-weight: 900;
+  line-height: 0.8;
+}

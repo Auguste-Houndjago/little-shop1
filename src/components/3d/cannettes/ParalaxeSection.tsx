@@ -4,7 +4,7 @@ import Can from './Can';
 
 const ParallaxSection = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen bg-red-500  w-full overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Can />
       </div>

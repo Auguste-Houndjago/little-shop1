@@ -9,7 +9,7 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@heroui/theme/dist/components/(select|slider|form|listbox|divider|popover|button|ripple|spinner|scroll-shadow).js"
+    // "./node_modules/@heroui/theme/dist/components/(select|slider|form|listbox|divider|popover|button|ripple|spinner|scroll-shadow).js"
   ],
   prefix: "",
   theme: {

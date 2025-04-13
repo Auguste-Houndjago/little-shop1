@@ -1,10 +1,13 @@
 "use client"
 
-import HLogo from "@/components/ux/HomeLogo";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
+import Hero from "@/components/3d/Hero";
+import SodaView from "@/components/3d/cannettes/SodaView";
+
+// import SodaView from "@/components/3d/cannettes/SodaView";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,21 +20,27 @@ export default  function Overlay() {
 
     // }
 
-
 );
 
+
+
 useEffect(() => {
+
     
 if (!isVisible) {
     localStorage.setItem("overlayHidden", "true" );
 
 }
+
+
 }, [isVisible]);
 
 
     useGSAP(() => {
+
   if (!overlayRef.current) return ;
     // gsap.set(overlayRef.current, {opacity:1} )
+
     gsap.to(overlayRef.current , 
         
         {y:-50,
@@ -44,13 +53,13 @@ if (!isVisible) {
             trigger:overlayRef.current,
 
             start:"top top",
-            end: "40% top",
-            scrub:2,
-            markers:true,
+            end: "60% top",
+            scrub:6,
+            // markers:true,
             // once:true,
          },
         //  onComplete: () => {gsap.set(overlayRef.current, { display: "none" })},
-        // onComplete:()=> setisVisible(false)
+        onComplete:()=> setisVisible(false)
         }
         
 
@@ -58,12 +67,14 @@ if (!isVisible) {
 
       }, [isVisible]);
 
-if (!isVisible) return null;
-
+// if (!isVisible) return null;
+// bg-[linear-gradient(360deg,#e8e8e8_50%,#E5E7EB_50%,#6B7280_100%)]
   return (
-	<div ref={overlayRef} className="absolute overlay w-full h-screen z-[99] top-0 flex flex-col justify-center items-center bg-[linear-gradient(360deg,#e8e8e8_50%,#E5E7EB_50%,#6B7280_100%)]  ">
-      <h1 className="my-4 text-2xl font-bold">Bienvenue sur smart</h1>
-        <HLogo/>
+	<div id="overlayRef" ref={overlayRef} className="absolute overlay w-full h-svh z-[99] top-0 flex flex-col justify-center   ">
+     <div className="absolute flex justify-center top-0 left-0 w-full h-full bg-[url('/images/hero/girl_01.jpeg')] bg-cover bg-center bg-no-repeat z-[-1]" />
+
+
+    <Hero/>
     </div>
   )
 }

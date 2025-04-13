@@ -11,17 +11,18 @@ import { fetchCategoriesWithProducts } from '@/lib/categories';
 
 import ProductSlider from '@/components/products/ProductSlider';
 import { CategorySlider } from '@/components/home/CategorySlider';
-import Slider from '@/components/home/Slider';
+
 import HeadingTitle from '@/components/home/HeadingTitle';
-import CategoryList from './CategoryList';
+
 import VendorList from '../vendors/ui/VendorList';
 
 
 import { CategorySliders } from '@/components/home/CategorySliders';
-import { TagCertifiers } from '../vendors/ui/TagCertifiers';
+
 import dynamic from 'next/dynamic';
-import { AllTagsCertification } from '../vendors/ui/AllTagsCertification';
-import TechCards from '../vendors/ui/TechCards';
+
+import HomeHero from './ui/HomeHero';
+import Overlay from './ui/Overlay';
 
 
 export type ProductFeatured = {
@@ -33,36 +34,7 @@ export type ProductFeatured = {
 	size: Size;
 } & Product;
 
-const items = [
-	{
-		img: '/images/hero/peach.jpg',
-		title: 'Collection Exclusive',
-		subtitle: 'Découvrez notre nouvelle collection de vêtements tendance',
-		actionLabel: 'Découvrir',
-		actionUrl: '/products'
-	},
-	{
-		img: '/images/hero/beauty.jpg',
-		title: 'Offres Spéciales',
-		subtitle: 'Jusqu\'à -50% sur une sélection d\'articles',
-		actionLabel: 'Voir les offres',
-		actionUrl: '/sales'
-	},
-	{
-		img: '/images/hero/parfum.jpg',
-		title: 'Nouveautés',
-		subtitle: 'Les dernières tendances de la saison',
-		actionLabel: 'Explorer',
-		actionUrl: '/new'
-	},
-	{
-		img: '/images/hero/accessoirs.jpg',
-		title: 'Nouveautés',
-		subtitle: 'des accessoires de mode',
-		actionLabel: 'Explorer',
-		actionUrl: '/new'
-	}
-]
+
 
 const Page = async () => {
 
@@ -91,55 +63,23 @@ const Page = async () => {
 	return (
 		<div
 		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0 '>
+<Overlay/>
 
 
-			<div className='mt-0'>
-				<Billboard items={items} />
-			</div>
+	<HomeHero/>
 
+	{/* <CategorySlider/> */}
 
-			<div className='flex mt-8 justify-center bg-background/50 border-2 rounded-lg items-center dark:border-black w-full  h-16
-    border-primary/40'>
-				<h1 className='text-3xl font-bold'>
-					Bienvenue {user?.user_metadata.full_name || user?.email || 'cher client'}
-				</h1>
-			</div>
+{/* <div className='flex justify-center flex-col gap-5 mt-16 mb-8'>	
 
-{/* <TechCards/> */}
-{/* color bg : #FAFAFA */}
-{/* <div>
-<AllTagsCertification productId='0ced907d-7d52-4ff5-9b3e-f2c65a1ff0c6'  />
-</div> */}
-
-
-
-
-<div className=''>
-
-	<CategorySlider/>
-</div>
-
-
-{/* <CategoryList/> */}
-<div className='flex justify-center flex-col gap-5 mt-16 mb-8'>	
-
-	
 				<HeadingTitle title='Produits en vedettes' />
-{/* <div className='bg-white w-full'>h</div> */}
-			
-
 				<Suspense fallback={<div>...</div>}>
 					<ProductHero products={products_feature} />
-				</Suspense>
+				</Suspense>	
+			</div> */}
 
-					
-		
-			</div>
-{/* <div className='relative'>
-<Slider/>
-</div> */}
 
-<div className='flex flex-col gap-5 mt-16 mb-8'>	
+{/* <div className='flex flex-col gap-5 mt-16 mb-8'>	
 
 	
 				<HeadingTitle title='Nos divers produits...' />
@@ -148,26 +88,20 @@ const Page = async () => {
 					<ProductHero products={products} />
 				</Suspense>
 	
-			</div>
+			</div> */}
 
 			<HeadingTitle  title='CARROUSSEL...' />
-
-
-				<ProductSlider />
-
-
+				{/* <ProductSlider /> */}
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
 
 			<HeadingTitle title='Explorez nos boutiques...' />
-<span>
+
 	<VendorList/>
-</span>
+
 
 <h1 className="text-center text-xl" >Categorie lsite 2</h1>
 <CategorySliders categories={categories}/>
-
-
 
 				<div className='flex justify-center items-center my-4 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 lg:gap-x-8 '>
 						{products.slice(0, 4).map((product, productIndex) => (
@@ -178,14 +112,14 @@ const Page = async () => {
 						))}
 					</div>
 				
-					{/* <div className='flex justify-center flex-wrap flex-col md:flex-row mt-16  gap-y-8 gap-5'>
+					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-16  gap-y-8 gap-5'>
 						{products_usual.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}
 								product={product}
 							/>
 						))}
-					</div> */}
+					</div>
 
 					
 			</div>

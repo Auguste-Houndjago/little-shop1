@@ -44,7 +44,7 @@ export default function SodaCanSwitcher({ autoRotate = false }: SodaCanSwitcherP
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-center">
+    <div className="w-full h-full flex flex-col items-center">
       <div className="w-full h-[70vh] relative">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
           <ambientLight intensity={0.01} />

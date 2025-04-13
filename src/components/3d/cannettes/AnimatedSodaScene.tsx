@@ -13,15 +13,23 @@ const AnimatedSodaScene = () => {
 
     // Animation initiale
     gsap.from(canRef.current.position, {
-      y: -10,
+      y: -2,
+      opacity:0,
       duration: 1.5,
       ease: "elastic.out(1, 0.5)",
     });
 
     gsap.from(canRef.current.rotation, {
       y: Math.PI * 2,
-      duration: 2,
+      duration: 5,
       ease: "power2.out",
+    });
+
+    gsap.to(canRef.current.position, {
+      y: 20,
+      opacity:1,
+      duration: 1.5,
+      ease: "elastic.out(1, 0.5)",
     });
 
     // Animation continue
@@ -43,10 +51,11 @@ const AnimatedSodaScene = () => {
     >
       <FloatingCan
         ref={canRef}
-        flavor="lemonLime"
+        flavor="smartshop"
         floatSpeed={0}
         rotationIntensity={0}
         floatIntensity={0}
+        scale={2}
       />
     </group>
   );

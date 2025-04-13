@@ -1,10 +1,13 @@
-import MultiStepVendorForm from '@/components/vendor/MultiStepVendorForm'
-import React from 'react'
+import Overlay from "../(home)/ui/Overlay";
+
 
 export default function page() {
   return (
-    <div>
-      <MultiStepVendorForm/>
+    <div className="flex justify-center items-center w-full flex-col">
+      <Overlay/>
+  <div className="h-[200vh] w-full bg-sky-100">
+
+  </div> 
     </div>
   )
 }

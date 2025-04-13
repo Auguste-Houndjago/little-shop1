@@ -24,16 +24,17 @@ const Layout = async ({
 	const lists = await prisma.category.findMany({}) || [];
 
 	return (
-		<div className={urbanist.className}>
-		<Overlay/>
-			<Navbar
+		<div  className={urbanist.className}>
+		{/* <Overlay/> */}
+			{/* <Navbar
 				user={user}
 				isAdmin={isAdmin}
 				lists={lists}
 				userIcon={avatarUrl}
-			/>
+			/> */}
+			
 			<main>{children}</main>
-			<Footer />
+			{/* <Footer /> */}
 
 			
 		</div>
