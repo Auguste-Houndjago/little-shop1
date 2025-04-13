@@ -9,7 +9,7 @@ export async function CategorySlider() {
 
   return (
     <div className="  w-full py-8">
-      <h2 className="text-2xl font-bold mb-6 text-center">Browse Categories</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">Explorez les Categories</h2>
       
       <ScrollArea className="w-full whitespace-nowrap">
         <div className="flex space-x-4 py-4">

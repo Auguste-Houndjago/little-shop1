@@ -78,7 +78,7 @@ const Page = async () => {
 
 	<HomeHero/>
 
-	{/* <CategorySlider/> */}
+
 
 {/* <div className='flex justify-center flex-col gap-5 mt-16 mb-8'>	
 
@@ -100,7 +100,7 @@ const Page = async () => {
 	
 			</div> */}
 
-			<HeadingTitle  title='CARROUSSEL...' />
+			{/* <HeadingTitle  title='PRODUITS VEDETTES...' /> */}
 				<ProductSlider />
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
@@ -112,6 +112,8 @@ const Page = async () => {
 
 <h1 className="text-center text-xl" >Categorie lsite 2</h1>
 <CategorySliders categories={categories}/>
+
+<HeadingTitle title='Nos Divers Produits ...' />
 
 				<div className='flex justify-center items-center my-20 lg:my-40 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 lg:gap-x-8 '>
 				{featuredProducts.map((product, index) => {
@@ -139,6 +141,10 @@ const Page = async () => {
     })}
 					</div>
 				
+
+					{/* <HeadingTitle title='Nos divers produits...' /> */}
+	<CategorySlider/>
+
 					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-24  gap-y-8 gap-5'>
 						{products_usual.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
