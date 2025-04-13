@@ -10,9 +10,9 @@ const GoogleSignInButton: React.FC = () => {
   return (
     <Button
       onClick={signInWithGoogle}
-      className=" px-4 py-2 rounded border-2 border-black/20 hover:border-[#2d79f36f] bg-primary/60 transition "
+      className=" px-4 py-5 w-full rounded border-2 border-black/20 hover:border-[#2d79f36f] bg-primary/60 transition "
     >
-      <FcGoogle className='h-4 w-4 absolute' />
+      <FcGoogle className='h-8 w-8 absolute' />
     
     </Button>
   );
