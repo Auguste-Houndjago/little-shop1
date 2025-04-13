@@ -26,12 +26,12 @@ const Layout = async ({
 	return (
 		<div  className={urbanist.className}>
 		{/* <Overlay/> */}
-			{/* <Navbar
+			<Navbar
 				user={user}
 				isAdmin={isAdmin}
 				lists={lists}
 				userIcon={avatarUrl}
-			/> */}
+			/>
 			
 			<main>{children}</main>
 			{/* <Footer /> */}

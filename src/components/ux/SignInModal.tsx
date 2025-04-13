@@ -46,7 +46,7 @@ export default function SignInModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost">login</Button>
+        <Button variant="ghost" className= "text-zinc-900" >login</Button>
       </DialogTrigger>
       <DialogContent className="w-96 rounded-md bg-background/80">
         <div className="flex flex-col items-center px-10 gap-2">

@@ -62,8 +62,8 @@ const Page = async () => {
 	const ProductHero = dynamic(() => import('@/components/home/ProductHero'), { ssr: false });
 	return (
 		<div
-		 className='max-w-7xl mx-auto px-2 md:px-4 2xl:px-0 '>
-<Overlay/>
+		 className='max-w-full mx-auto px-2 md:px-4 2xl:px-0 '>
+<div className="flex w-full"><Overlay/></div>
 
 
 	<HomeHero/>

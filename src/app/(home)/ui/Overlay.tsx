@@ -13,12 +13,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default  function Overlay() {
     const overlayRef = useRef<HTMLDivElement>(null)
-    const [isVisible, setisVisible] = useState( true
+    const [isVisible, setisVisible] = useState( 
         
-    //     ()=> {
-    //     return localStorage.getItem("overlayHidden") !== "true"; 
+        ()=> {
+        return localStorage.getItem("overlayHidden") !== "true"; 
 
-    // }
+    }
 
 );
 
@@ -55,10 +55,11 @@ if (!isVisible) {
             start:"top top",
             end: "60% top",
             scrub:6,
-            // markers:true,
-            // once:true,
+            markers:true,
+            once:true,
          },
         //  onComplete: () => {gsap.set(overlayRef.current, { display: "none" })},
+
         onComplete:()=> setisVisible(false)
         }
         
@@ -67,8 +68,8 @@ if (!isVisible) {
 
       }, [isVisible]);
 
-// if (!isVisible) return null;
-// bg-[linear-gradient(360deg,#e8e8e8_50%,#E5E7EB_50%,#6B7280_100%)]
+if (!isVisible) return null;
+
   return (
 	<div id="overlayRef" ref={overlayRef} className="absolute overlay w-full h-svh z-[99] top-0 flex flex-col justify-center   ">
      <div className="absolute flex justify-center top-0 left-0 w-full h-full bg-[url('/images/hero/girl_01.jpeg')] bg-cover bg-center bg-no-repeat z-[-1]" />

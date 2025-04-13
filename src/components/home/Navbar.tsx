@@ -87,6 +87,13 @@ const Navbar = ({
               Login
               <LogIn className="ml-1.5 h-5 w-5" />
             </Link>
+
+//             {!isAuthenticated && (
+//               <SheetFooter>
+// <SignInModal/>
+//               </SheetFooter>
+//             )}
+
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger className="rounded-full w-9 h-9 ring-0">
@@ -146,11 +153,7 @@ const Navbar = ({
                   ))}
                 </ul>
               </SheetHeader>
-              {!isAuthenticated && (
-                <SheetFooter>
- <SignInModal/>
-                </SheetFooter>
-              )}
+
             </SheetContent>
           </Sheet>
         </div>
