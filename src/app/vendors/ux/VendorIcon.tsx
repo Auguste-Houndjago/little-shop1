@@ -22,7 +22,7 @@ export default function VendorIcon({
       href={`/shop/${id}`}
       className="relative hover:opacity-80 transition-opacity"
     >
-      <Avatar className="shadow-sm hover:border-2 hover:border-blue-100/60 shadow-blue-300">
+      <Avatar className="shadow-sm hover:border-2 border-white/80 hover:border-blue-100/60 shadow-blue-300">
         <AvatarImage src={businessLogo || "/default-logo.png"} alt={businessName || "Vendor"} />
         <AvatarFallback>{businessName?.charAt(0).toUpperCase() || "V"}</AvatarFallback>
       </Avatar>
