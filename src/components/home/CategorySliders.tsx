@@ -26,7 +26,7 @@ export function CategorySliders({ categories }: CategorySliderProps) {
   })
 
   return (
-    <div className="relative w-full px-4 py-8">
+    <div className="relative w-full flex items-center px-4 py-8">
       <div className="overflow-hidden" ref={emblaRef}>
 
 

@@ -110,7 +110,7 @@ const Page = async () => {
 	<div className={"flex justify-center"}><VendorList/></div>
 
 
-<h1 className="text-center text-xl" >Categorie lsite 2</h1>
+{/* <h1 className="text-center text-xl" >Categorie lsite 2</h1> */}
 <CategorySliders categories={categories}/>
 
 <HeadingTitle title='Nos Divers Produits ...' />
@@ -145,7 +145,7 @@ const Page = async () => {
 					{/* <HeadingTitle title='Nos divers produits...' /> */}
 	<CategorySlider/>
 
-					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-24  gap-y-8 gap-5'>
+					<div className='flex justify-center items-center flex-wrap flex-col md:flex-row mt-24  gap-y-8 gap-5'>
 						{products_usual.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}
