@@ -15,12 +15,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		
 			bg-tech-background 
 	
-			// dark:bg-[#18181c]
 			'>
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="system"
-					enableSystem
+					defaultTheme="light"
+					enableSystem={false}
 					disableTransitionOnChange
 				>
 
