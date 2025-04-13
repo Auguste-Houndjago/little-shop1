@@ -24,6 +24,9 @@ import dynamic from 'next/dynamic';
 import HomeHero from './ui/HomeHero';
 import Overlay from './ui/Overlay';
 
+import { getVendorByProductId } from '../../lib/vendors';
+import VendorIcon from '../vendors/ux/VendorIcon';
+
 
 export type ProductFeatured = {
 	images: Image[];
@@ -35,22 +38,29 @@ export type ProductFeatured = {
 } & Product;
 
 
-
 const Page = async () => {
+
 
 	const [
 		products_feature, 
 		products, 
 		products_usual, 
 		products_with_reviews, 
-		categories
+		categories,
 	  ] = await Promise.all([
 		fetchFeaturedProducts(),
 		fetchAllProducts(),
 		fetchUsualProducts(),
 		fetchProductsWithReviews(),
 		fetchCategoriesWithProducts()
+	
 	  ]);
+	  
+	  const featuredProducts = products.slice(0, 4);
+
+	  const vendors = await Promise.all(
+		featuredProducts.map((product) => getVendorByProductId(product.id))
+	  );
 	  
 
 
@@ -62,7 +72,7 @@ const Page = async () => {
 	const ProductHero = dynamic(() => import('@/components/home/ProductHero'), { ssr: false });
 	return (
 		<div
-		 className='max-w-full mx-auto px-2 md:px-4 2xl:px-0 '>
+		 className='max-w-full mx-auto px-2 md:px-4 2xl:px-12 '>
 <div className="flex w-full"><Overlay/></div>
 
 
@@ -91,7 +101,7 @@ const Page = async () => {
 			</div> */}
 
 			<HeadingTitle  title='CARROUSSEL...' />
-				{/* <ProductSlider /> */}
+				<ProductSlider />
 			
 			<div className=" flex flex-col justify-center space-y-4 mt-24 ">
 
@@ -103,16 +113,33 @@ const Page = async () => {
 <h1 className="text-center text-xl" >Categorie lsite 2</h1>
 <CategorySliders categories={categories}/>
 
-				<div className='flex justify-center items-center my-4 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 lg:gap-x-8 '>
-						{products.slice(0, 4).map((product, productIndex) => (
-							<CardProduct
-								key={productIndex}
-								product={product}
-							/>
-						))}
+				<div className='flex justify-center items-center my-20 lg:my-40 flex-wrap flex-col md:flex-row lg:px-4 gap-y-16 gap-5 lg:gap-x-8 '>
+				{featuredProducts.map((product, index) => {
+      const vendor = vendors[index];
+
+      return (
+        <div className="flex items-start gap-4" key={product.id}>
+          {/* Vendeur en haut */}
+          {vendor && (
+			
+  <VendorIcon
+              id={vendor.id}
+              businessName={vendor.businessName}
+              businessLogo={vendor.businessLogo}
+              isVerified={vendor.isVerified}
+            />
+		
+          
+          )}
+
+          {/* Produit en dessous */}
+          <CardProduct product={product} />
+        </div>
+      );
+    })}
 					</div>
 				
-					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-16  gap-y-8 gap-5'>
+					<div className='flex justify-center flex-wrap flex-col md:flex-row mt-24  gap-y-8 gap-5'>
 						{products_usual.slice(0, 4).map((product, productIndex) => (
 							<CardProduct
 								key={productIndex}

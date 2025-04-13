@@ -23,6 +23,7 @@ const Layout = async ({
 	const { user, isAdmin, avatarUrl } = await getUserData();
 	const lists = await prisma.category.findMany({}) || [];
 
+
 	return (
 		<div  className={urbanist.className}>
 		{/* <Overlay/> */}
@@ -34,7 +35,7 @@ const Layout = async ({
 			/>
 			
 			<main>{children}</main>
-			{/* <Footer /> */}
+			 <Footer />
 
 			
 		</div>

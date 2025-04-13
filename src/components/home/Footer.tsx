@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 const Footer = () => {
 	return (
-		<footer className={cn(inter.className, 'py-8 border-t border-t-gray-200')}>
+		<footer className={cn(inter.className, 'py-12 mt-14 border-t border-t-gray-500')}>
 			<div className='flex justify-center items-center'>
 				<p className='text-sm'>&copy; 2024 smart-Shop.</p>
 

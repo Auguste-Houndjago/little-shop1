@@ -1,9 +1,8 @@
 'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import Link from 'next/link'
-import { VerifiedIcon } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
+import VendorIcon from '../ux/VendorIcon'
+
 
 interface VendorProfile {
   id: string
@@ -39,33 +38,13 @@ export default function VendorList() {
     fetchVendorProfiles()
   }, [])
 
-  if (isLoading) {
-    return <div>...</div>
-  }
-
-  if (error) {
-    return <div>{error}</div>
-  }
+  if (isLoading) return <div>...</div>
+  if (error) return <div>{error}</div>
 
   return (
     <div className="flex gap-4 items-center">
       {vendorProfiles.map((vendor) => (
-        <Link
-          href={`/shop/${vendor.id}`}
-          key={vendor.id}
-          className="relative hover:opacity-80 transition-opacity"
-        >
-          <Avatar className="shadow-sm hover:border-2 hover:border-blue-100/60 shadow-blue-300">
-            <AvatarImage src={vendor.businessLogo || "/default-logo.png"} alt={vendor.businessName || "Vendor"} />
-            <AvatarFallback>{vendor.businessName?.charAt(0).toUpperCase() || "V"}</AvatarFallback>
-          </Avatar>
-          
-          {vendor.isVerified && (
-   <span className="absolute top-0 -right-2">
-   <VerifiedIcon className="text-blue-400 dark:text-white  bg-background rounded-full" size={15} />
- </span>
-          )}
-        </Link>
+        <VendorIcon key={vendor.id} {...vendor} />
       ))}
     </div>
   )

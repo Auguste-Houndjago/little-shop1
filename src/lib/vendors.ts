@@ -109,6 +109,28 @@ return
   }
 }
 
+export const getVendorByProductId = async (productId: string) => {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        user: {
+          include: {
+            vendorProfile: true, // On récupère les infos du vendeur
+          },
+        },
+      },
+    });
+
+    if (!product?.user?.vendorProfile) return null;
+
+    return product.user.vendorProfile;
+  } catch (error) {
+    console.error("Erreur lors de la récupération du vendeur :", error);
+    return null;
+  }
+};
+
 export async function fetchVendors(): Promise<any[]> {
   try {
     const vendors = await prisma.vendorProfile.findMany({
